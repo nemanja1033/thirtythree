@@ -1,0 +1,315 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    font-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 100%;
+    overflow-x: hidden;
+    background: #fafafa;
+  }
+
+  /* GPU acceleration for smoother animations */
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  /* GPU acceleration for smooth animations */
+  @media (min-width: 768px) {
+    * {
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+  }
+  
+  /* Mobile performance */
+  @media (max-width: 767px) {
+    * {
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  /* Premium scrollbar - desktop only */
+  @media (min-width: 768px) {
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #f59e0b, #ea580c);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #fbbf24, #f97316);
+    }
+  }
+
+  /* Hide scrollbar on mobile for cleaner look */
+  @media (max-width: 767px) {
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    
+    body {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  }
+
+  /* Selection styles */
+  ::selection {
+    background: #f59e0b;
+    color: #0a0a0a;
+  }
+
+  /* Focus styles */
+  :focus-visible {
+    outline: 2px solid #f59e0b;
+    outline-offset: 3px;
+  }
+
+  /* Heading font */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Syne", sans-serif;
+    font-weight: 700;
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 767px) {
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Reduce animation complexity on mobile */
+    .group:hover .group-hover\:translate-x-full {
+      transform: none !important;
+    }
+    
+    /* Smoother scrolling on mobile */
+    html, body {
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+    
+    /* Disable hover effects on touch devices */
+    @media (hover: none) {
+      *:hover {
+        transform: none !important;
+      }
+    }
+  }
+
+  /* Reduced motion - respect user preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.2s !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Animated gradient text */
+  .gradient-text {
+    background: linear-gradient(
+      135deg,
+      #f59e0b 0%,
+      #ea580c 25%,
+      #dc2626 50%,
+      #ea580c 75%,
+      #f59e0b 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  @media (min-width: 768px) {
+    .gradient-text {
+      animation: gradient-flow 4s ease infinite;
+    }
+  }
+
+  /* Glowing button - optimized */
+  .btn-glow {
+    position: relative;
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    border: none;
+    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1), 
+                box-shadow 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    will-change: transform;
+  }
+
+  @media (min-width: 768px) {
+    .btn-glow::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      background: linear-gradient(135deg, #f59e0b, #ea580c, #dc2626);
+      border-radius: inherit;
+      filter: blur(15px);
+      opacity: 0;
+      transition: opacity 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+      z-index: -1;
+    }
+
+    .btn-glow:hover::before {
+      opacity: 0.6;
+    }
+
+    .btn-glow:hover {
+      transform: translateY(-2px) translateZ(0);
+      box-shadow: 0 15px 30px -10px rgba(245, 158, 11, 0.35);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .btn-glow:active {
+      transform: scale(0.98) translateZ(0);
+    }
+  }
+
+  /* Glass card - optimized for mobile */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  @media (min-width: 768px) {
+    .glass-card {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+  }
+
+  /* Smooth card hover effect */
+  .card-hover {
+    transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+                box-shadow 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    will-change: transform;
+  }
+
+  @media (min-width: 768px) {
+    .card-hover:hover {
+      transform: translateY(-8px) translateZ(0);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .card-hover:active {
+      transform: scale(0.98) translateZ(0);
+    }
+  }
+}
+
+@layer utilities {
+  .container {
+    max-width: 1280px;
+  }
+
+  /* Hide scrollbar for carousels */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Tabular numbers for counters */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Smooth fade in animation */
+  .animate-fade-in {
+    animation: fade-in 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+
+  .calendly-section {
+    width: 100%;
+    display: block;
+    padding-block: 64px;
+    overflow: visible !important;
+  }
+
+  .calendly-section *,
+  body,
+  html {
+    overflow: visible !important;
+  }
+
+  #calendly-host {
+    width: 100%;
+    display: block;
+  }
+
+  .full-bleed {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .full-bleed.bookacall {
+    padding-block: 32px;
+  }
+
+  @media (min-width: 768px) {
+    .full-bleed.bookacall {
+      padding-block: 64px;
+    }
+  }
+
+  .full-bleed,
+  .full-bleed * {
+    overflow: visible !important;
+  }
+}
+
+@keyframes gradient-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
+}

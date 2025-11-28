@@ -1,0 +1,675 @@
+import React, { createContext, useContext, useMemo, useState } from "react";
+
+type Lang = "en" | "sr";
+
+type Dict = Record<string, string>;
+
+type I18nContextType = {
+  lang: Lang;
+  setLang: (l: Lang) => void;
+  toggle: () => void;
+  t: (key: string, params?: Record<string, string | number>) => string;
+};
+
+const I18nContext = createContext<I18nContextType | null>(null);
+
+const dictEn: Dict = {
+  "nav.services": "Services",
+  "nav.strategy": "Strategy",
+  "nav.about": "About",
+  "nav.contact": "Contact",
+  "nav.faq": "FAQ",
+  "nav.book": "Book a Call",
+
+  "hero.badge": "Belgrade-based brand agency",
+  "hero.title.1": "We build brands",
+  "hero.title.2": "that grow",
+  "hero.subtitle":
+    "Strategic brand building, cutting-edge web development, and growth-driven ideas that transform businesses into market leaders.",
+  "hero.cta.primary": "Start Your Project",
+
+  "services.title": "What we do",
+  "services.subtitle": "Three core services that drive exceptional results",
+  "services.0.title": "Brand Building",
+  "services.0.desc":
+    "Comprehensive brand strategy, visual identity, and positioning that resonates with your target audience and sets you apart from competition.",
+  "services.1.title": "Web Development",
+  "services.1.desc":
+    "Custom websites and digital experiences that combine stunning design with powerful functionality to drive conversions and engagement.",
+  "services.2.title": "Growth Strategy",
+  "services.2.desc":
+    "Data-driven growth strategies and innovative ideas that scale your business and maximize ROI across all marketing channels.",
+
+  "strategy.title": "Our Strategy",
+  "strategy.subtitle":
+    "We follow the latest trends and design styles while balancing usability, accessibility, performance, and bold storytelling.",
+  "strategy.0.title": "Discover",
+  "strategy.0.badge": "Research-first",
+  "strategy.0.desc":
+    "Deep research, audits, and market insight to inform every decision.",
+  "strategy.1.title": "Design",
+  "strategy.1.badge": "Trends 2025",
+  "strategy.1.desc":
+    "Modern aesthetics, advanced typography, and motion to create desire.",
+  "strategy.2.title": "Develop",
+  "strategy.2.badge": "Performance",
+  "strategy.2.desc":
+    "Lightning-fast builds with accessibility and SEO baked in from day one.",
+  "strategy.3.title": "Grow",
+  "strategy.3.badge": "Iterate",
+  "strategy.3.desc":
+    "Continuous optimization, content, and campaigns that compound results.",
+
+  "about.title.main": "Belgrade's creative",
+  "about.title.em": "powerhouse",
+  "about.p1":
+    "Founded in Belgrade, thirtythree represents the new wave of Serbian creativity. We combine local insight with global standards to create brands that compete on the world stage.",
+  "about.p2":
+    "Our team of strategists, designers, and developers work collaboratively to ensure every project exceeds expectations and drives real business results.",
+  "about.stats.projects": "Projects delivered",
+  "about.stats.sub": "From startups to enterprises across 12 industries",
+
+  "contact.title.1": "Let's create something",
+  "contact.title.2": "amazing",
+  "contact.subtitle":
+    "Ready to transform your brand? Schedule a consultation and let's discuss your project.",
+  "contact.form.name": "Name",
+  "contact.form.email": "Email",
+  "contact.form.company": "Company",
+  "contact.form.details": "Project Details",
+  "contact.form.submit": "Schedule a Meeting",
+
+  "book.title": "Book a call",
+  "book.lead":
+    "Reserve a time for an intro call. Pick a day and time — you will receive a confirmation via email.",
+  "book.pickDay": "Pick a day",
+  "book.pickTime": "Pick a time",
+  "book.firstName": "First name",
+  "book.lastName": "Last name",
+  "book.email": "Email",
+  "book.confirm": "Confirm booking",
+  "book.success.title": "Your call is booked",
+  "book.success.body":
+    "Thank you {firstName}! We sent a confirmation to {email}. Please check your inbox (and spam folder).",
+
+  // Process pages (Discover, Design, Develop, Grow)
+  "process.nav.discover": "Discover",
+  "process.nav.design": "Design",
+  "process.nav.develop": "Develop",
+  "process.nav.grow": "Grow",
+
+  // Discover
+  "process.discover.title": "Discover",
+  "process.discover.lead":
+    "We begin with research. Audits, interviews, data, and market signals reveal what matters: opportunities, pain points, and the story only your brand can tell.",
+  "process.discover.what": "What we do",
+  "process.discover.outcomes": "Outcomes",
+  "process.discover.what.1": "Stakeholder interviews & workshops",
+  "process.discover.what.2": "Brand, UX and content audits",
+  "process.discover.what.3": "Competitive & category mapping",
+  "process.discover.what.4": "Analytics, SEO and funnel review",
+  "process.discover.out.1": "Clear goals and success metrics",
+  "process.discover.out.2": "Audience insights and JTBD",
+  "process.discover.out.3": "Brand positioning hypotheses",
+  "process.discover.out.4": "Project roadmap and scope",
+
+  // Design
+  "process.design.title": "Design",
+  "process.design.lead":
+    "We craft systems: typography, color, motion, and components that scale. A visual language that is both beautiful and brutally clear.",
+  "process.design.what": "What we do",
+  "process.design.outcomes": "Outcomes",
+  "process.design.what.1": "Brand identity & design systems",
+  "process.design.what.2": "UI/UX for web & product",
+  "process.design.what.3": "Micro-interactions & motion",
+  "process.design.what.4": "Art direction and content guides",
+  "process.design.out.1": "High-fidelity prototypes",
+  "process.design.out.2": "Design tokens & documentation",
+  "process.design.out.3": "Accessible, responsive layouts",
+  "process.design.out.4": "Conversion-focused UI patterns",
+
+  // Develop
+  "process.develop.title": "Develop",
+  "process.develop.lead":
+    "Performance-first engineering. Modern stacks, clean architecture, and automation that ships fast without breaking.",
+  "process.develop.what": "What we do",
+  "process.develop.outcomes": "Outcomes",
+  "process.develop.what.1": "Jamstack & headless CMS",
+  "process.develop.what.2": "React, TypeScript, accessibility",
+  "process.develop.what.3": "Animations and WebGL",
+  "process.develop.what.4": "CI/CD, testing, and monitoring",
+  "process.develop.out.1": "Lighthouse 90+ scores",
+  "process.develop.out.2": "Scalable component libraries",
+  "process.develop.out.3": "SEO and schema best practices",
+  "process.develop.out.4": "Secure, maintainable codebase",
+
+  // Grow
+  "process.grow.title": "Grow",
+  "process.grow.lead":
+    "Launch is the start. We iterate with content, experiments, and campaigns that compound over time.",
+  "process.grow.what": "What we do",
+  "process.grow.outcomes": "Outcomes",
+  "process.grow.what.1": "Content and SEO programs",
+  "process.grow.what.2": "A/B tests and conversion lifts",
+  "process.grow.what.3": "Performance marketing",
+  "process.grow.what.4": "Analytics and reporting cadence",
+  "process.grow.out.1": "Growth roadmap and KPIs",
+  "process.grow.out.2": "Content calendar and assets",
+  "process.grow.out.3": "Continuous CRO improvements",
+  "process.grow.out.4": "Measurable ROI across channels",
+
+  // Services pages
+  "services.nav.brand": "Brand Building",
+  "services.nav.web": "Web Development",
+  "services.nav.growth": "Growth Strategy",
+
+  "services.brand.title": "Brand Building",
+  "services.brand.lead":
+    "Positioning, identity, and messaging that make your brand unforgettable.",
+  "services.brand.what": "What we do",
+  "services.brand.outcomes": "Outcomes",
+  "services.brand.what.1": "Brand strategy & positioning",
+  "services.brand.what.2": "Naming, tone of voice, storytelling",
+  "services.brand.what.3": "Visual identity & guidelines",
+  "services.brand.what.4": "Messaging framework & brand playbook",
+  "services.brand.out.1": "Differentiated market position",
+  "services.brand.out.2": "Cohesive identity across touchpoints",
+  "services.brand.out.3": "Clear narrative that converts",
+  "services.brand.out.4": "Scalable brand system",
+
+  "services.web.title": "Web Development",
+  "services.web.lead":
+    "High-performance websites and digital products that convert.",
+  "services.web.what": "What we do",
+  "services.web.outcomes": "Outcomes",
+  "services.web.what.1": "React/TypeScript frontends",
+  "services.web.what.2": "Headless CMS & Jamstack",
+  "services.web.what.3": "Animations, 3D & interactions",
+  "services.web.what.4": "Accessibility, SEO & analytics",
+  "services.web.out.1": "Fast, responsive experiences",
+  "services.web.out.2": "Maintainable, scalable code",
+  "services.web.out.3": "Improved conversion rates",
+  "services.web.out.4": "Actionable insights & tracking",
+
+  "services.growth.title": "Growth Strategy",
+  "services.growth.lead":
+    "Programs that compound results across content, SEO, and performance.",
+  "services.growth.what": "What we do",
+  "services.growth.outcomes": "Outcomes",
+  "services.growth.what.1": "Content strategy & production",
+  "services.growth.what.2": "Lifecycle & conversion optimization",
+  "services.growth.what.3": "Performance marketing & experiments",
+  "services.growth.what.4": "Measurement & reporting cadence",
+  "services.growth.out.1": "Sustained traffic & demand",
+  "services.growth.out.2": "Higher activation & retention",
+  "services.growth.out.3": "Efficient CAC & channel mix",
+  "services.growth.out.4": "Continuous improvement flywheel",
+
+  // Journey Section
+  "journey.badge": "The Route",
+  "journey.title.1": "The route to strong concepts",
+  "journey.title.2": "that conquer markets",
+  "journey.subtitle": "You set the destination, together we determine the way there.",
+  "journey.step.1.title": "Explore",
+  "journey.step.1.desc": "We step into your world and want to know everything. About your market, your customers, your brand.",
+  "journey.step.2.title": "Strategy",
+  "journey.step.2.desc": "Together we determine the route. You bring market knowledge, we add direction and creative thinking.",
+  "journey.step.3.title": "Concept & Creation",
+  "journey.step.3.desc": "Strategy and activation merge. We develop concepts that touch people and trigger action.",
+  "journey.step.4.title": "Content & Design",
+  "journey.step.4.desc": "We bring the concept to life. A visual identity that is right down to the last detail.",
+  "journey.step.5.title": "Production",
+  "journey.step.5.desc": "Where the magic happens. Fast, flexible and with tight project management.",
+  "journey.step.6.title": "Growth",
+  "journey.step.6.desc": "A brand never stands still. We keep analyzing, learning and improving.",
+  "journey.cta.badge.dark": "Journey Complete",
+  "journey.cta.badge.light": "Final Destination",
+  "journey.cta.title.dark.1": "Ready for",
+  "journey.cta.title.dark.2": "Takeoff",
+  "journey.cta.title.light.1": "Begin Your",
+  "journey.cta.title.light.2": "Transformation",
+  "journey.cta.desc.dark": "You've witnessed the journey. Now let's craft something extraordinary together — a brand that truly stands apart.",
+  "journey.cta.desc.light": "Take the first step towards transforming your brand into something remarkable and unforgettable.",
+  "journey.cta.button": "Schedule a Call",
+  "journey.cta.stat.1": "24h Response",
+  "journey.cta.stat.2": "50+ Projects Delivered",
+  "journey.cta.stat.3": "Premium Quality",
+
+  // Testimonials Section
+  "testimonials.badge": "Client Stories",
+  "testimonials.title.1": "Trusted by",
+  "testimonials.title.2": "industry leaders",
+  "testimonials.subtitle": "Don't just take our word for it. Here's what our clients say about working with us.",
+  "testimonials.1.name": "Marko Petrović",
+  "testimonials.1.role": "CEO",
+  "testimonials.1.company": "TechStart",
+  "testimonials.1.quote": "Working with thirtythree transformed our brand completely. Their strategic approach and attention to detail exceeded all expectations. Our conversion rates increased by 180%.",
+  "testimonials.2.name": "Sara Nikolić",
+  "testimonials.2.role": "Marketing Director",
+  "testimonials.2.company": "GreenLeaf",
+  "testimonials.2.quote": "The team delivered a website that perfectly captures our brand essence. The animations are smooth, the design is stunning, and our customers love it.",
+  "testimonials.3.name": "Aleksandar Jović",
+  "testimonials.3.role": "Founder",
+  "testimonials.3.company": "UrbanStyle",
+  "testimonials.3.quote": "From strategy to execution, every step was handled with professionalism. They don't just build websites, they build experiences that convert.",
+  "testimonials.4.name": "Nina Stojanović",
+  "testimonials.4.role": "COO",
+  "testimonials.4.company": "DataFlow",
+  "testimonials.4.quote": "The ROI we've seen since launching our new brand identity has been incredible. thirtythree truly understands how to create brands that grow.",
+  "testimonials.trust.1": "100% Client Satisfaction",
+  "testimonials.trust.2": "On-time Delivery",
+  "testimonials.trust.3": "Long-term Partnerships",
+
+  // Results Section
+  "results.badge": "Proven Results",
+  "results.title.1": "Numbers that",
+  "results.title.2": "speak volumes",
+  "results.subtitle": "We measure success not by projects completed, but by results delivered. Here's our track record.",
+  "results.stat.1.label": "Client Satisfaction",
+  "results.stat.1.desc": "Our clients consistently rate us 5 stars for quality and communication",
+  "results.stat.2.label": "Average ROI",
+  "results.stat.2.desc": "Our clients see triple return on their brand investment within the first year",
+  "results.stat.3.label": "Traffic Increase",
+  "results.stat.3.desc": "Average organic traffic growth across all client projects post-launch",
+  "results.stat.4.label": "Response Time",
+  "results.stat.4.desc": "We respond to all inquiries within 24 hours, guaranteed",
+  "results.cta.text": "Ready to see similar results for your business?",
+  "results.cta.item.1": "Free consultation",
+  "results.cta.item.2": "Custom strategy",
+  "results.cta.item.3": "Results guaranteed",
+
+  // Why Choose Us Section
+  "why.badge": "Why thirtythree",
+  "why.title.1": "What makes us",
+  "why.title.2": "different",
+  "why.subtitle": "We're not just another agency. Here's why leading brands choose to work with us.",
+  "why.reason.1.title": "Strategic First",
+  "why.reason.1.desc": "Every pixel, every word, every interaction is backed by strategy. We don't design for awards — we design for results.",
+  "why.reason.2.title": "Lightning Fast",
+  "why.reason.2.desc": "Speed without compromise. Our agile process delivers exceptional work in record time, keeping you ahead of competition.",
+  "why.reason.3.title": "Growth Focused",
+  "why.reason.3.desc": "Beautiful design is just the beginning. We build brands that scale, convert, and dominate their markets.",
+  "why.reason.4.title": "Dedicated Team",
+  "why.reason.4.desc": "You get a dedicated team of experts who understand your vision and work as an extension of your company.",
+  "why.reason.5.title": "Quality Guaranteed",
+  "why.reason.5.desc": "We stand behind our work with a satisfaction guarantee. If you're not happy, we'll make it right.",
+  "why.reason.6.title": "Always Available",
+  "why.reason.6.desc": "Need support? We're here. Our team is available when you need us, not just during business hours.",
+  "why.cta": "Let's Build Together",
+
+  // FAQ Page
+  "faq.badge": "FAQ",
+  "faq.title.1": "Frequently Asked",
+  "faq.title.2": "Questions",
+  "faq.subtitle": "Everything you need to know about working with thirtythree. Can't find what you're looking for? Reach out to us.",
+  "faq.q1": "How long does a typical project take?",
+  "faq.a1": "Project timelines vary based on scope and complexity. A brand identity project typically takes 4-6 weeks, while a full website development can range from 6-12 weeks. We'll provide a detailed timeline during our initial consultation.",
+  "faq.q2": "What's your design process like?",
+  "faq.a2": "Our process follows four key phases: Discover (research & strategy), Design (concepts & visual direction), Develop (building & implementation), and Grow (launch & optimization). Each phase includes client collaboration and feedback loops.",
+  "faq.q3": "Do you work with startups or only established companies?",
+  "faq.a3": "We work with businesses of all sizes, from early-stage startups to established enterprises. What matters most is your commitment to building a strong brand. We offer scalable solutions that grow with your business.",
+  "faq.q4": "What happens after the project is complete?",
+  "faq.a4": "Launch is just the beginning. We offer ongoing support packages including maintenance, optimization, and growth services. Many clients continue working with us for years as their brand evolves.",
+  "faq.q5": "How much does a typical project cost?",
+  "faq.a5": "Every project is unique, so we provide custom quotes based on your specific needs. Brand identity projects start around €5,000, while comprehensive web development starts around €10,000. Contact us for a detailed quote.",
+  "faq.q6": "Do you offer payment plans?",
+  "faq.a6": "Yes! We understand cash flow is important. We typically work with a 50% deposit to start, with the remainder due upon completion. For larger projects, we can arrange milestone-based payments.",
+  "faq.q7": "What if I'm not satisfied with the work?",
+  "faq.a7": "Your satisfaction is our priority. We include revision rounds in every project and won't consider a project complete until you're 100% happy. We stand behind our work with a satisfaction guarantee.",
+  "faq.q8": "How do we get started?",
+  "faq.a8": "Simple! Book a free consultation call through our website. We'll discuss your goals, answer your questions, and determine if we're a good fit. No pressure, no commitment — just a friendly conversation about your brand.",
+  "faq.cta.title": "Still have questions?",
+  "faq.cta.desc": "We're here to help. Reach out and we'll get back to you within 24 hours.",
+  "faq.cta.button": "Contact Us",
+};
+
+const dictSr: Dict = {
+  "nav.services": "Usluge",
+  "nav.strategy": "Strategija",
+  "nav.about": "O nama",
+  "nav.contact": "Kontakt",
+  "nav.faq": "Pitanja",
+  "nav.book": "Zakaži poziv",
+
+  "hero.badge": "Agencija za brend sa sedištem u Beogradu",
+  "hero.title.1": "Gradimo brendove",
+  "hero.title.2": "koji rastu",
+  "hero.subtitle":
+    "Strateška izgradnja brenda, napredan web razvoj i ideje vođene rastom koje pretvaraju biznise u lidere na tržištu.",
+  "hero.cta.primary": "Započni projekat",
+
+  "services.title": "Šta radimo",
+  "services.subtitle": "Tri ključne usluge koje donose izuzetne rezultate",
+  "services.0.title": "Izgradnja brenda",
+  "services.0.desc":
+    "Sveobuhvatna strategija brenda, vizuelni identitet i pozicioniranje koje odjekuje kod publike i izdvaja vas od konkurencije.",
+  "services.1.title": "Web razvoj",
+  "services.1.desc":
+    "Prilagođeni sajtovi i digitalna iskustva koja spajaju vrhunski dizajn i funkcionalnost radi konverzija i angažmana.",
+  "services.2.title": "Strategija rasta",
+  "services.2.desc":
+    "Strategije rasta zasnovane na podacima i inovativne ideje koje skaliraju biznis i maksimizuju ROI.",
+
+  "strategy.title": "Naša strategija",
+  "strategy.subtitle":
+    "Pratimo najnovije trendove i stilove dizajna, uz balans upotrebljivosti, pristupačnosti, performansi i smelog pripovedanja.",
+  "strategy.0.title": "Istraži",
+  "strategy.0.badge": "Istraživanje",
+  "strategy.0.desc":
+    "Dubinska istraživanja, auditi i uvid u tržište kao osnova za svaku odluku.",
+  "strategy.1.title": "Dizajn",
+  "strategy.1.badge": "Trendovi 2025",
+  "strategy.1.desc":
+    "Moderan izgled, napredna tipografija i pokret koji stvaraju želju.",
+  "strategy.2.title": "Razvoj",
+  "strategy.2.badge": "Performanse",
+  "strategy.2.desc":
+    "Munjevito brzi sajtovi sa pristupačnošću i SEO-om od prvog dana.",
+  "strategy.3.title": "Rast",
+  "strategy.3.badge": "Iteracija",
+  "strategy.3.desc":
+    "Kontinuirana optimizacija, sadržaj i kampanje koje multipliciraju rezultate.",
+
+  "about.title.main": "Beogradska kreativna",
+  "about.title.em": "snaga",
+  "about.p1":
+    "Osnovan u Beogradu, thirtythree predstavlja novi talas srpske kreativnosti. Spajamo lokalni uvid sa globalnim standardima i gradimo brendove koji uspešno nastupaju na svetskoj sceni.",
+  "about.p2":
+    "Naš tim stratega, dizajnera i developera radi zajedno kako bi svaki projekat premašio očekivanja i doneo merljive rezultate.",
+  "about.stats.projects": "Isporučenih projekata",
+  "about.stats.sub": "Od startapa do velikih kompanija u 12 industrija",
+
+  "contact.title.1": "Hajde da stvorimo nešto",
+  "contact.title.2": "neverovatno",
+  "contact.subtitle":
+    "Spremni ste da transformišete brend? Zakažite konsultacije da razgovaramo o projektu.",
+  "contact.form.name": "Ime",
+  "contact.form.email": "Email",
+  "contact.form.company": "Kompanija",
+  "contact.form.details": "Detalji projekta",
+  "contact.form.submit": "Zakaži sastanak",
+
+  "book.title": "Zakaži poziv",
+  "book.lead":
+    "Rezerviši termin za uvodni poziv. Odaberi dan i vreme — potvrdu ćeš dobiti na email.",
+  "book.pickDay": "Odaberi dan",
+  "book.pickTime": "Odaberi vreme",
+  "book.firstName": "Ime",
+  "book.lastName": "Prezime",
+  "book.email": "Email",
+  "book.confirm": "Potvrdi termin",
+  "book.success.title": "Termin je uspešno rezervisan",
+  "book.success.body":
+    "Hvala {firstName}! Poslali smo potvrdu na {email}. Proveri inbox i spam folder.",
+
+  // Process pages (Discover, Design, Develop, Grow)
+  "process.nav.discover": "Istraži",
+  "process.nav.design": "Dizajn",
+  "process.nav.develop": "Razvoj",
+  "process.nav.grow": "Rast",
+
+  // Discover
+  "process.discover.title": "Istraži",
+  "process.discover.lead":
+    "Počinjemo istraživanjem. Auditi, intervjui, podaci i signali sa tržišta otkrivaju prilike, probleme i priču koju samo vaš brend može da ispriča.",
+  "process.discover.what": "Šta radimo",
+  "process.discover.outcomes": "Ishodi",
+  "process.discover.what.1": "Intervjui sa timom i radionice",
+  "process.discover.what.2": "Auditi brenda, UX-a i sadržaja",
+  "process.discover.what.3": "Mapa konkurencije i kategorije",
+  "process.discover.what.4": "Analitika, SEO i pregled levka",
+  "process.discover.out.1": "Jasni ciljevi i metrike uspeha",
+  "process.discover.out.2": "Uvid u publiku i poslove koji se obavljaju (JTBD)",
+  "process.discover.out.3": "Hipoteze o pozicioniranju brenda",
+  "process.discover.out.4": "Plan projekta i obim",
+
+  // Design
+  "process.design.title": "Dizajn",
+  "process.design.lead":
+    "Gradimo sisteme: tipografija, boja, pokret i komponente koje skaliraju. Vizuelni jezik koji je i lep i kristalno jasan.",
+  "process.design.what": "Šta radimo",
+  "process.design.outcomes": "Ishodi",
+  "process.design.what.1": "Identitet brenda i dizajn sistemi",
+  "process.design.what.2": "UI/UX za web i proizvode",
+  "process.design.what.3": "Mikrointerakcije i animacije",
+  "process.design.what.4": "Art direkcija i smernice za sadržaj",
+  "process.design.out.1": "Prototipovi visoke vernosti",
+  "process.design.out.2": "Dizajn tokeni i dokumentacija",
+  "process.design.out.3": "Pristupačni, responzivni rasporedi",
+  "process.design.out.4": "UI šabloni fokusirani na konverziju",
+
+  // Develop
+  "process.develop.title": "Razvoj",
+  "process.develop.lead":
+    "Inženjering sa performansama na prvom mestu. Moderan stack, čista arhitektura i automatizacija — brzo i stabilno isporučivanje.",
+  "process.develop.what": "Šta radimo",
+  "process.develop.outcomes": "Ishodi",
+  "process.develop.what.1": "Jamstack i headless CMS",
+  "process.develop.what.2": "React, TypeScript i pristupačnost",
+  "process.develop.what.3": "Animacije i WebGL",
+  "process.develop.what.4": "CI/CD, testiranje i nadzor",
+  "process.develop.out.1": "Lighthouse 90+ rezultati",
+  "process.develop.out.2": "Skalabilne biblioteke komponenti",
+  "process.develop.out.3": "SEO i schema najbolje prakse",
+  "process.develop.out.4": "Sigurna, održiva baza koda",
+
+  // Grow
+  "process.grow.title": "Rast",
+  "process.grow.lead":
+    "Lansiranje je po��etak. Iteriramo kroz sadržaj, eksperimente i kampanje koje vremenom multipliciraju rezultate.",
+  "process.grow.what": "Šta radimo",
+  "process.grow.outcomes": "Ishodi",
+  "process.grow.what.1": "Sadržaj i SEO programi",
+  "process.grow.what.2": "A/B testovi i podizanje konverzija",
+  "process.grow.what.3": "Perfomans marketing",
+  "process.grow.what.4": "Analitika i ritam izveštavanja",
+  "process.grow.out.1": "Mapa rasta i KPI",
+  "process.grow.out.2": "Kalendar sadržaja i asseti",
+  "process.grow.out.3": "Kontinuirana CRO poboljšanja",
+  "process.grow.out.4": "Merljiv ROI kroz kanale",
+
+  // Services pages
+  "services.nav.brand": "Izgradnja brenda",
+  "services.nav.web": "Web razvoj",
+  "services.nav.growth": "Strategija rasta",
+
+  "services.brand.title": "Izgradnja brenda",
+  "services.brand.lead":
+    "Pozicioniranje, identitet i poruke zbog kojih se brend pamti.",
+  "services.brand.what": "Šta radimo",
+  "services.brand.outcomes": "Ishodi",
+  "services.brand.what.1": "Strategija brenda i pozicioniranje",
+  "services.brand.what.2": "Naming, ton komunikacije i storytelling",
+  "services.brand.what.3": "Vizuelni identitet i smernice",
+  "services.brand.what.4": "Poruke i brand playbook",
+  "services.brand.out.1": "Jasno diferencirana pozicija",
+  "services.brand.out.2": "Koherentan identitet na svim tačkama",
+  "services.brand.out.3": "Jasna naracija koja konvertuje",
+  "services.brand.out.4": "Skalabilan brend sistem",
+
+  "services.web.title": "Web razvoj",
+  "services.web.lead":
+    "Brze, moderne web aplikacije i proizvodi koji konvertuju.",
+  "services.web.what": "Šta radimo",
+  "services.web.outcomes": "Ishodi",
+  "services.web.what.1": "React/TypeScript frontend",
+  "services.web.what.2": "Headless CMS i Jamstack",
+  "services.web.what.3": "Animacije, 3D i interakcije",
+  "services.web.what.4": "Pristupačnost, SEO i analitika",
+  "services.web.out.1": "Brza, responzivna iskustva",
+  "services.web.out.2": "Održiva i skalabilna baza koda",
+  "services.web.out.3": "Bolje stope konverzije",
+  "services.web.out.4": "Akcioni uvidi i merenje",
+
+  "services.growth.title": "Strategija rasta",
+  "services.growth.lead":
+    "Programi koji vremenom multipliciraju rezultate kroz sadržaj, SEO i performanse.",
+  "services.growth.what": "Šta radimo",
+  "services.growth.outcomes": "Ishodi",
+  "services.growth.what.1": "Strategija sadržaja i produkcija",
+  "services.growth.what.2": "Optimizacija životnog ciklusa i konverzija",
+  "services.growth.what.3": "Performans marketing i eksperimenti",
+  "services.growth.what.4": "Merenje i ritam izveštavanja",
+  "services.growth.out.1": "Održiv saobraćaj i potražnja",
+  "services.growth.out.2": "Veća aktivacija i zadržavanje",
+  "services.growth.out.3": "Efikasniji CAC i miks kanala",
+  "services.growth.out.4": "Točak kontinuiranog unapređenja",
+
+  // Journey Section
+  "journey.badge": "Ruta",
+  "journey.title.1": "Ruta do snažnih koncepata",
+  "journey.title.2": "koji osvajaju tržišta",
+  "journey.subtitle": "Vi postavite destinaciju, zajedno određujemo put do nje.",
+  "journey.step.1.title": "Istražujemo",
+  "journey.step.1.desc": "Ulazimo u vaš svet i želimo da znamo sve. O vašem tržištu, kupcima, brendu.",
+  "journey.step.2.title": "Strategija",
+  "journey.step.2.desc": "Zajedno određujemo rutu. Vi donosite znanje o tržištu, mi dodajemo pravac i kreativno razmišljanje.",
+  "journey.step.3.title": "Koncept & Kreacija",
+  "journey.step.3.desc": "Strategija i aktivacija se spajaju. Razvijamo koncepte koji dodiruju ljude i pokreću akciju.",
+  "journey.step.4.title": "Sadržaj & Dizajn",
+  "journey.step.4.desc": "Oživljavamo koncept. Vizuelni identitet koji je savršen do poslednjeg detalja.",
+  "journey.step.5.title": "Produkcija",
+  "journey.step.5.desc": "Gde se magija dešava. Brzo, fleksibilno i sa preciznim upravljanjem projektom.",
+  "journey.step.6.title": "Rast",
+  "journey.step.6.desc": "Brend nikada ne stoji. Nastavljamo da analiziramo, učimo i unapređujemo.",
+  "journey.cta.badge.dark": "Putovanje završeno",
+  "journey.cta.badge.light": "Konačna destinacija",
+  "journey.cta.title.dark.1": "Spremni za",
+  "journey.cta.title.dark.2": "Poletanje",
+  "journey.cta.title.light.1": "Započnite svoju",
+  "journey.cta.title.light.2": "Transformaciju",
+  "journey.cta.desc.dark": "Videli ste putovanje. Sada zajedno stvorimo nešto izvanredno — brend koji se zaista izdvaja.",
+  "journey.cta.desc.light": "Napravite prvi korak ka transformaciji vašeg brenda u nešto izuzetno i nezaboravno.",
+  "journey.cta.button": "Zakažite poziv",
+  "journey.cta.stat.1": "Odgovor u 24h",
+  "journey.cta.stat.2": "50+ isporučenih projekata",
+  "journey.cta.stat.3": "Premium kvalitet",
+
+  // Testimonials Section
+  "testimonials.badge": "Priče klijenata",
+  "testimonials.title.1": "Poverenje",
+  "testimonials.title.2": "lidera industrije",
+  "testimonials.subtitle": "Ne verujte nam na reč. Evo šta naši klijenti kažu o saradnji sa nama.",
+  "testimonials.1.name": "Marko Petrović",
+  "testimonials.1.role": "Direktor",
+  "testimonials.1.company": "TechStart",
+  "testimonials.1.quote": "Rad sa thirtythree potpuno je transformisao naš brend. Njihov strateški pristup i pažnja prema detaljima premašili su sva očekivanja. Stope konverzije porasle su za 180%.",
+  "testimonials.2.name": "Sara Nikolić",
+  "testimonials.2.role": "Direktor marketinga",
+  "testimonials.2.company": "GreenLeaf",
+  "testimonials.2.quote": "Tim je isporučio sajt koji savršeno odražava suštinu našeg brenda. Animacije su glatke, dizajn je neverovatatan, a kupci ga obožavaju.",
+  "testimonials.3.name": "Aleksandar Jović",
+  "testimonials.3.role": "Osnivač",
+  "testimonials.3.company": "UrbanStyle",
+  "testimonials.3.quote": "Od strategije do realizacije, svaki korak je odrađen profesionalno. Ne grade samo sajtove, grade iskustva koja konvertuju.",
+  "testimonials.4.name": "Nina Stojanović",
+  "testimonials.4.role": "Operativni direktor",
+  "testimonials.4.company": "DataFlow",
+  "testimonials.4.quote": "ROI koji smo videli od lansiranja novog identiteta brenda je neverovatatan. thirtythree zaista razume kako da kreira brendove koji rastu.",
+  "testimonials.trust.1": "100% zadovoljstvo klijenata",
+  "testimonials.trust.2": "Isporuka na vreme",
+  "testimonials.trust.3": "Dugoročna partnerstva",
+
+  // Results Section
+  "results.badge": "Dokazani rezultati",
+  "results.title.1": "Brojevi koji",
+  "results.title.2": "govore sami za sebe",
+  "results.subtitle": "Uspeh ne merimo brojem projekata, već isporučenim rezultatima. Evo naše evidencije.",
+  "results.stat.1.label": "Zadovoljstvo klijenata",
+  "results.stat.1.desc": "Naši klijenti nas konstantno ocenjuju sa 5 zvezdica za kvalitet i komunikaciju",
+  "results.stat.2.label": "Prosečan ROI",
+  "results.stat.2.desc": "Naši klijenti vide trostruki povrat investicije u brend u prvoj godini",
+  "results.stat.3.label": "Rast saobraćaja",
+  "results.stat.3.desc": "Prosečan rast organskog saobraćaja na svim projektima nakon lansiranja",
+  "results.stat.4.label": "Vreme odgovora",
+  "results.stat.4.desc": "Odgovaramo na sve upite u roku od 24 sata, garantovano",
+  "results.cta.text": "Spremni da vidite slične rezultate za vaš biznis?",
+  "results.cta.item.1": "Besplatna konsultacija",
+  "results.cta.item.2": "Prilagođena strategija",
+  "results.cta.item.3": "Garantovani rezultati",
+
+  // Why Choose Us Section
+  "why.badge": "Zašto thirtythree",
+  "why.title.1": "Šta nas čini",
+  "why.title.2": "posebnim",
+  "why.subtitle": "Nismo samo još jedna agencija. Evo zašto vodeći brendovi biraju da rade sa nama.",
+  "why.reason.1.title": "Strategija na prvom mestu",
+  "why.reason.1.desc": "Svaki piksel, svaka reč, svaka interakcija je podržana strategijom. Ne dizajniramo za nagrade — dizajniramo za rezultate.",
+  "why.reason.2.title": "Munjevita brzina",
+  "why.reason.2.desc": "Brzina bez kompromisa. Naš agilni proces isporučuje izuzetan rad u rekordnom vremenu, držeći vas ispred konkurencije.",
+  "why.reason.3.title": "Fokus na rast",
+  "why.reason.3.desc": "Prelep dizajn je samo početak. Gradimo brendove koji skaliraju, konvertuju i dominiraju svojim tržištima.",
+  "why.reason.4.title": "Posvećen tim",
+  "why.reason.4.desc": "Dobijate posvećen tim stručnjaka koji razumeju vašu viziju i rade kao produžetak vaše kompanije.",
+  "why.reason.5.title": "Garantovan kvalitet",
+  "why.reason.5.desc": "Stojimo iza svog rada sa garancijom zadovoljstva. Ako niste zadovoljni, ispravićemo.",
+  "why.reason.6.title": "Uvek dostupni",
+  "why.reason.6.desc": "Treba vam podrška? Tu smo. Naš tim je dostupan kada vam treba, ne samo tokom radnog vremena.",
+  "why.cta": "Hajde da gradimo zajedno",
+
+  // FAQ Page
+  "faq.badge": "Česta pitanja",
+  "faq.title.1": "Često postavljana",
+  "faq.title.2": "pitanja",
+  "faq.subtitle": "Sve što treba da znate o radu sa thirtythree. Ne možete naći odgovor? Kontaktirajte nas.",
+  "faq.q1": "Koliko traje tipičan projekat?",
+  "faq.a1": "Trajanje projekta varira u zavisnosti od obima i kompleksnosti. Projekat identiteta brenda obično traje 4-6 nedelja, dok potpun razvoj sajta može trajati 6-12 nedelja. Detaljne rokove dajemo tokom inicijalne konsultacije.",
+  "faq.q2": "Kako izgleda vaš proces dizajna?",
+  "faq.a2": "Naš proces prati četiri ključne faze: Istraživanje (strategija), Dizajn (koncepti i vizuelni pravac), Razvoj (izrada i implementacija) i Rast (lansiranje i optimizacija). Svaka faza uključuje saradnju sa klijentom.",
+  "faq.q3": "Da li radite sa startapima ili samo sa etabliranim kompanijama?",
+  "faq.a3": "Radimo sa bizisma svih veličina, od startapa u ranoj fazi do etabliranih preduzeća. Najvažnija je vaša posvećenost izgradnji jakog brenda. Nudimo skalabilna rešenja koja rastu sa vašim biznisom.",
+  "faq.q4": "Šta se dešava nakon završetka projekta?",
+  "faq.a4": "Lansiranje je samo početak. Nudimo pakete kontinuirane podrške uključujući održavanje, optimizaciju i usluge rasta. Mnogi klijenti nastavljaju saradnju sa nama godinama kako se njihov brend razvija.",
+  "faq.q5": "Koliko košta tipičan projekat?",
+  "faq.a5": "Svaki projekat je jedinstven, pa dajemo prilagođene ponude na osnovu vaših specifičnih potreba. Projekti identiteta brenda počinju od oko 5.000€, dok sveobuhvatan web razvoj počinje od oko 10.000€. Kontaktirajte nas za detaljnu ponudu.",
+  "faq.q6": "Da li nudite planove plaćanja?",
+  "faq.a6": "Da! Razumemo da je novčani tok važan. Obično radimo sa 50% depozitom za početak, a ostatak dospeva po završetku. Za veće projekte možemo dogovoriti plaćanje po fazama.",
+  "faq.q7": "Šta ako nisam zadovoljan radom?",
+  "faq.a7": "Vaše zadovoljstvo nam je prioritet. Uključujemo runde revizija u svaki projekat i ne smatramo projekat završenim dok niste 100% zadovoljni. Stojimo iza svog rada sa garancijom zadovoljstva.",
+  "faq.q8": "Kako da počnemo?",
+  "faq.a8": "Jednostavno! Zakažite besplatan konsultativni poziv preko našeg sajta. Razgovaraćemo o vašim ciljevima, odgovoriti na pitanja i utvrditi da li smo dobra kombinacija. Bez pritiska, bez obaveza — samo prijateljski razgovor o vašem brendu.",
+  "faq.cta.title": "Još uvek imate pitanja?",
+  "faq.cta.desc": "Tu smo da pomognemo. Javite nam se i odgovorićemo vam u roku od 24 sata.",
+  "faq.cta.button": "Kontaktirajte nas",
+};
+
+const dictionaries: Record<Lang, Dict> = { en: dictEn, sr: dictSr };
+
+export function I18nProvider({ children }: { children: React.ReactNode }) {
+  const [lang, setLang] = useState<Lang>("en");
+  const toggle = () => setLang((l) => (l === "en" ? "sr" : "en"));
+  const t = (key: string, params?: Record<string, string | number>) => {
+    const d = dictionaries[lang];
+    let v = d[key] ?? key;
+    if (params) {
+      Object.entries(params).forEach(([k, val]) => {
+        v = v.replace(new RegExp(`{${k}}`, "g"), String(val));
+      });
+    }
+    return v;
+  };
+  const value = useMemo(() => ({ lang, setLang, toggle, t }), [lang]);
+  return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
+}
+
+export function useI18n() {
+  const ctx = useContext(I18nContext);
+  if (!ctx) {
+    if (typeof console !== "undefined") {
+      console.warn(
+        "useI18n called outside I18nProvider. Falling back to default 'en'.",
+      );
+    }
+    const t = (key: string, params?: Record<string, string | number>) => {
+      let v = dictionaries.en[key] ?? key;
+      if (params) {
+        Object.entries(params).forEach(([k, val]) => {
+          v = v.replace(new RegExp(`{${k}}`, "g"), String(val));
+        });
+      }
+      return v;
+    };
+    return { lang: "en", setLang: () => {}, toggle: () => {}, t };
+  }
+  return ctx;
+}
