@@ -25,9 +25,10 @@ export default function Navbar() {
     };
   }, []);
 
-  const navItems = [
+  const navItems: Array<{ label: string; id?: string; to?: string }> = [
     { label: t("nav.services"), id: "services" },
     { label: t("nav.strategy"), id: "strategy" },
+    { label: "Portfolio", to: "/portfolio" },
     { label: t("nav.about"), id: "about" },
     { label: t("nav.contact"), id: "contact" },
   ];
@@ -70,13 +71,23 @@ export default function Navbar() {
 
             <div className="hidden md:flex items-center space-x-1">
               {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => handleNavClick(item.id)}
-                  className="relative px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors duration-300"
-                >
-                  {item.label}
-                </button>
+                item.to ? (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    className="relative px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors duration-300"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <button
+                    key={item.id}
+                    onClick={() => handleNavClick(item.id!)}
+                    className="relative px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors duration-300"
+                  >
+                    {item.label}
+                  </button>
+                )
               ))}
               <Link
                 to="/faq"
@@ -155,16 +166,33 @@ export default function Navbar() {
             <div className="container mx-auto px-5 py-6">
               <div className="flex flex-col gap-1">
                 {navItems.map((item, index) => (
-                  <motion.button
-                    key={item.id}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.2, delay: index * 0.05 }}
-                    onClick={() => handleNavClick(item.id)}
-                    className="text-left px-3 py-4 text-xl font-semibold text-gray-900 active:text-amber-500 border-b border-gray-100"
-                  >
-                    {item.label}
-                  </motion.button>
+                  item.to ? (
+                    <motion.div
+                      key={item.to}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.2, delay: index * 0.05 }}
+                    >
+                      <Link
+                        to={item.to}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="block text-left px-3 py-4 text-xl font-semibold text-gray-900 active:text-amber-500 border-b border-gray-100"
+                      >
+                        {item.label}
+                      </Link>
+                    </motion.div>
+                  ) : (
+                    <motion.button
+                      key={item.id}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.2, delay: index * 0.05 }}
+                      onClick={() => handleNavClick(item.id!)}
+                      className="text-left px-3 py-4 text-xl font-semibold text-gray-900 active:text-amber-500 border-b border-gray-100"
+                    >
+                      {item.label}
+                    </motion.button>
+                  )
                 ))}
                 <motion.div
                   initial={{ opacity: 0, x: -10 }}

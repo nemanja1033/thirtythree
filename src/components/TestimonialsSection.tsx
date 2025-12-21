@@ -157,8 +157,7 @@ export default function TestimonialsSection() {
             {t("testimonials.badge")}
           </span>
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
-            {t("testimonials.title.1")}
-            <span className="block gradient-text">{t("testimonials.title.2")}</span>
+            <span className="block gradient-text">{t("testimonials.title")}</span>
           </h2>
           <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">
             {t("testimonials.subtitle")}

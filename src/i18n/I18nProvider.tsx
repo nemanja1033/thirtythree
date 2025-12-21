@@ -237,8 +237,7 @@ const dictEn: Dict = {
 
   // Testimonials Section
   "testimonials.badge": "Client Stories",
-  "testimonials.title.1": "Trusted by",
-  "testimonials.title.2": "industry leaders",
+  "testimonials.title": "What Our Clients Say",
   "testimonials.subtitle": "Don't just take our word for it. Here's what our clients say about working with us.",
   "testimonials.1.name": "Marko Petrović",
   "testimonials.1.role": "CEO",
