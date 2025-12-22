@@ -34,32 +34,34 @@ function FlatBurgerLogo({
   className?: string;
   color?: string;
 }) {
-  // Clean burger icon with simple geometry for reliable display
+  // Flat Burger logo - hollow buns with wavy middle
   return (
     <svg
       width={className ? "100%" : size}
       height={className ? "100%" : size}
-      viewBox="0 0 100 100"
+      viewBox="0 0 512 512"
       className={`block ${className}`}
       preserveAspectRatio="xMidYMid meet"
       fill="none"
     >
-      {/* Top Bun - rounded rectangle */}
+      {/* Top Bun - hollow rounded rectangle */}
       <path 
-        d="M15 35 C15 15, 85 15, 85 35 L85 40 C85 42, 83 44, 81 44 L19 44 C17 44, 15 42, 15 40 Z" 
+        d="M96 160 L416 160 C452 160 464 148 464 112 C464 76 452 64 416 64 L96 64 C60 64 48 76 48 112 C48 148 60 160 96 160 Z M96 128 C76 128 80 112 96 96 L416 96 C436 96 432 112 416 128 L96 128 Z"
         fill={color}
+        fillRule="evenodd"
       />
       {/* Wavy Patty/Lettuce */}
       <path 
-        d="M12 52 Q22 46, 32 52 Q42 58, 52 52 Q62 46, 72 52 Q82 58, 88 52 L88 58 Q78 64, 68 58 Q58 52, 48 58 Q38 64, 28 58 Q18 52, 12 58 Z" 
+        d="M48 240 C48 224 64 208 96 224 C128 240 144 256 176 240 C208 224 224 208 256 224 C288 240 304 256 336 240 C368 224 384 208 416 224 C448 240 464 224 464 240 C464 256 448 272 416 256 C384 240 368 224 336 256 C304 288 288 272 256 256 C224 240 208 256 176 272 C144 288 128 272 96 256 C64 240 48 256 48 240 Z"
         fill={color}
       />
-      {/* Middle line (patty) */}
-      <rect x="12" y="64" width="76" height="8" rx="4" fill={color}/>
-      {/* Bottom Bun - rounded rectangle */}
+      {/* Middle line - rounded rectangle */}
+      <rect x="48" y="296" width="416" height="40" rx="20" fill={color}/>
+      {/* Bottom Bun - hollow rounded rectangle */}
       <path 
-        d="M15 78 C17 78, 19 76, 19 74 L81 74 C83 74, 85 76, 85 78 L85 80 C85 90, 15 90, 15 80 Z" 
+        d="M96 448 L416 448 C452 448 464 436 464 400 C464 364 452 352 416 352 L96 352 C60 352 48 364 48 400 C48 436 60 448 96 448 Z M96 416 C76 416 80 400 96 384 L416 384 C436 384 432 400 416 416 L96 416 Z"
         fill={color}
+        fillRule="evenodd"
       />
     </svg>
   );
