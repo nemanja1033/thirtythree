@@ -34,34 +34,50 @@ function FlatBurgerLogo({
   className?: string;
   color?: string;
 }) {
-  // Flat Burger logo - hollow buns with wavy middle
+  // Flat Burger logo - exact match with hollow buns
+  const strokeWidth = 24;
   return (
     <svg
       width={className ? "100%" : size}
       height={className ? "100%" : size}
-      viewBox="0 0 512 512"
+      viewBox="0 0 200 200"
       className={`block ${className}`}
       preserveAspectRatio="xMidYMid meet"
       fill="none"
     >
-      {/* Top Bun - hollow rounded rectangle */}
-      <path 
-        d="M96 160 L416 160 C452 160 464 148 464 112 C464 76 452 64 416 64 L96 64 C60 64 48 76 48 112 C48 148 60 160 96 160 Z M96 128 C76 128 80 112 96 96 L416 96 C436 96 432 112 416 128 L96 128 Z"
-        fill={color}
-        fillRule="evenodd"
+      {/* Top Bun - hollow pill shape */}
+      <rect 
+        x="20" y="24" 
+        width="160" height="40" 
+        rx="20" ry="20"
+        stroke={color}
+        strokeWidth={strokeWidth}
+        fill="none"
       />
-      {/* Wavy Patty/Lettuce */}
+      {/* Wavy line */}
       <path 
-        d="M48 240 C48 224 64 208 96 224 C128 240 144 256 176 240 C208 224 224 208 256 224 C288 240 304 256 336 240 C368 224 384 208 416 224 C448 240 464 224 464 240 C464 256 448 272 416 256 C384 240 368 224 336 256 C304 288 288 272 256 256 C224 240 208 256 176 272 C144 288 128 272 96 256 C64 240 48 256 48 240 Z"
-        fill={color}
+        d="M20 100 Q40 80, 60 100 Q80 120, 100 100 Q120 80, 140 100 Q160 120, 180 100"
+        stroke={color}
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+        fill="none"
       />
-      {/* Middle line - rounded rectangle */}
-      <rect x="48" y="296" width="416" height="40" rx="20" fill={color}/>
-      {/* Bottom Bun - hollow rounded rectangle */}
-      <path 
-        d="M96 448 L416 448 C452 448 464 436 464 400 C464 364 452 352 416 352 L96 352 C60 352 48 364 48 400 C48 436 60 448 96 448 Z M96 416 C76 416 80 400 96 384 L416 384 C436 384 432 400 416 416 L96 416 Z"
-        fill={color}
-        fillRule="evenodd"
+      {/* Middle straight line */}
+      <line 
+        x1="20" y1="140" 
+        x2="180" y2="140"
+        stroke={color}
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+      />
+      {/* Bottom Bun - hollow pill shape */}
+      <rect 
+        x="20" y="160" 
+        width="160" height="40" 
+        rx="20" ry="20"
+        stroke={color}
+        strokeWidth={strokeWidth}
+        fill="none"
       />
     </svg>
   );
