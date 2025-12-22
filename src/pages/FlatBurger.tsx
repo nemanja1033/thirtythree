@@ -10,6 +10,20 @@ const FLAT_BLUE = "#1c33c3";
 const DARK_BG = "#0a0a0a";
 const OFF_WHITE = "#f8f8f8";
 
+// Hook for mobile detection
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+  
+  return isMobile;
+}
+
 // Flat Burger Logo - Perfectly centered SVG
 function FlatBurgerLogo({ 
   size = 120, 
@@ -20,19 +34,21 @@ function FlatBurgerLogo({
   className?: string;
   color?: string;
 }) {
-  // Content bounds (from path transforms + path data):
-  // X: 48 to 464 (width: 416), Y: 97 to 434 (height: 337)
-  // Using 420x360 viewBox centered on content with padding
-  // viewBox: x=38, y=85, width=436, height=360 (slightly wider for perfect centering)
+  // SVG viewBox calculated from path bounds:
+  // Top Bun: translate(100, 97) with path ranging ~(-52, 365) x (0, 97) = actual (48-465, 97-194)
+  // Wavy Patty: translate(89, 214) with path ranging ~(-42, 375) x (-6, 59) = actual (47-464, 208-273)  
+  // Middle Line: translate(65, 288) with path ranging ~(-17, 400) x (0, 33) = actual (48-465, 288-321)
+  // Bottom Bun: translate(100, 337) with path ranging ~(-52, 365) x (0, 97) = actual (48-465, 337-434)
+  // Total bounds: ~(47-465, 97-434) = width 418, height 337
+  // Using viewBox with padding for clean display
   return (
     <svg
       width={className ? "100%" : size}
       height={className ? "100%" : size}
-      viewBox="38 85 436 360"
+      viewBox="10 60 492 420"
       className={`block ${className}`}
       preserveAspectRatio="xMidYMid meet"
       fill="none"
-      style={{ maxWidth: "100%", maxHeight: "100%" }}
     >
       {/* Top Bun */}
       <path d="M0 0 C1.40251469 -0.00417941 2.80502599 -0.00966025 4.20753109 -0.01631981 C8.03837352 -0.0307136 11.8689997 -0.02654883 15.69985366 -0.019153 C19.84038902 -0.01440851 23.98087845 -0.02694248 28.12139893 -0.03717041 C36.22410715 -0.05433881 44.32673775 -0.05520248 52.42945944 -0.04995751 C59.01760828 -0.04591086 65.60573424 -0.04736524 72.19388199 -0.05270576 C73.60208686 -0.0538284 73.60208686 -0.0538284 75.03874031 -0.05497371 C76.9461162 -0.05650524 78.85349209 -0.05804359 80.76086797 -0.05958868 C98.63524049 -0.07330668 116.5095692 -0.06788099 134.38394071 -0.05640347 C150.72262064 -0.04647222 167.0611873 -0.05941112 183.39984976 -0.08333766 C200.19222034 -0.1077426 216.9845382 -0.11733307 233.77692616 -0.11068493 C243.19824017 -0.10719576 252.6194671 -0.10940479 262.04076767 -0.12693596 C270.06100686 -0.14167539 278.08109763 -0.14227066 286.10133396 -0.12486505 C290.18997103 -0.11636692 294.27834317 -0.11417623 298.36696625 -0.1295166 C302.11632495 -0.14340943 305.8651929 -0.13854229 309.61452354 -0.11927737 C311.59944856 -0.11376841 313.58439886 -0.12775047 315.56927574 -0.14263147 C330.20069446 -0.02317438 341.05626763 4.80602234 351.7204895 14.70018005 C361.71339988 25.25872687 364.48488732 36.80595929 364.39016724 50.91795349 C363.97938694 65.04034244 358.13337051 76.11633732 347.9079895 85.79393005 C336.90922961 94.84129706 325.87594285 96.84050417 311.940979 96.77536011 C310.53846432 96.77953952 309.13595301 96.78502036 307.73344791 96.79167992 C303.90260548 96.8060737 300.07197931 96.80190894 296.24112535 96.79451311 C292.10058999 96.78976862 287.96010055 96.80230259 283.81958008 96.81253052 C275.71687186 96.82969892 267.61424125 96.83056258 259.51151957 96.82531761 C252.92337073 96.82127096 246.33524477 96.82272535 239.74709702 96.82806587 C238.33889214 96.82918851 238.33889214 96.82918851 236.90223869 96.83033382 C234.9948628 96.83186535 233.08748691 96.83340369 231.18011104 96.83494879 C213.30573852 96.84866679 195.43140981 96.8432411 177.55703829 96.83176357 C161.21835837 96.82183233 144.8797917 96.83477123 128.54112925 96.85869776 C111.74875866 96.88310271 94.9564408 96.89269318 78.16405284 96.88604504 C68.74273883 96.88255587 59.3215119 96.8847649 49.90021133 96.90229607 C41.87997215 96.9170355 33.85988137 96.91763077 25.83964504 96.90022516 C21.75100798 96.89172703 17.66263584 96.88953634 13.57401276 96.90487671 C9.82465406 96.91876954 6.0757861 96.9139024 2.32645546 96.89463747 C0.34153044 96.88912852 -1.64341985 96.90311057 -3.62829673 96.91799158 C-18.25971546 96.79853449 -29.11528862 91.96933777 -39.7795105 82.07518005 C-49.77242087 71.51663324 -52.54390831 59.96940082 -52.44918823 45.85740662 C-52.03840793 31.73501767 -46.1923915 20.65902279 -35.9670105 10.98143005 C-24.96825061 1.93406305 -13.93496385 -0.06514406 0 0 Z M-16.0295105 38.45018005 C-19.4566687 43.48381866 -19.6871971 47.36660557 -19.0295105 53.38768005 C-16.68158392 58.26414295 -13.74190196 60.79105619 -9.0295105 63.38768005 C-5.45809875 64.29838886 -2.11918882 64.51435929 1.55814743 64.51910782 C2.67723897 64.52294896 3.7963305 64.52679011 4.94933391 64.53074765 C6.17373408 64.52988117 7.39813425 64.52901469 8.65963745 64.52812195 C10.61662563 64.53257863 10.61662563 64.53257863 12.61314893 64.53712535 C16.23298423 64.54518432 19.85279969 64.5469843 23.4726429 64.54772282 C27.37733618 64.54957528 31.2820192 64.55712356 35.18670654 64.56385803 C43.72393115 64.57743376 52.26115106 64.58346481 60.79838467 64.58786869 C66.12981452 64.59063224 71.46124257 64.59486978 76.7926712 64.59937286 C91.55621095 64.61156423 106.31974924 64.62186401 121.08329391 64.62524796 C122.50033782 64.6255773 122.50033782 64.6255773 123.94600888 64.62591331 C125.36642446 64.62624072 125.36642446 64.62624072 126.81553531 64.62657475 C128.73437421 64.62701822 130.6532131 64.62746478 132.572052 64.62791443 C133.99976464 64.62824657 133.99976464 64.62824657 135.45631996 64.62858543 C150.87907595 64.63253347 166.3017847 64.64998826 181.72452244 64.67327395 C197.56184987 64.69699246 213.39915359 64.70945002 229.23649907 64.71061587 C238.12737556 64.71153232 247.01819047 64.71727706 255.90904999 64.73543549 C263.47968139 64.75084316 271.05023218 64.75595298 278.62087628 64.74769738 C282.48224484 64.74379332 286.34345111 64.7447085 290.20479965 64.75875473 C294.39445239 64.77385563 298.58374014 64.76562003 302.77340698 64.75517273 C303.98888427 64.76322913 305.20436155 64.77128554 306.45667148 64.77958608 C317.25311015 64.76986043 317.25311015 64.76986043 326.58690715 59.93574643 C330.65574852 55.19939005 331.32645058 51.98901218 331.24783325 45.92674255 C330.83672506 42.16307603 329.4876259 40.16977818 326.9704895 37.38768005 C321.53353959 33.107528 317.16001467 32.26500364 310.38283157 32.25625229 C309.26374004 32.25241114 308.1446485 32.24857 306.9916451 32.24461246 C305.76724493 32.24547894 304.54284476 32.24634542 303.28134155 32.24723816 C301.97668277 32.24426704 300.67202398 32.24129591 299.32783008 32.23823476 C295.70799477 32.23017578 292.08817932 32.2283758 288.46833611 32.22763729 C284.56364283 32.22578483 280.6589598 32.21823655 276.75427246 32.21150208 C268.21704785 32.19792635 259.67982794 32.1918953 251.14259434 32.18749142 C245.81116448 32.18472787 240.47973643 32.18049032 235.1483078 32.17598724 C220.38476806 32.16379587 205.62122976 32.1534961 190.85768509 32.15011215 C189.91298915 32.14989259 188.96829321 32.14967302 187.99497013 32.1494468 C187.04802641 32.14922852 186.10108268 32.14901024 185.1254437 32.14878535 C183.2066048 32.14834189 181.2877659 32.14789532 179.368927 32.14744568 C177.94121436 32.14711353 177.94121436 32.14711353 176.48465905 32.14677468 C161.06190305 32.14282664 145.63919431 32.12537185 130.21645656 32.10208616 C114.37912913 32.07836765 98.54182541 32.06591008 82.70447993 32.06474423 C73.81360345 32.06382779 64.92278853 32.05808305 56.03192902 32.03992462 C48.46129762 32.02451695 40.89074682 32.01940713 33.32010272 32.02766272 C29.45873416 32.03156679 25.5975279 32.03065161 21.73617935 32.01660538 C17.54652662 32.00150448 13.35723887 32.00974008 9.16757202 32.02018738 C7.95209474 32.01213097 6.73661746 32.00407457 5.48430753 31.99577403 C-2.33366451 32.04138553 -10.59134838 32.1198586 -16.0295105 38.45018005 Z" fill={color} transform="translate(100.02951049804688,96.61231994628906)"/>
@@ -49,15 +65,17 @@ function FlatBurgerLogo({
 // Urban Hero Section
 function UrbanHero() {
   const containerRef = useRef<HTMLElement>(null);
+  const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
   });
   
-  const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  // Reduced parallax on mobile for better performance
+  const y = useTransform(scrollYProgress, [0, 1], [0, isMobile ? 100 : 300]);
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, -5]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, isMobile ? 0.95 : 0.85]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, isMobile ? 0 : -5]);
   
   const [isLoaded, setIsLoaded] = useState(false);
   
@@ -72,43 +90,43 @@ function UrbanHero() {
       className="relative min-h-[100svh] flex items-center justify-center overflow-hidden"
       style={{ background: DARK_BG }}
     >
-      {/* Subtle grid background */}
-      <div className="absolute inset-0 opacity-[0.03]">
-        <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `
-              linear-gradient(${FLAT_BLUE} 1px, transparent 1px),
-              linear-gradient(90deg, ${FLAT_BLUE} 1px, transparent 1px)
-            `,
-            backgroundSize: "80px 80px"
-          }}
-        />
-      </div>
+      {/* Subtle grid background - hidden on mobile for performance */}
+      {!isMobile && (
+        <div className="absolute inset-0 opacity-[0.03]">
+          <div 
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `
+                linear-gradient(${FLAT_BLUE} 1px, transparent 1px),
+                linear-gradient(90deg, ${FLAT_BLUE} 1px, transparent 1px)
+              `,
+              backgroundSize: "80px 80px"
+            }}
+          />
+        </div>
+      )}
       
-      {/* Floating gradient orbs - Enhanced */}
-      <motion.div
-        className="absolute w-[600px] h-[600px] rounded-full blur-[180px] opacity-25"
-        style={{ background: FLAT_BLUE, top: "-20%", right: "-10%" }}
-        animate={{ 
-          scale: [1, 1.3, 1], 
-          opacity: [0.15, 0.35, 0.15],
-          x: [0, 50, 0],
-          y: [0, -30, 0],
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      {/* Floating gradient orbs - Simplified on mobile */}
+      <div
+        className="absolute w-[300px] md:w-[600px] h-[300px] md:h-[600px] rounded-full blur-[100px] md:blur-[180px] opacity-20 md:opacity-25"
+        style={{ background: FLAT_BLUE, top: "-15%", right: "-15%" }}
       />
-      <motion.div
-        className="absolute w-[400px] h-[400px] rounded-full blur-[120px] opacity-15"
-        style={{ background: FLAT_BEIGE, bottom: "-10%", left: "-5%" }}
-        animate={{ 
-          scale: [1, 1.2, 1], 
-          opacity: [0.1, 0.2, 0.1],
-        }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-      />
+      {!isMobile && (
+        <motion.div
+          className="absolute w-[400px] h-[400px] rounded-full blur-[120px] opacity-15"
+          style={{ background: FLAT_BEIGE, bottom: "-10%", left: "-5%" }}
+          animate={{ 
+            scale: [1, 1.2, 1], 
+            opacity: [0.1, 0.2, 0.1],
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+      )}
 
-      <motion.div style={{ y, opacity, scale, rotate }} className="relative z-10 w-full">
+      <motion.div 
+        style={!isMobile ? { y, opacity, scale, rotate } : { opacity }} 
+        className="relative z-10 w-full"
+      >
         <div className="container mx-auto px-6 md:px-8">
           <div className="max-w-[1400px] mx-auto">
             {/* Case Study Label */}
@@ -139,9 +157,9 @@ function UrbanHero() {
               <div className="text-center lg:text-left flex-1">
                 <div className="overflow-hidden mb-2">
                   <motion.h1
-                    initial={{ y: 200, opacity: 0, skewY: 10 }}
+                    initial={{ y: isMobile ? 60 : 200, opacity: 0, skewY: isMobile ? 0 : 10 }}
                     animate={isLoaded ? { y: 0, opacity: 1, skewY: 0 } : {}}
-                    transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: isMobile ? 0.6 : 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
                     className="text-[18vw] md:text-[14vw] lg:text-[10vw] xl:text-[9vw] font-black leading-[0.82] tracking-[-0.04em]"
                     style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: OFF_WHITE }}
                   >
@@ -151,10 +169,10 @@ function UrbanHero() {
                 
                 <div className="overflow-hidden">
                   <motion.h1
-                    initial={{ y: 200, opacity: 0, skewY: 10 }}
+                    initial={{ y: isMobile ? 60 : 200, opacity: 0, skewY: isMobile ? 0 : 10 }}
                     animate={isLoaded ? { y: 0, opacity: 1, skewY: 0 } : {}}
-                    transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    whileHover={{ scale: 1.02, x: 10 }}
+                    transition={{ duration: isMobile ? 0.6 : 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    whileHover={!isMobile ? { scale: 1.02, x: 10 } : undefined}
                     className="text-[18vw] md:text-[14vw] lg:text-[10vw] xl:text-[9vw] font-black leading-[0.82] tracking-[-0.04em] cursor-default"
                     style={{
                       fontFamily: '"Bricolage Grotesque", sans-serif',
@@ -170,24 +188,26 @@ function UrbanHero() {
               {/* Logo - Always visible, bigger on desktop */}
               <motion.div
                 className="flex items-center justify-center relative flex-shrink-0"
-                initial={{ opacity: 0, scale: 0.5 }}
+                initial={{ opacity: 0, scale: 0.8 }}
                 animate={isLoaded ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 100 }}
+                transition={{ duration: isMobile ? 0.5 : 0.8, delay: 0.2, ease: "easeOut" }}
               >
                 {/* Glow effect behind logo */}
                 <div 
-                  className="absolute w-[160px] h-[160px] md:w-[220px] md:h-[220px] lg:w-[340px] lg:h-[340px] rounded-full blur-[60px] opacity-40"
+                  className="absolute w-[140px] h-[140px] md:w-[200px] md:h-[200px] lg:w-[300px] lg:h-[300px] rounded-full blur-[40px] md:blur-[60px] opacity-30 md:opacity-40"
                   style={{ background: FLAT_BLUE }}
                 />
                 <motion.div
-                  animate={{ 
+                  animate={!isMobile ? { 
                     y: [-8, 8, -8],
                     rotate: [-2, 2, -2],
-                  }}
+                  } : undefined}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  className="relative z-10 w-[160px] h-[160px] md:w-[220px] md:h-[220px] lg:w-[340px] lg:h-[340px] flex items-center justify-center"
+                  className="relative z-10 w-[140px] h-[140px] md:w-[200px] md:h-[200px] lg:w-[300px] lg:h-[300px] flex items-center justify-center"
                   style={{ 
-                    filter: `drop-shadow(0 0 40px ${FLAT_BLUE}80) drop-shadow(0 0 80px ${FLAT_BLUE}40)` 
+                    filter: isMobile 
+                      ? `drop-shadow(0 0 20px ${FLAT_BLUE}60)` 
+                      : `drop-shadow(0 0 40px ${FLAT_BLUE}80) drop-shadow(0 0 80px ${FLAT_BLUE}40)` 
                   }}
                 >
                   <FlatBurgerLogo 
@@ -262,20 +282,23 @@ function UrbanHero() {
 // Journal.rs Press Feature Section - PROMINENT
 function JournalFeature() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isMobile = useIsMobile();
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
   
   return (
-    <section ref={ref} className="py-24 md:py-32 relative overflow-hidden" style={{ background: FLAT_BEIGE }}>
-      {/* Decorative elements */}
-      <div className="absolute inset-0 opacity-5">
-        <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(${FLAT_BLUE} 1px, transparent 1px)`,
-            backgroundSize: "30px 30px"
-          }}
-        />
-      </div>
+    <section ref={ref} className="py-16 md:py-32 relative overflow-hidden" style={{ background: FLAT_BEIGE }}>
+      {/* Decorative elements - hidden on mobile */}
+      {!isMobile && (
+        <div className="absolute inset-0 opacity-5">
+          <div 
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `radial-gradient(${FLAT_BLUE} 1px, transparent 1px)`,
+              backgroundSize: "30px 30px"
+            }}
+          />
+        </div>
+      )}
       
       <div className="container mx-auto px-6 md:px-8 relative z-10">
         <div className="max-w-[1200px] mx-auto">
@@ -283,33 +306,33 @@ function JournalFeature() {
             href="https://www.journal.rs/lifestyle/gastro/flat-burger-street-food-beograd/"
             target="_blank"
             rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: isMobile ? 20 : 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: isMobile ? 0.5 : 0.8, ease: "easeOut" }}
             className="block group"
           >
-            <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
+            <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-16">
               {/* Featured In Badge */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
+                initial={{ opacity: 0, scale: 0.9 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+                transition={{ duration: isMobile ? 0.4 : 0.6, delay: 0.1, ease: "easeOut" }}
                 className="shrink-0"
               >
                 <div 
-                  className="w-40 h-40 md:w-48 md:h-48 rounded-full flex flex-col items-center justify-center text-center transition-transform duration-500 group-hover:scale-105"
+                  className="w-32 h-32 md:w-48 md:h-48 rounded-full flex flex-col items-center justify-center text-center md:group-hover:scale-105 transition-transform duration-300"
                   style={{ background: FLAT_BLUE }}
                 >
-                  <span className="text-[10px] uppercase tracking-[0.2em] mb-2 opacity-80" style={{ color: FLAT_BEIGE }}>
+                  <span className="text-[8px] md:text-[10px] uppercase tracking-[0.15em] md:tracking-[0.2em] mb-1 md:mb-2 opacity-80" style={{ color: FLAT_BEIGE }}>
                     Featured In
                   </span>
                   <span 
-                    className="text-3xl md:text-4xl font-black"
+                    className="text-2xl md:text-4xl font-black"
                     style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: OFF_WHITE }}
                   >
                     Journal.rs
                   </span>
-                  <span className="text-xs mt-2 opacity-60" style={{ color: OFF_WHITE }}>
+                  <span className="text-[10px] md:text-xs mt-1 md:mt-2 opacity-60" style={{ color: OFF_WHITE }}>
                     Aug 2024
                   </span>
                 </div>
@@ -318,12 +341,12 @@ function JournalFeature() {
               {/* Content */}
               <div className="flex-1 text-center lg:text-left">
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+                  transition={{ duration: isMobile ? 0.3 : 0.6, delay: 0.2, ease: "easeOut" }}
                 >
                   <span 
-                    className="inline-block px-4 py-1.5 rounded-full text-xs uppercase tracking-wider mb-6 font-medium"
+                    className="inline-block px-3 md:px-4 py-1 md:py-1.5 rounded-full text-[10px] md:text-xs uppercase tracking-wider mb-4 md:mb-6 font-medium"
                     style={{ background: `${FLAT_BLUE}15`, color: FLAT_BLUE }}
                   >
                     Press Feature
@@ -331,21 +354,21 @@ function JournalFeature() {
                 </motion.div>
                 
                 <motion.h2
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-                  className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-6"
+                  transition={{ duration: isMobile ? 0.4 : 0.6, delay: 0.3, ease: "easeOut" }}
+                  className="text-xl md:text-3xl lg:text-4xl font-bold leading-tight mb-4 md:mb-6"
                   style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: DARK_BG }}
                 >
-                  "Street-food mapa Beograda dobila je novog igrača [i to kakvog] – 
+                  "Street-food mapa Beograda dobila je novog igrača – 
                   <span style={{ color: FLAT_BLUE }}> Flat Burger je stigao u grad</span>"
                 </motion.h2>
                 
                 <motion.p
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
-                  className="text-base md:text-lg opacity-70 mb-8 max-w-2xl mx-auto lg:mx-0"
+                  transition={{ duration: isMobile ? 0.3 : 0.6, delay: 0.4, ease: "easeOut" }}
+                  className="text-sm md:text-lg opacity-70 mb-6 md:mb-8 max-w-2xl mx-auto lg:mx-0"
                   style={{ color: DARK_BG }}
                 >
                   Featured as Belgrade's newest street food sensation, Flat Burger represents the new generation 
@@ -353,14 +376,14 @@ function JournalFeature() {
                 </motion.p>
                 
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
-                  className="inline-flex items-center gap-3 font-semibold transition-all group-hover:gap-5"
+                  transition={{ duration: isMobile ? 0.3 : 0.6, delay: 0.5, ease: "easeOut" }}
+                  className="inline-flex items-center gap-2 md:gap-3 font-semibold transition-all md:group-hover:gap-5"
                   style={{ color: FLAT_BLUE }}
                 >
-                  <span>Read Full Article</span>
-                  <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <span className="text-sm md:text-base">Read Full Article</span>
+                  <svg className="w-4 h-4 md:w-5 md:h-5 transition-transform md:group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </motion.div>
@@ -376,7 +399,8 @@ function JournalFeature() {
 // Logo Showcase Section - Fixed visibility
 function LogoShowcase() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isMobile = useIsMobile();
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
   
   const variants = [
     { bg: OFF_WHITE, logoColor: FLAT_BLUE, textColor: FLAT_BLUE, label: "Light" },
@@ -386,15 +410,15 @@ function LogoShowcase() {
   ];
   
   return (
-    <section ref={ref} className="py-32 md:py-48" style={{ background: "#e8e8e8" }}>
+    <section ref={ref} className="py-20 md:py-48" style={{ background: "#e8e8e8" }}>
       <div className="container mx-auto px-6 md:px-8">
         <div className="max-w-[1400px] mx-auto">
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: isMobile ? 20 : 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="mb-16 md:mb-24"
+            transition={{ duration: isMobile ? 0.4 : 0.6, ease: "easeOut" }}
+            className="mb-12 md:mb-24"
           >
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-[1px]" style={{ background: FLAT_BLUE }} />
@@ -404,7 +428,7 @@ function LogoShowcase() {
             </div>
             
             <h2
-              className="text-4xl md:text-6xl font-bold"
+              className="text-3xl md:text-6xl font-bold"
               style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: DARK_BG }}
             >
               Iconic in <span style={{ color: FLAT_BLUE }}>every context</span>
@@ -412,37 +436,32 @@ function LogoShowcase() {
           </motion.div>
           
           {/* Logo grid - 2x2 on mobile, 4 on desktop */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
             {variants.map((variant, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.1 + index * 0.1, ease: "easeOut" }}
+                transition={{ duration: isMobile ? 0.3 : 0.6, delay: isMobile ? 0.05 * index : 0.1 + index * 0.1, ease: "easeOut" }}
                 className="group"
               >
-                <motion.div 
-                  className="aspect-square rounded-2xl md:rounded-3xl p-4 md:p-8 flex flex-col items-center justify-center transition-all duration-500 ease-out shadow-lg"
+                <div 
+                  className="aspect-square rounded-2xl md:rounded-3xl p-4 md:p-8 flex flex-col items-center justify-center shadow-lg md:hover:scale-[1.02] md:hover:-translate-y-1 transition-transform duration-300"
                   style={{ background: variant.bg }}
-                  whileHover={{ scale: 1.02, y: -5 }}
                 >
-                  <motion.div
-                    animate={{ y: [-3, 3, -3] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: index * 0.5 }}
-                    className="mb-4 w-[70px] h-[70px] md:w-[90px] md:h-[90px] flex items-center justify-center"
-                  >
+                  <div className="mb-3 md:mb-4 w-[60px] h-[60px] md:w-[90px] md:h-[90px] flex items-center justify-center">
                     <FlatBurgerLogo color={variant.logoColor} className="w-full h-full" />
-                  </motion.div>
+                  </div>
                   
                   <div 
-                    className="text-lg md:text-xl font-black tracking-tight text-center"
+                    className="text-base md:text-xl font-black tracking-tight text-center"
                     style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: variant.textColor }}
                   >
                     FLAT BURGER
                   </div>
-                </motion.div>
+                </div>
                 
-                <p className="text-center mt-3 text-sm font-medium" style={{ color: DARK_BG }}>
+                <p className="text-center mt-2 md:mt-3 text-xs md:text-sm font-medium" style={{ color: DARK_BG }}>
                   {variant.label}
                 </p>
               </motion.div>
@@ -497,18 +516,19 @@ const processSteps: ProcessStep[] = [
 
 function ProcessSection() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isMobile = useIsMobile();
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
   
   return (
-    <section ref={ref} className="py-32 md:py-48" style={{ background: DARK_BG }}>
+    <section ref={ref} className="py-20 md:py-48" style={{ background: DARK_BG }}>
       <div className="container mx-auto px-6 md:px-8">
         <div className="max-w-[1400px] mx-auto">
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: isMobile ? 20 : 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="mb-16 md:mb-24"
+            transition={{ duration: isMobile ? 0.4 : 0.6, ease: "easeOut" }}
+            className="mb-12 md:mb-24"
           >
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-[1px]" style={{ background: FLAT_BLUE }} />
@@ -517,60 +537,52 @@ function ProcessSection() {
               </span>
             </div>
             
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-6">
               <h2
-                className="text-4xl md:text-6xl font-bold"
+                className="text-3xl md:text-6xl font-bold"
                 style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: OFF_WHITE }}
               >
                 From concept to <span style={{ color: FLAT_BEIGE }}>street corner</span>
               </h2>
               
-              <p className="text-gray-400 max-w-md text-lg">
+              <p className="text-gray-400 max-w-md text-base md:text-lg">
                 A comprehensive branding journey covering every touchpoint.
               </p>
             </div>
           </motion.div>
           
           {/* Process cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
             {processSteps.map((step, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 80, rotateX: -20 }}
-                animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
-                transition={{ duration: 0.8, delay: 0.1 + index * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ 
-                  scale: 1.03, 
-                  y: -10,
-                  boxShadow: `0 20px 60px ${FLAT_BLUE}20`,
-                }}
-                className="group relative p-6 md:p-8 rounded-2xl border border-gray-800 hover:border-gray-600 transition-all duration-500"
-                style={{ 
-                  background: "rgba(255,255,255,0.02)",
-                  transformStyle: "preserve-3d",
-                }}
+                initial={{ opacity: 0, y: isMobile ? 20 : 50 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: isMobile ? 0.3 : 0.6, delay: isMobile ? 0.05 * index : 0.1 + index * 0.1, ease: "easeOut" }}
+                className="group relative p-5 md:p-8 rounded-2xl border border-gray-800 md:hover:border-gray-600 md:hover:scale-[1.02] md:hover:-translate-y-2 transition-all duration-300"
+                style={{ background: "rgba(255,255,255,0.02)" }}
               >
                 <div className="relative z-10">
-                  <div className="text-sm font-bold uppercase tracking-wider mb-3" style={{ color: FLAT_BLUE }}>
+                  <div className="text-sm font-bold uppercase tracking-wider mb-2 md:mb-3" style={{ color: FLAT_BLUE }}>
                     Phase {step.phase}
                   </div>
                   
                   <h3 
-                    className="text-2xl md:text-3xl font-bold mb-3"
+                    className="text-xl md:text-3xl font-bold mb-2 md:mb-3"
                     style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: OFF_WHITE }}
                   >
                     {step.title}
                   </h3>
                   
-                  <p className="text-gray-400 mb-5 leading-relaxed text-sm md:text-base">
+                  <p className="text-gray-400 mb-4 md:mb-5 leading-relaxed text-sm md:text-base">
                     {step.description}
                   </p>
                   
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5 md:gap-2">
                     {step.deliverables.map((item, i) => (
                       <span
                         key={i}
-                        className="px-3 py-1.5 rounded-full text-xs font-medium"
+                        className="px-2.5 md:px-3 py-1 md:py-1.5 rounded-full text-xs font-medium"
                         style={{ 
                           background: `${FLAT_BLUE}15`,
                           color: FLAT_BEIGE,
@@ -594,18 +606,19 @@ function ProcessSection() {
 // Color & Typography Section
 function ColorTypography() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isMobile = useIsMobile();
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
   
   return (
-    <section ref={ref} className="py-32 md:py-48" style={{ background: OFF_WHITE }}>
+    <section ref={ref} className="py-20 md:py-48" style={{ background: OFF_WHITE }}>
       <div className="container mx-auto px-6 md:px-8">
         <div className="max-w-[1400px] mx-auto">
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: isMobile ? 20 : 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="mb-16 md:mb-24"
+            transition={{ duration: isMobile ? 0.4 : 0.6, ease: "easeOut" }}
+            className="mb-12 md:mb-24"
           >
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-[1px]" style={{ background: FLAT_BLUE }} />
@@ -615,7 +628,7 @@ function ColorTypography() {
             </div>
             
             <h2
-              className="text-4xl md:text-6xl font-bold"
+              className="text-3xl md:text-6xl font-bold"
               style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: DARK_BG }}
             >
               Colors that <span style={{ color: FLAT_BLUE }}>demand attention</span>
@@ -623,37 +636,35 @@ function ColorTypography() {
           </motion.div>
           
           {/* Colors */}
-          <div className="grid md:grid-cols-2 gap-6 mb-16">
+          <div className="grid md:grid-cols-2 gap-4 md:gap-6 mb-10 md:mb-16">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-              whileHover={{ scale: 1.01 }}
-              className="transition-transform duration-300"
+              transition={{ duration: isMobile ? 0.3 : 0.6, delay: 0.1, ease: "easeOut" }}
             >
               <div 
-                className="aspect-[4/3] rounded-2xl md:rounded-3xl p-8 md:p-12 flex flex-col justify-between shadow-xl"
+                className="aspect-[4/3] rounded-2xl md:rounded-3xl p-6 md:p-12 flex flex-col justify-between shadow-xl"
                 style={{ background: FLAT_BEIGE }}
               >
                 <div className="flex items-start justify-between">
                   <div 
-                    className="text-6xl md:text-8xl font-black"
+                    className="text-5xl md:text-8xl font-black"
                     style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: FLAT_BLUE }}
                   >
                     Aa
                   </div>
-                  <div className="w-[50px] h-[50px] md:w-[70px] md:h-[70px] flex items-center justify-center">
+                  <div className="w-[40px] h-[40px] md:w-[70px] md:h-[70px] flex items-center justify-center">
                     <FlatBurgerLogo color={FLAT_BLUE} className="w-full h-full" />
                   </div>
                 </div>
                 <div>
                   <div 
-                    className="text-2xl md:text-3xl font-bold mb-1"
+                    className="text-xl md:text-3xl font-bold mb-1"
                     style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: FLAT_BLUE }}
                   >
                     Warm Beige
                   </div>
-                  <div className="font-mono text-sm opacity-60" style={{ color: FLAT_BLUE }}>
+                  <div className="font-mono text-xs md:text-sm opacity-60" style={{ color: FLAT_BLUE }}>
                     #FEEBCB
                   </div>
                 </div>
@@ -661,35 +672,33 @@ function ColorTypography() {
             </motion.div>
             
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-              whileHover={{ scale: 1.01 }}
-              className="transition-transform duration-300"
+              transition={{ duration: isMobile ? 0.3 : 0.6, delay: 0.2, ease: "easeOut" }}
             >
               <div 
-                className="aspect-[4/3] rounded-2xl md:rounded-3xl p-8 md:p-12 flex flex-col justify-between shadow-xl"
+                className="aspect-[4/3] rounded-2xl md:rounded-3xl p-6 md:p-12 flex flex-col justify-between shadow-xl"
                 style={{ background: FLAT_BLUE }}
               >
                 <div className="flex items-start justify-between">
                   <div 
-                    className="text-6xl md:text-8xl font-black"
+                    className="text-5xl md:text-8xl font-black"
                     style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: OFF_WHITE }}
                   >
                     Aa
                   </div>
-                  <div className="w-[50px] h-[50px] md:w-[70px] md:h-[70px] flex items-center justify-center">
+                  <div className="w-[40px] h-[40px] md:w-[70px] md:h-[70px] flex items-center justify-center">
                     <FlatBurgerLogo color={OFF_WHITE} className="w-full h-full" />
                   </div>
                 </div>
                 <div>
                   <div 
-                    className="text-2xl md:text-3xl font-bold mb-1"
+                    className="text-xl md:text-3xl font-bold mb-1"
                     style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: OFF_WHITE }}
                   >
                     Bold Blue
                   </div>
-                  <div className="font-mono text-sm opacity-60" style={{ color: OFF_WHITE }}>
+                  <div className="font-mono text-xs md:text-sm opacity-60" style={{ color: OFF_WHITE }}>
                     #1C33C3
                   </div>
                 </div>
@@ -699,32 +708,32 @@ function ColorTypography() {
           
           {/* Typography */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-            className="p-8 md:p-12 rounded-2xl md:rounded-3xl border border-gray-200 bg-white shadow-sm"
+            transition={{ duration: isMobile ? 0.3 : 0.6, delay: 0.3, ease: "easeOut" }}
+            className="p-6 md:p-12 rounded-2xl md:rounded-3xl border border-gray-200 bg-white shadow-sm"
           >
-            <div className="text-sm uppercase tracking-wider mb-6" style={{ color: FLAT_BLUE }}>
+            <div className="text-xs md:text-sm uppercase tracking-wider mb-4 md:mb-6" style={{ color: FLAT_BLUE }}>
               Primary Typeface
             </div>
             
             <div 
-              className="text-4xl md:text-6xl lg:text-7xl font-black mb-8"
+              className="text-2xl md:text-6xl lg:text-7xl font-black mb-6 md:mb-8"
               style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: DARK_BG }}
             >
               Bricolage Grotesque
             </div>
             
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               {["Light", "Regular", "Medium", "Bold", "Black"].map((weight, i) => (
-                <div key={i} className="flex items-center justify-between border-b border-gray-100 pb-3">
+                <div key={i} className="flex items-center justify-between border-b border-gray-100 pb-2 md:pb-3">
                   <span 
-                    className="text-xl md:text-2xl"
+                    className="text-base md:text-2xl"
                     style={{ fontFamily: '"Bricolage Grotesque", sans-serif', fontWeight: (i + 3) * 100, color: DARK_BG }}
                   >
-                    The quick brown fox jumps
+                    {isMobile ? "Quick brown fox" : "The quick brown fox jumps"}
                   </span>
-                  <span className="text-xs text-gray-400 hidden md:block">{weight}</span>
+                  <span className="text-[10px] md:text-xs text-gray-400">{weight}</span>
                 </div>
               ))}
             </div>
@@ -738,7 +747,8 @@ function ColorTypography() {
 // Instagram Section - Bold & Creative
 function InstagramSection() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isMobile = useIsMobile();
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
   
   // The exact posts provided by user
   const instagramPostUrls: string[] = [
@@ -751,99 +761,75 @@ function InstagramSection() {
   ];
   
   return (
-    <section ref={ref} className="py-32 md:py-48 relative overflow-hidden" style={{ background: DARK_BG }}>
-      {/* Animated background elements */}
-      <motion.div
-        className="absolute w-[600px] h-[600px] rounded-full blur-[200px] opacity-20 -top-40 -right-40"
+    <section ref={ref} className="py-20 md:py-48 relative overflow-hidden" style={{ background: DARK_BG }}>
+      {/* Background elements - static on mobile */}
+      <div
+        className="absolute w-[300px] md:w-[600px] h-[300px] md:h-[600px] rounded-full blur-[100px] md:blur-[200px] opacity-15 md:opacity-20 -top-20 md:-top-40 -right-20 md:-right-40"
         style={{ background: FLAT_BLUE }}
-        animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute w-[400px] h-[400px] rounded-full blur-[150px] opacity-15 -bottom-20 -left-20"
-        style={{ background: FLAT_BEIGE }}
-        animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.15, 0.1] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />
       
       <div className="container mx-auto px-6 md:px-8 relative z-10">
         <div className="max-w-[1600px] mx-auto">
-          {/* Header - More dramatic */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16 md:mb-24">
+          {/* Header */}
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 md:gap-8 mb-12 md:mb-24">
             <div className="max-w-2xl">
               <motion.div
-                initial={{ opacity: 0, x: -50 }}
+                initial={{ opacity: 0, x: isMobile ? 0 : -50 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="flex items-center gap-4 mb-6"
+                transition={{ duration: isMobile ? 0.4 : 0.8, ease: "easeOut" }}
+                className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6"
               >
-                <motion.div 
-                  className="w-16 h-[2px]"
-                  style={{ background: FLAT_BLUE }}
-                  initial={{ scaleX: 0 }}
-                  animate={isInView ? { scaleX: 1 } : {}}
-                  transition={{ duration: 1, delay: 0.3 }}
-                />
-                <span className="text-sm uppercase tracking-[0.3em] font-semibold" style={{ color: FLAT_BLUE }}>
+                <div className="w-10 md:w-16 h-[2px]" style={{ background: FLAT_BLUE }} />
+                <span className="text-xs md:text-sm uppercase tracking-[0.2em] md:tracking-[0.3em] font-semibold" style={{ color: FLAT_BLUE }}>
                   Content We Created
                 </span>
               </motion.div>
               
               <motion.h2
-                initial={{ opacity: 0, y: 60, skewY: 5 }}
-                animate={isInView ? { opacity: 1, y: 0, skewY: 0 } : {}}
-                transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="text-4xl md:text-6xl lg:text-7xl font-black leading-[0.95]"
+                initial={{ opacity: 0, y: isMobile ? 30 : 60 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: isMobile ? 0.5 : 1, delay: 0.2, ease: "easeOut" }}
+                className="text-3xl md:text-6xl lg:text-7xl font-black leading-[0.95]"
                 style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: OFF_WHITE }}
               >
                 Live from
                 <br />
-                <motion.span 
-                  style={{ color: FLAT_BLUE }}
-                  animate={{ opacity: [1, 0.7, 1] }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                >
-                  @flatburger.bg
-                </motion.span>
+                <span style={{ color: FLAT_BLUE }}>@flatburger.bg</span>
               </motion.h2>
               
               <motion.p
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-                className="text-lg md:text-xl opacity-60 mt-6 leading-relaxed"
+                transition={{ duration: isMobile ? 0.4 : 0.8, delay: 0.3, ease: "easeOut" }}
+                className="text-base md:text-xl opacity-60 mt-4 md:mt-6 leading-relaxed"
                 style={{ color: OFF_WHITE }}
               >
                 Video content, reels, and visual stories we create for Flat Burger's Instagram presence.
               </motion.p>
             </div>
             
-            {/* Floating stats */}
+            {/* Stats */}
             <motion.div
-              initial={{ opacity: 0, y: 40, rotate: 5 }}
-              animate={isInView ? { opacity: 1, y: 0, rotate: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.5, type: "spring" }}
-              className="flex gap-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: isMobile ? 0.4 : 0.8, delay: 0.4, ease: "easeOut" }}
+              className="flex gap-6 md:gap-8"
             >
               {[
                 { value: "100+", label: "Posts" },
                 { value: "Video", label: "Content" },
               ].map((stat, i) => (
-                <motion.div 
-                  key={i} 
-                  className="text-center"
-                  whileHover={{ scale: 1.1, y: -5 }}
-                >
+                <div key={i} className="text-center">
                   <div 
-                    className="text-3xl md:text-4xl font-black"
+                    className="text-2xl md:text-4xl font-black"
                     style={{ color: FLAT_BEIGE }}
                   >
                     {stat.value}
                   </div>
-                  <div className="text-xs uppercase tracking-wider mt-1" style={{ color: FLAT_BLUE }}>
+                  <div className="text-[10px] md:text-xs uppercase tracking-wider mt-1" style={{ color: FLAT_BLUE }}>
                     {stat.label}
                   </div>
-                </motion.div>
+                </div>
               ))}
             </motion.div>
           </div>
@@ -858,12 +844,13 @@ function InstagramSection() {
 // Results Section
 function ResultsSection() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isMobile = useIsMobile();
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
   
   const results = [
     { 
       icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
         </svg>
       ),
@@ -873,7 +860,7 @@ function ResultsSection() {
     },
     { 
       icon: (
-        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24">
           <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/>
         </svg>
       ),
@@ -883,7 +870,7 @@ function ResultsSection() {
     },
     { 
       icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
@@ -895,26 +882,26 @@ function ResultsSection() {
   ];
   
   return (
-    <section ref={ref} className="py-32 md:py-48" style={{ background: DARK_BG }}>
+    <section ref={ref} className="py-20 md:py-48" style={{ background: DARK_BG }}>
       <div className="container mx-auto px-6 md:px-8">
         <div className="max-w-[1400px] mx-auto">
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: isMobile ? 20 : 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-center mb-16 md:mb-24"
+            transition={{ duration: isMobile ? 0.4 : 0.6, ease: "easeOut" }}
+            className="text-center mb-12 md:mb-24"
           >
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="w-10 h-[1px]" style={{ background: FLAT_BLUE }} />
-              <span className="text-sm uppercase tracking-wider" style={{ color: FLAT_BLUE }}>
+              <div className="w-8 md:w-10 h-[1px]" style={{ background: FLAT_BLUE }} />
+              <span className="text-xs md:text-sm uppercase tracking-wider" style={{ color: FLAT_BLUE }}>
                 Results
               </span>
-              <div className="w-10 h-[1px]" style={{ background: FLAT_BLUE }} />
+              <div className="w-8 md:w-10 h-[1px]" style={{ background: FLAT_BLUE }} />
             </div>
             
             <h2
-              className="text-4xl md:text-6xl font-bold"
+              className="text-3xl md:text-6xl font-bold"
               style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: OFF_WHITE }}
             >
               Successfully <span style={{ color: FLAT_BEIGE }}>launched</span>
@@ -922,33 +909,28 @@ function ResultsSection() {
           </motion.div>
           
           {/* Results grid */}
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-4 md:gap-6">
             {results.map((result, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 60, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-                transition={{ duration: 0.8, delay: 0.15 + index * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ 
-                  scale: 1.05, 
-                  y: -8,
-                  borderColor: FLAT_BLUE,
-                }}
-                className="text-center p-8 md:p-10 rounded-2xl border border-gray-800 transition-all duration-500"
+                initial={{ opacity: 0, y: isMobile ? 20 : 40 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: isMobile ? 0.3 : 0.6, delay: isMobile ? 0.05 * index : 0.1 + index * 0.1, ease: "easeOut" }}
+                className="text-center p-6 md:p-10 rounded-2xl border border-gray-800 md:hover:border-gray-600 md:hover:scale-[1.02] transition-all duration-300"
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6" style={{ background: `${FLAT_BLUE}20`, color: FLAT_BLUE }}>
+                <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full mb-4 md:mb-6" style={{ background: `${FLAT_BLUE}20`, color: FLAT_BLUE }}>
                   {result.icon}
                 </div>
                 <div 
-                  className="text-2xl md:text-3xl font-black mb-2"
+                  className="text-xl md:text-3xl font-black mb-2"
                   style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: FLAT_BEIGE }}
                 >
                   {result.metric}
                 </div>
-                <div className="text-xs uppercase tracking-wider mb-3" style={{ color: FLAT_BLUE }}>
+                <div className="text-[10px] md:text-xs uppercase tracking-wider mb-2 md:mb-3" style={{ color: FLAT_BLUE }}>
                   {result.label}
                 </div>
-                <p className="text-gray-400 text-sm">{result.desc}</p>
+                <p className="text-gray-400 text-xs md:text-sm">{result.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -961,32 +943,35 @@ function ResultsSection() {
 // CTA Section
 function CTASection() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isMobile = useIsMobile();
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
   
   return (
-    <section ref={ref} className="py-32 md:py-48 overflow-hidden relative" style={{ background: FLAT_BLUE }}>
-      {/* Background pattern */}
-      <div 
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, ${OFF_WHITE} 1px, transparent 0)`,
-          backgroundSize: "40px 40px"
-        }}
-      />
+    <section ref={ref} className="py-20 md:py-48 overflow-hidden relative" style={{ background: FLAT_BLUE }}>
+      {/* Background pattern - hidden on mobile */}
+      {!isMobile && (
+        <div 
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `radial-gradient(circle at 2px 2px, ${OFF_WHITE} 1px, transparent 0)`,
+            backgroundSize: "40px 40px"
+          }}
+        />
+      )}
       
       <div className="container mx-auto px-6 md:px-8 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: isMobile ? 20 : 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: isMobile ? 0.5 : 0.8, ease: "easeOut" }}
           >
-            <div className="w-[100px] h-[100px] md:w-[120px] md:h-[120px] mx-auto mb-8 flex items-center justify-center">
+            <div className="w-[80px] h-[80px] md:w-[120px] md:h-[120px] mx-auto mb-6 md:mb-8 flex items-center justify-center">
               <FlatBurgerLogo color={OFF_WHITE} className="w-full h-full" />
             </div>
             
             <h2 
-              className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-[0.95]"
+              className="text-3xl md:text-6xl lg:text-7xl font-black mb-4 md:mb-6 leading-[0.95]"
               style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: OFF_WHITE }}
             >
               Ready to build
@@ -994,29 +979,25 @@ function CTASection() {
               your brand?
             </h2>
             
-            <p className="text-xl md:text-2xl mb-10 opacity-70" style={{ color: FLAT_BEIGE }}>
+            <p className="text-base md:text-2xl mb-8 md:mb-10 opacity-70" style={{ color: FLAT_BEIGE }}>
               Let's create an identity that dominates the streets.
             </p>
             
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-              <Link
-                to="/book"
-                className="inline-flex items-center gap-3 px-10 py-5 text-lg font-bold uppercase tracking-wider rounded-full transition-colors shadow-xl"
-                style={{ background: OFF_WHITE, color: FLAT_BLUE }}
+            <Link
+              to="/book"
+              className="inline-flex items-center gap-2 md:gap-3 px-8 md:px-10 py-4 md:py-5 text-base md:text-lg font-bold uppercase tracking-wider rounded-full shadow-xl active:scale-95 md:hover:scale-[1.03] transition-transform duration-200"
+              style={{ background: OFF_WHITE, color: FLAT_BLUE }}
+            >
+              <span>Start Your Project</span>
+              <svg 
+                className="w-4 h-4 md:w-5 md:h-5" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
               >
-                <span>Start Your Project</span>
-                <motion.svg 
-                  className="w-5 h-5" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                  animate={{ x: [0, 4, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </motion.svg>
-              </Link>
-            </motion.div>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
           </motion.div>
         </div>
       </div>
@@ -1026,12 +1007,16 @@ function CTASection() {
 
 // Main component
 export default function FlatBurger() {
+  const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+  const scaleX = useSpring(scrollYProgress, { 
+    stiffness: isMobile ? 200 : 100, 
+    damping: isMobile ? 50 : 30 
+  });
   
   return (
     <div className="min-h-screen overflow-x-hidden" style={{ background: DARK_BG }}>
-      {/* Scroll progress */}
+      {/* Scroll progress - simplified on mobile */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-[2px] z-50 origin-left"
         style={{ scaleX, background: `linear-gradient(90deg, ${FLAT_BLUE}, ${FLAT_BEIGE})` }}
