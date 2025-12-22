@@ -34,18 +34,17 @@ function FlatBurgerLogo({
   className?: string;
   color?: string;
 }) {
-  // SVG viewBox calculated from path bounds:
-  // Top Bun: translate(100, 97) with path ranging ~(-52, 365) x (0, 97) = actual (48-465, 97-194)
-  // Wavy Patty: translate(89, 214) with path ranging ~(-42, 375) x (-6, 59) = actual (47-464, 208-273)  
-  // Middle Line: translate(65, 288) with path ranging ~(-17, 400) x (0, 33) = actual (48-465, 288-321)
-  // Bottom Bun: translate(100, 337) with path ranging ~(-52, 365) x (0, 97) = actual (48-465, 337-434)
-  // Total bounds: ~(47-465, 97-434) = width 418, height 337
-  // Using viewBox with padding for clean display
+  // SVG paths use transforms to position each element:
+  // - Top Bun at ~(48-465, 97-194)
+  // - Wavy Patty at ~(47-464, 208-273)
+  // - Middle Line at ~(48-465, 288-321)  
+  // - Bottom Bun at ~(48-465, 337-434)
+  // Using generous viewBox "0 0 512 512" to ensure full logo visibility
   return (
     <svg
       width={className ? "100%" : size}
       height={className ? "100%" : size}
-      viewBox="10 60 492 420"
+      viewBox="0 0 512 512"
       className={`block ${className}`}
       preserveAspectRatio="xMidYMid meet"
       fill="none"
