@@ -175,8 +175,9 @@ function UrbanHero() {
                     className="text-[18vw] md:text-[14vw] lg:text-[10vw] xl:text-[9vw] font-black leading-[0.82] tracking-[-0.04em] cursor-default"
                     style={{
                       fontFamily: '"Bricolage Grotesque", sans-serif',
-                      WebkitTextStroke: `3px ${FLAT_BLUE}`,
+                      WebkitTextStroke: `2px ${FLAT_BLUE}`,
                       WebkitTextFillColor: "transparent",
+                      paintOrder: "stroke fill",
                     }}
                   >
                     BURGER
