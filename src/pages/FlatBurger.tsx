@@ -35,11 +35,12 @@ function FlatBurgerLogo({
   color?: string;
 }) {
   // Flat Burger logo - exact SVG from brand file
+  // Content bounds: X(48-465), Y(96-433) - cropped viewBox for better visibility
   return (
     <svg
       width={className ? "100%" : size}
       height={className ? "100%" : size}
-      viewBox="0 0 512 512"
+      viewBox="40 88 432 352"
       className={`block ${className}`}
       preserveAspectRatio="xMidYMid meet"
     >
