@@ -35,12 +35,11 @@ function FlatBurgerLogo({
   color?: string;
 }) {
   // Flat Burger logo - exact SVG from brand file
-  // Content bounds: X(48-465), Y(96-433) - cropped viewBox for better visibility
   return (
     <svg
       width={className ? "100%" : size}
       height={className ? "100%" : size}
-      viewBox="40 88 432 352"
+      viewBox="0 0 512 512"
       className={`block ${className}`}
       preserveAspectRatio="xMidYMid meet"
     >
@@ -188,7 +187,7 @@ function UrbanHero() {
               >
                 {/* Glow effect behind logo */}
                 <div 
-                  className="absolute w-[140px] h-[140px] md:w-[200px] md:h-[200px] lg:w-[300px] lg:h-[300px] rounded-full blur-[40px] md:blur-[60px] opacity-30 md:opacity-40"
+                  className="absolute w-[180px] h-[180px] md:w-[280px] md:h-[280px] lg:w-[400px] lg:h-[400px] rounded-full blur-[40px] md:blur-[80px] opacity-30 md:opacity-40"
                   style={{ background: FLAT_BLUE }}
                 />
                 <motion.div
@@ -197,7 +196,7 @@ function UrbanHero() {
                     rotate: [-2, 2, -2],
                   } : undefined}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  className="relative z-10 w-[140px] h-[140px] md:w-[200px] md:h-[200px] lg:w-[300px] lg:h-[300px] flex items-center justify-center"
+                  className="relative z-10 w-[180px] h-[180px] md:w-[280px] md:h-[280px] lg:w-[400px] lg:h-[400px] flex items-center justify-center"
                   style={{ 
                     filter: isMobile 
                       ? `drop-shadow(0 0 20px ${FLAT_BLUE}60)` 
@@ -443,7 +442,7 @@ function LogoShowcase() {
                   className="aspect-square rounded-2xl md:rounded-3xl p-4 md:p-8 flex flex-col items-center justify-center shadow-lg md:hover:scale-[1.02] md:hover:-translate-y-1 transition-transform duration-300"
                   style={{ background: variant.bg }}
                 >
-                  <div className="mb-3 md:mb-4 w-[60px] h-[60px] md:w-[90px] md:h-[90px] flex items-center justify-center">
+                  <div className="mb-3 md:mb-4 w-[80px] h-[80px] md:w-[120px] md:h-[120px] flex items-center justify-center">
                     <FlatBurgerLogo color={variant.logoColor} className="w-full h-full" />
                   </div>
                   
@@ -647,7 +646,7 @@ function ColorTypography() {
                   >
                     Aa
                   </div>
-                  <div className="w-[40px] h-[40px] md:w-[70px] md:h-[70px] flex items-center justify-center">
+                  <div className="w-[60px] h-[60px] md:w-[100px] md:h-[100px] flex items-center justify-center">
                     <FlatBurgerLogo color={FLAT_BLUE} className="w-full h-full" />
                   </div>
                 </div>
@@ -681,7 +680,7 @@ function ColorTypography() {
                   >
                     Aa
                   </div>
-                  <div className="w-[40px] h-[40px] md:w-[70px] md:h-[70px] flex items-center justify-center">
+                  <div className="w-[60px] h-[60px] md:w-[100px] md:h-[100px] flex items-center justify-center">
                     <FlatBurgerLogo color={OFF_WHITE} className="w-full h-full" />
                   </div>
                 </div>
@@ -960,7 +959,7 @@ function CTASection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: isMobile ? 0.5 : 0.8, ease: "easeOut" }}
           >
-            <div className="w-[80px] h-[80px] md:w-[120px] md:h-[120px] mx-auto mb-6 md:mb-8 flex items-center justify-center">
+            <div className="w-[100px] h-[100px] md:w-[160px] md:h-[160px] mx-auto mb-6 md:mb-8 flex items-center justify-center">
               <FlatBurgerLogo color={OFF_WHITE} className="w-full h-full" />
             </div>
             
