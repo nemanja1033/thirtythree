@@ -36,12 +36,12 @@ function FlatBurgerLogo({
 }) {
   // Simplified Flat Burger logo matching the brand design
   // Using stroke-based rendering for consistent visibility at all sizes
-  // Wider aspect ratio (120x100) to match original stretched look
+  // Wider aspect ratio to match original stretched look
   return (
     <svg
       width={className ? "100%" : size}
       height={className ? "100%" : size}
-      viewBox="0 0 120 100"
+      viewBox="0 0 110 100"
       className={`block ${className}`}
       preserveAspectRatio="xMidYMid meet"
       fill="none"
@@ -51,13 +51,13 @@ function FlatBurgerLogo({
       strokeLinejoin="round"
     >
       {/* Top Bun - rounded rectangle outline */}
-      <rect x="10" y="8" width="100" height="18" rx="9" />
-      {/* Wavy Patty - more spacing from top bun */}
-      <path d="M10 44 Q25 32, 40 44 Q55 56, 60 44 Q65 32, 80 44 Q95 56, 110 44" />
+      <rect x="8" y="8" width="94" height="18" rx="9" />
+      {/* Wavy Patty - matching original wave pattern */}
+      <path d="M8 45 Q20 33, 32 45 Q44 57, 55 45 Q66 33, 78 45 Q90 57, 102 45" />
       {/* Middle Line */}
-      <line x1="10" y1="62" x2="110" y2="62" />
+      <line x1="8" y1="62" x2="102" y2="62" />
       {/* Bottom Bun - rounded rectangle outline */}
-      <rect x="10" y="74" width="100" height="18" rx="9" />
+      <rect x="8" y="74" width="94" height="18" rx="9" />
     </svg>
   );
 }
