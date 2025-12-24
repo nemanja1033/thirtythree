@@ -50,13 +50,13 @@ function FlatBurgerLogo({
       strokeLinejoin="round"
     >
       {/* Top Bun - rounded rectangle outline */}
-      <rect x="12" y="12" width="76" height="18" rx="9" />
+      <rect x="12" y="10" width="76" height="18" rx="9" />
       {/* Wavy Patty */}
-      <path d="M12 45 Q22 35, 32 45 Q42 55, 50 45 Q58 35, 68 45 Q78 55, 88 45" />
+      <path d="M12 42 Q22 32, 32 42 Q42 52, 50 42 Q58 32, 68 42 Q78 52, 88 42" />
       {/* Middle Line */}
-      <line x1="12" y1="62" x2="88" y2="62" />
+      <line x1="12" y1="58" x2="88" y2="58" />
       {/* Bottom Bun - rounded rectangle outline */}
-      <rect x="12" y="70" width="76" height="18" rx="9" />
+      <rect x="12" y="72" width="76" height="18" rx="9" />
     </svg>
   );
 }
