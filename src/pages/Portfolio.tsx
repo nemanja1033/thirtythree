@@ -33,7 +33,7 @@ const projects: Project[] = [
     color: "#1c33c3",
     year: "2024",
     client: "Flat Burger",
-    link: "/portfolio/flat-burger",
+    link: "/portfolio/flatburger",
   },
 ];
 
