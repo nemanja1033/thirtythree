@@ -16,43 +16,30 @@
     </pattern>
   </defs>
 
-  <rect width="1200" height="800" fill="url(#bg)"/>
+  <rect width="1200" height="800" fill="#feebcb"/>
   <rect width="1200" height="800" fill="url(#grid)"/>
   <rect x="0" y="0" width="1200" height="800" fill="url(#dots)"/>
 
-  <g opacity="0.9">
-    <rect x="70" y="70" width="200" height="42" rx="21" fill="#1c33c3"/>
-    <text x="95" y="99" font-family="Bricolage Grotesque, Space Grotesk, sans-serif" font-size="18" fill="#f8f8f8" letter-spacing="3">BRAND BUILDING</text>
+  <g transform="translate(120 340)">
+    <g transform="translate(0 -40)">
+      <rect x="0" y="0" width="120" height="120" rx="18" fill="#1c33c3"/>
+      <g transform="translate(18 28)" stroke="#feebcb" stroke-width="8" stroke-linecap="round">
+        <path d="M10 12h72"/>
+        <path d="M6 36c10 14 68 14 78 0"/>
+        <path d="M10 64h72"/>
+        <path d="M14 88c18 10 54 10 72 0"/>
+      </g>
+    </g>
+    <text x="150" y="52" font-family="Bricolage Grotesque, Space Grotesk, sans-serif" font-size="120" fill="#1c33c3" font-weight="900" letter-spacing="4">FLAT BURGER</text>
   </g>
 
-  <g transform="translate(860 70)">
-    <circle cx="70" cy="70" r="62" fill="none" stroke="#f8f8f8" stroke-opacity="0.2" stroke-width="2"/>
-    <text x="70" y="80" text-anchor="middle" font-family="Bricolage Grotesque, Space Grotesk, sans-serif" font-size="22" fill="#f8f8f8" letter-spacing="2">2024</text>
+  <g transform="translate(120 520)">
+    <rect x="0" y="0" width="640" height="14" fill="#1c33c3"/>
+    <rect x="0" y="28" width="420" height="4" fill="#1c33c3" opacity="0.25"/>
   </g>
 
-  <g transform="translate(120 210)">
-    <text x="0" y="0" font-family="Bricolage Grotesque, Space Grotesk, sans-serif" font-size="110" fill="#f8f8f8" font-weight="800" letter-spacing="6">FLAT</text>
-    <text x="0" y="135" font-family="Bricolage Grotesque, Space Grotesk, sans-serif" font-size="150" fill="url(#accent)" font-weight="900" letter-spacing="6">BURGER</text>
-    <text x="0" y="185" font-family="Space Grotesk, sans-serif" font-size="24" fill="#f8f8f8" opacity="0.7" letter-spacing="8">STREET EDITION</text>
-  </g>
-
-  <g transform="translate(120 470)" fill="#f8f8f8" opacity="0.8">
-    <text x="0" y="0" font-family="Space Grotesk, sans-serif" font-size="20" letter-spacing="6">BELGRADE STREET FOOD</text>
-    <rect x="0" y="18" width="420" height="4" fill="#f8f8f8" opacity="0.2"/>
-  </g>
-
-  <g transform="translate(120 540)" fill="#f8f8f8" opacity="0.7">
-    <text x="0" y="0" font-family="Space Grotesk, sans-serif" font-size="18">Identity / Visual Direction / Social Content</text>
-  </g>
-
-  <g transform="translate(120 640)">
-    <rect x="0" y="0" width="560" height="10" fill="url(#accent)"/>
-    <rect x="0" y="24" width="380" height="3" fill="#f8f8f8" opacity="0.3"/>
-    <rect x="0" y="34" width="300" height="3" fill="#f8f8f8" opacity="0.2"/>
-  </g>
-
-  <g opacity="0.18">
-    <path d="M910 240l170 70-70 170-170-70z" fill="#1c33c3"/>
-    <path d="M760 600l200 -50 50 200 -200 50z" fill="#2b48ff"/>
+  <g opacity="0.2">
+    <path d="M900 190l190 80-80 190-190-80z" fill="#1c33c3"/>
+    <path d="M760 600l220 -60 60 220 -220 60z" fill="#2b48ff"/>
   </g>
 </svg>
