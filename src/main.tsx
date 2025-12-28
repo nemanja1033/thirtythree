@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import App from "./App";
 import BookCall from "./pages/BookCall";
 import Discover from "./pages/Discover";
@@ -17,12 +18,19 @@ import ScrollToTop from "./components/ScrollToTop";
 import "./index.css";
 import { I18nProvider } from "./i18n/I18nProvider";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <I18nProvider>
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
+function RouteTransitions() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={location.pathname}
+        initial={{ opacity: 0, y: 14, scale: 0.985 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: -10, scale: 0.99 }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <Routes location={location}>
           <Route path="/" element={<App />} />
           <Route path="/book" element={<BookCall />} />
           <Route path="/discover" element={<Discover />} />
@@ -36,6 +44,17 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/portfolio/flatburger" element={<FlatBurger />} />
         </Routes>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <I18nProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <RouteTransitions />
       </BrowserRouter>
     </I18nProvider>
   </React.StrictMode>,

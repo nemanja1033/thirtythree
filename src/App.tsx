@@ -69,13 +69,25 @@ const ChatIcon = () => (
 );
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => {
+    if (typeof window === "undefined") return true;
+    try {
+      return localStorage.getItem("tt_preloader_seen") !== "true";
+    } catch {
+      return true;
+    }
+  });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isMobile, setIsMobile] = useState(false);
   const { t } = useI18n();
 
   const handlePreloaderComplete = () => {
     setIsLoading(false);
+    try {
+      localStorage.setItem("tt_preloader_seen", "true");
+    } catch {
+      // Ignore storage errors (e.g. private mode)
+    }
   };
 
   const heroRef = useRef<HTMLElement>(null);
