@@ -187,7 +187,7 @@ function App() {
       {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
 
       <div className="min-h-screen bg-white text-gray-900 overflow-x-hidden">
-        {!isMobile && <AnimatedBackground />}
+        <AnimatedBackground />
         <ScrollProgress />
 
         {!isMobile && (

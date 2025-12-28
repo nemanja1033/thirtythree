@@ -13,7 +13,16 @@ export default function AnimatedBackground() {
   if (isMobile) {
     return (
       <div className="fixed inset-0 pointer-events-none -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-amber-50/10" />
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+              radial-gradient(circle at 18% 22%, rgba(245, 158, 11, 0.18), transparent 55%),
+              radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.12), transparent 60%),
+              linear-gradient(135deg, #f8fafc 0%, #ffffff 45%, #fff7ed 100%)
+            `,
+          }}
+        />
       </div>
     );
   }
