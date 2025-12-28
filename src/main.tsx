@@ -13,6 +13,7 @@ import GrowthStrategy from "./pages/GrowthStrategy";
 import FAQ from "./pages/FAQ";
 import Portfolio from "./pages/Portfolio";
 import FlatBurger from "./pages/FlatBurger";
+import ScrollToTop from "./components/ScrollToTop";
 import "./index.css";
 import { I18nProvider } from "./i18n/I18nProvider";
 
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <I18nProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/book" element={<BookCall />} />
