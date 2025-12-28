@@ -27,7 +27,7 @@ const projects: Project[] = [
     category: "Brand Building",
     description: "Complete brand transformation for Belgrade's newest street food sensation. From concept to launch, we built an identity that captures the essence of Belgrade's nightlife culture.",
     tags: ["Branding", "Identity", "Content Creation", "Video Editing"],
-    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200&q=90",
+    image: "/images/flatburger-featured.svg",
     featured: true,
     gradient: "from-blue-600 to-blue-800",
     color: "#1c33c3",
@@ -873,5 +873,4 @@ export default function Portfolio() {
     </div>
   );
 }
-
 
