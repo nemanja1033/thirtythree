@@ -83,14 +83,17 @@ export default async function handler(req: any, res: any) {
   }
 
   const RESEND_API_KEY = process.env.RESEND_API_KEY;
-  const TO = process.env.BOOK_A_CALL_TO || process.env.RECIPIENT_EMAIL;
+  const TO =
+    process.env.BOOK_A_CALL_TO ||
+    process.env.RECIPIENT_EMAIL ||
+    "thirtythree.office@gmail.com";
   const FROM = process.env.BOOK_A_CALL_FROM || "website@notifications.local";
 
   if (!RESEND_API_KEY || !TO || !FROM) {
     res.status(503).json({
       ok: false,
       error:
-        "Email service temporarily unavailable. Please contact us directly at blyze33@gmail.com.",
+        "Email service temporarily unavailable. Please contact us directly at thirtythree.office@gmail.com.",
     });
     return;
   }
@@ -133,7 +136,7 @@ export default async function handler(req: any, res: any) {
       res.status(502).json({
         ok: false,
         error:
-          "Submission didn’t go through. Please try again later or email us directly at blyze33@gmail.com.",
+          "Submission didn’t go through. Please try again later or email us directly at thirtythree.office@gmail.com.",
         details: errText,
       });
       return;
@@ -144,7 +147,7 @@ export default async function handler(req: any, res: any) {
     res.status(500).json({
       ok: false,
       error:
-        "Submission didn’t go through. Please try again later or email us directly at blyze33@gmail.com.",
+        "Submission didn’t go through. Please try again later or email us directly at thirtythree.office@gmail.com.",
       details: e?.message,
     });
   }

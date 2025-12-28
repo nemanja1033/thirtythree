@@ -17,11 +17,7 @@ const schema = z.object({
 });
 
 function checkEnv() {
-  const required = [
-    "RESEND_API_KEY",
-    "BOOK_A_CALL_FROM",
-    "BOOK_A_CALL_TO",
-  ] as const;
+  const required = ["RESEND_API_KEY", "BOOK_A_CALL_FROM"] as const;
   const present: Record<string, boolean> = {};
   const missing: string[] = [];
   for (const k of required) {
@@ -73,7 +69,7 @@ export default async function handler(req: any, res: any) {
   store.hits!.set(ip, [...recent, now]);
 
   const RESEND_API_KEY = process.env.RESEND_API_KEY;
-  const TO = process.env.BOOK_A_CALL_TO;
+  const TO = process.env.BOOK_A_CALL_TO || "thirtythree.office@gmail.com";
   const FROM = process.env.BOOK_A_CALL_FROM; // must be verified on Resend
   const envProbe = checkEnv();
   if (envProbe.missing.length) {

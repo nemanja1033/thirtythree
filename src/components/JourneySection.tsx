@@ -482,8 +482,8 @@ export default function JourneySection() {
                       </Link>
                     </motion.div>
 
-                    <a href="mailto:hello@thirtythree.rs" className="text-gray-500 hover:text-white transition-colors duration-400 text-sm">
-                      hello@thirtythree.rs
+                    <a href="mailto:thirtythree.office@gmail.com" className="text-gray-500 hover:text-white transition-colors duration-400 text-sm">
+                      thirtythree.office@gmail.com
                     </a>
                   </div>
 
