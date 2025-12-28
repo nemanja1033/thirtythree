@@ -53,7 +53,7 @@ function responsiveHeight(): number {
 
 export default function CalendlyInline({ url, minHeightBase }: Props) {
   const hostRef = useRef<HTMLDivElement | null>(null);
-  const calendlyUrl = `${url?.trim() || "https://calendly.com/nemanja3975439/30min"}?hide_event_type_details=1&hide_gdpr_banner=1`;
+  const calendlyUrl = `${url?.trim() || "https://calendly.com/thirtythree-office/30min"}?hide_event_type_details=1&hide_gdpr_banner=1`;
 
   useEffect(() => {
     let resizeHandler: (() => void) | null = null;
@@ -105,7 +105,7 @@ export default function CalendlyInline({ url, minHeightBase }: Props) {
         <p>Please enable JavaScript to book a call.</p>
         <p>
           <a
-            href="https://calendly.com/nemanja3975439/30min"
+            href="https://calendly.com/thirtythree-office/30min"
             target="_blank"
             rel="noopener"
           >
