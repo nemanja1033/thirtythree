@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import App from "./App";
 import BookCall from "./pages/BookCall";
 import Discover from "./pages/Discover";
@@ -14,21 +14,28 @@ import GrowthStrategy from "./pages/GrowthStrategy";
 import FAQ from "./pages/FAQ";
 import Portfolio from "./pages/Portfolio";
 import FlatBurger from "./pages/FlatBurger";
+import Zonex from "./pages/Zonex";
 import ScrollToTop from "./components/ScrollToTop";
 import "./index.css";
 import { I18nProvider } from "./i18n/I18nProvider";
 
 function RouteTransitions() {
   const location = useLocation();
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <AnimatePresence mode="wait">
       <motion.div
         key={location.pathname}
-        initial={{ opacity: 0, y: 14, scale: 0.985 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: -10, scale: 0.99 }}
-        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        initial={
+          shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 14, scale: 0.985 }
+        }
+        animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
+        exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -10, scale: 0.99 }}
+        transition={{
+          duration: shouldReduceMotion ? 0.1 : 0.35,
+          ease: [0.16, 1, 0.3, 1],
+        }}
       >
         <Routes location={location}>
           <Route path="/" element={<App />} />
@@ -43,6 +50,7 @@ function RouteTransitions() {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/portfolio/flatburger" element={<FlatBurger />} />
+          <Route path="/portfolio/zonex" element={<Zonex />} />
         </Routes>
       </motion.div>
     </AnimatePresence>

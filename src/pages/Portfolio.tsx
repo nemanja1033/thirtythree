@@ -35,9 +35,23 @@ const projects: Project[] = [
     client: "Flat Burger",
     link: "/portfolio/flatburger",
   },
+  {
+    id: 1,
+    title: "Zonex Inženjering",
+    category: "Engineering",
+    description: "High-standard engineering for retail and hospitality spaces with controlled scope, quality, and predictable delivery.",
+    tags: ["Web Experience", "Visual System", "Motion Direction"],
+    image: "/images/zonex-featured.svg",
+    featured: false,
+    gradient: "from-slate-700 to-slate-900",
+    color: "#111827",
+    year: "2024",
+    client: "Zonex Inženjering",
+    link: "/portfolio/zonex",
+  },
 ];
 
-const categories = ["All", "Brand Building"];
+const categories = ["All", "Brand Building", "Engineering"];
 
 // Optimized floating particles - reduced count and simplified animations
 function FloatingParticles({ count = 10 }: { count?: number }) {
@@ -873,4 +887,3 @@ export default function Portfolio() {
     </div>
   );
 }
-

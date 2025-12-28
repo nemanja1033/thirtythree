@@ -996,21 +996,42 @@ function CTASection() {
               {t("flatburger.ctaDesc")}
             </p>
             
-            <Link
-              to="/book"
-              className="inline-flex items-center gap-2 md:gap-3 px-8 md:px-10 py-4 md:py-5 text-base md:text-lg font-bold uppercase tracking-wider rounded-full shadow-xl active:scale-95 md:hover:scale-[1.03] transition-transform duration-200"
-              style={{ background: OFF_WHITE, color: FLAT_BLUE }}
-            >
-              <span>{t("flatburger.startProject")}</span>
-              <svg 
-                className="w-4 h-4 md:w-5 md:h-5" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                to="/book"
+                className="inline-flex items-center gap-2 md:gap-3 px-8 md:px-10 py-4 md:py-5 text-base md:text-lg font-bold uppercase tracking-wider rounded-full shadow-xl active:scale-95 md:hover:scale-[1.03] transition-transform duration-200"
+                style={{ background: OFF_WHITE, color: FLAT_BLUE }}
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
+                <span>{t("flatburger.startProject")}</span>
+                <svg 
+                  className="w-4 h-4 md:w-5 md:h-5" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+              <a
+                href="https://flatburger.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 md:gap-3 px-8 md:px-10 py-4 md:py-5 text-base md:text-lg font-bold uppercase tracking-wider rounded-full border active:scale-95 md:hover:scale-[1.03] transition-transform duration-200"
+                style={{ borderColor: OFF_WHITE, color: OFF_WHITE }}
+              >
+                <span>{t("flatburger.viewWebsite")}</span>
+                <svg
+                  className="w-4 h-4 md:w-5 md:h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 3h6v6" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14L21 3" />
+                </svg>
+              </a>
+            </div>
           </motion.div>
         </div>
       </div>
