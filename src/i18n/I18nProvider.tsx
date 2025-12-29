@@ -383,7 +383,7 @@ const dictEn: Dict = {
   "portfolio.viewProject": "View project",
   "studio.concept": "Studio concept",
   "ember.story":
-    "EMBER is built around ritual and warmth. A contemporary coffee house designed for slow moments and tactile materials. The identity and digital experience translate that atmosphere into calm, grounded systems.",
+    "EMBER is built for the quiet minutes before the rush. A place where coffee is slow, warm, and intentional. Every detail is designed to feel grounded, tactile, and human.",
   "ember.scope": "Brand identity, visual system, and digital experience.",
   "norma.story":
     "STUDIO NORMA works at the intersection of architecture and spatial thinking. The identity removes decoration in favor of proportion, grid, and clarity. The website behaves like a curated portfolio wall—quiet and precise.",
@@ -833,7 +833,7 @@ const dictSr: Dict = {
   "portfolio.viewProject": "Pogledaj projekat",
   "studio.concept": "Studio koncept",
   "ember.story":
-    "EMBER je građen oko rituala i topline. Savremeni coffee house za spore trenutke i taktilne materijale. Identitet i digitalno iskustvo prenose tu atmosferu u miran, prizemljen sistem.",
+    "EMBER je za tihe minute pre gužve. Mesto gde je kafa spora, topla i namerna. Svaki detalj je osmišljen da bude prizemljen, taktilan i ljudski.",
   "ember.scope": "Brend identitet, vizuelni sistem i digitalno iskustvo.",
   "norma.story":
     "STUDIO NORMA radi na preseku arhitekture i prostornog dizajna. Identitet uklanja dekoraciju u korist proporcije, grida i jasnoće. Sajt funkcioniše kao kuriran portfolio—tih i precizan.",
