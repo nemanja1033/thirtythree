@@ -4,64 +4,37 @@ import { useI18n } from "../i18n/I18nProvider";
 
 interface Testimonial {
   id: number;
-  nameKey: string;
   roleKey: string;
-  companyKey: string;
+  projectKey: string;
   quoteKey: string;
-  avatar: string;
-  rating: number;
 }
 
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    nameKey: "testimonials.1.name",
     roleKey: "testimonials.1.role",
-    companyKey: "testimonials.1.company",
+    projectKey: "testimonials.1.project",
     quoteKey: "testimonials.1.quote",
-    avatar: "M",
-    rating: 5,
   },
   {
     id: 2,
-    nameKey: "testimonials.2.name",
     roleKey: "testimonials.2.role",
-    companyKey: "testimonials.2.company",
+    projectKey: "testimonials.2.project",
     quoteKey: "testimonials.2.quote",
-    avatar: "S",
-    rating: 5,
   },
   {
     id: 3,
-    nameKey: "testimonials.3.name",
     roleKey: "testimonials.3.role",
-    companyKey: "testimonials.3.company",
+    projectKey: "testimonials.3.project",
     quoteKey: "testimonials.3.quote",
-    avatar: "A",
-    rating: 5,
   },
   {
     id: 4,
-    nameKey: "testimonials.4.name",
     roleKey: "testimonials.4.role",
-    companyKey: "testimonials.4.company",
+    projectKey: "testimonials.4.project",
     quoteKey: "testimonials.4.quote",
-    avatar: "N",
-    rating: 5,
   },
 ];
-
-function StarIcon({ filled }: { filled: boolean }) {
-  return (
-    <svg
-      className={`w-4 h-4 ${filled ? "text-amber-400" : "text-gray-300"}`}
-      fill="currentColor"
-      viewBox="0 0 20 20"
-    >
-      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-    </svg>
-  );
-}
 
 function TestimonialCard({ testimonial, index, isMobile, t }: { testimonial: Testimonial; index: number; isMobile: boolean; t: (key: string) => string }) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -91,15 +64,6 @@ function TestimonialCard({ testimonial, index, isMobile, t }: { testimonial: Tes
           </svg>
         </div>
 
-        {/* Stars */}
-        <div className="flex gap-1 mb-4">
-          {[...Array(5)].map((_, i) => (
-            <div key={i}>
-              <StarIcon filled={i < testimonial.rating} />
-            </div>
-          ))}
-        </div>
-
         {/* Quote */}
         <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-6 relative z-10">
           "{t(testimonial.quoteKey)}"
@@ -107,14 +71,9 @@ function TestimonialCard({ testimonial, index, isMobile, t }: { testimonial: Tes
 
         {/* Author */}
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white font-bold text-lg shadow-lg">
-            {testimonial.avatar}
-          </div>
           <div>
-            <h4 className="font-semibold text-gray-900">{t(testimonial.nameKey)}</h4>
-            <p className="text-sm text-gray-500">
-              {t(testimonial.roleKey)} · {t(testimonial.companyKey)}
-            </p>
+            <h4 className="font-semibold text-gray-900">{t(testimonial.projectKey)}</h4>
+            <p className="text-sm text-gray-500">{t(testimonial.roleKey)}</p>
           </div>
         </div>
       </div>
@@ -210,4 +169,3 @@ export default function TestimonialsSection() {
     </section>
   );
 }
-
