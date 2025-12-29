@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import BackToHome from "../components/BackToHome";
 import MagneticButton from "../components/MagneticButton";
+import { useI18n } from "../i18n/I18nProvider";
 
 interface Project {
   id: number;
@@ -18,6 +19,9 @@ interface Project {
   color: string;
   year: string;
   client: string;
+  imageFit?: "cover" | "contain";
+  imageBg?: string;
+  imageOverlayClass?: string;
 }
 
 const projects: Project[] = [
@@ -34,6 +38,9 @@ const projects: Project[] = [
     year: "2024",
     client: "Flat Burger",
     link: "/portfolio/flatburger",
+    imageFit: "contain",
+    imageBg: "#feebcb",
+    imageOverlayClass: "from-black/35 via-black/10 to-transparent",
   },
   {
     id: 1,
@@ -48,6 +55,9 @@ const projects: Project[] = [
     year: "2024",
     client: "Zonex Inženjering",
     link: "/portfolio/zonex",
+    imageFit: "contain",
+    imageBg: "#0b1220",
+    imageOverlayClass: "from-black/50 via-black/20 to-transparent",
   },
 ];
 
@@ -144,6 +154,7 @@ function ProjectCard3D({
   featured: boolean;
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const { t } = useI18n();
   const isInView = useInView(cardRef, { once: true, margin: "-100px" });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
@@ -256,7 +267,10 @@ function ProjectCard3D({
         />
 
         {/* Image container with parallax */}
-        <div className="relative h-64 md:h-96 overflow-hidden">
+        <div
+          className="relative h-64 md:h-96 overflow-hidden"
+          style={project.imageBg ? { background: project.imageBg } : undefined}
+        >
           <motion.div
             style={
               !isMobile && isHovering
@@ -272,7 +286,7 @@ function ProjectCard3D({
             <motion.img
               src={project.image}
               alt={project.title}
-              className="w-full h-full object-cover will-change-transform"
+              className={`w-full h-full ${project.imageFit === "contain" ? "object-contain" : "object-cover"} will-change-transform`}
               loading="lazy"
               whileHover={{ scale: 1.03 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
@@ -280,7 +294,11 @@ function ProjectCard3D({
           </motion.div>
 
           {/* Simplified gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent group-hover:from-black/70 transition-opacity duration-300" />
+          <div
+            className={`absolute inset-0 bg-gradient-to-t ${
+              project.imageOverlayClass ?? "from-black/80 via-black/40 to-transparent"
+            } group-hover:from-black/70 transition-opacity duration-300`}
+          />
 
           {/* Floating category badge */}
           <motion.div
@@ -403,7 +421,7 @@ function ProjectCard3D({
                 backgroundImage: isHovering ? `linear-gradient(135deg, ${project.color}, ${project.color}CC)` : undefined,
               }}
             >
-              View Project
+              {t("portfolio.viewProject")}
             </motion.span>
             <motion.svg
               className="w-5 h-5 text-gray-700"

@@ -380,6 +380,8 @@ const dictEn: Dict = {
   "flatburger.startProject": "Start Your Project",
   "flatburger.viewWebsite": "View website",
 
+  "portfolio.viewProject": "View project",
+
   "zonex.caseStudy": "Case Study",
   "zonex.heroTitle": "ZONEX INŽENJERING",
   "zonex.heroDesc":
@@ -804,6 +806,8 @@ const dictSr: Dict = {
   "flatburger.ctaDesc": "Hajde da kreiramo identitet koji dominira ulicama.",
   "flatburger.startProject": "Započni Projekat",
   "flatburger.viewWebsite": "Pogledaj sajt",
+
+  "portfolio.viewProject": "Pogledaj projekat",
 
   "zonex.caseStudy": "Studija slučaja",
   "zonex.heroTitle": "ZONEX INŽENJERING",
