@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="SIGNAL WORKS studio concept">
+  <rect width="1200" height="800" fill="#0b1220"/>
+  <rect x="80" y="120" width="1040" height="560" rx="36" fill="#0f172a" stroke="#22304a" stroke-width="2"/>
+  <rect x="120" y="160" width="960" height="40" rx="20" fill="#101c33"/>
+  <rect x="140" y="172" width="10" height="10" rx="5" fill="#94a3b8"/>
+  <rect x="160" y="172" width="10" height="10" rx="5" fill="#64748b"/>
+  <rect x="180" y="172" width="10" height="10" rx="5" fill="#475569"/>
+  <rect x="220" y="168" width="200" height="16" rx="8" fill="#1f2a44"/>
+  <text x="180" y="320" font-family="Bricolage Grotesque, Space Grotesk, sans-serif" font-size="72" font-weight="700" fill="#f8fafc" letter-spacing="6">SIGNAL WORKS</text>
+  <rect x="180" y="350" width="360" height="10" rx="5" fill="#cbd5f5" opacity="0.6"/>
+  <rect x="180" y="380" width="240" height="10" rx="5" fill="#cbd5f5" opacity="0.4"/>
+  <rect x="180" y="430" width="140" height="40" rx="20" fill="#1d4ed8"/>
+  <rect x="340" y="430" width="140" height="40" rx="20" fill="#0f172a" stroke="#2f3b52" stroke-width="2"/>
+  <rect x="720" y="300" width="320" height="240" rx="24" fill="#111c33" stroke="#22304a" stroke-width="2"/>
+  <rect x="760" y="340" width="240" height="12" rx="6" fill="#cbd5f5" opacity="0.6"/>
+  <rect x="760" y="370" width="200" height="12" rx="6" fill="#cbd5f5" opacity="0.4"/>
+  <rect x="760" y="420" width="120" height="12" rx="6" fill="#cbd5f5" opacity="0.3"/>
+</svg>

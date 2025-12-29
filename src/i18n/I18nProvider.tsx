@@ -381,6 +381,10 @@ const dictEn: Dict = {
   "flatburger.viewWebsite": "View website",
 
   "portfolio.viewProject": "View project",
+  "studio.concept": "Studio concept",
+  "noir.one": "Brand identity & visual system",
+  "signal.one": "Digital experience & interaction design",
+  "pulse.one": "Creative direction & digital content system",
 
   "zonex.caseStudy": "Case Study",
   "zonex.heroTitle": "ZONEX INŽENJERING",
@@ -821,6 +825,10 @@ const dictSr: Dict = {
   "flatburger.viewWebsite": "Pogledaj sajt",
 
   "portfolio.viewProject": "Pogledaj projekat",
+  "studio.concept": "Studio koncept",
+  "noir.one": "Brend identitet i vizuelni sistem",
+  "signal.one": "Digitalno iskustvo i interakcioni dizajn",
+  "pulse.one": "Kreativna direkcija i digitalni content sistem",
 
   "zonex.caseStudy": "Studija slučaja",
   "zonex.heroTitle": "ZONEX INŽENJERING",

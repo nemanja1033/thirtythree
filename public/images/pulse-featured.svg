@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="PULSE studio concept">
+  <rect width="1200" height="800" fill="#0b0b14"/>
+  <g>
+    <rect x="120" y="120" width="200" height="200" fill="#f43f5e"/>
+    <rect x="340" y="120" width="200" height="200" fill="#f97316"/>
+    <rect x="560" y="120" width="200" height="200" fill="#22c55e"/>
+    <rect x="780" y="120" width="200" height="200" fill="#3b82f6"/>
+    <rect x="120" y="340" width="200" height="200" fill="#0ea5e9"/>
+    <rect x="340" y="340" width="200" height="200" fill="#6366f1"/>
+    <rect x="560" y="340" width="200" height="200" fill="#a855f7"/>
+    <rect x="780" y="340" width="200" height="200" fill="#ec4899"/>
+    <rect x="120" y="560" width="200" height="120" fill="#facc15"/>
+    <rect x="340" y="560" width="200" height="120" fill="#14b8a6"/>
+    <rect x="560" y="560" width="200" height="120" fill="#38bdf8"/>
+    <rect x="780" y="560" width="200" height="120" fill="#f472b6"/>
+  </g>
+  <text x="120" y="90" font-family="Bricolage Grotesque, Space Grotesk, sans-serif" font-size="48" font-weight="700" fill="#f8fafc" letter-spacing="8">PULSE</text>
+</svg>
