@@ -50,12 +50,13 @@ function TestimonialCard({ testimonial, index, isMobile, t }: { testimonial: Tes
         delay: isMobile ? 0 : index * 0.1,
         ease: "easeOut",
       }}
-      whileHover={!isMobile ? { y: -8 } : undefined}
-      className="flex-shrink-0 w-[85vw] sm:w-[400px] md:w-[450px]"
+      whileHover={!isMobile ? { y: -6 } : undefined}
+      className="flex-shrink-0 w-[85vw] sm:w-[400px] md:w-auto"
     >
-      <div className="h-full p-6 md:p-8 rounded-2xl md:rounded-3xl bg-white border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-500 relative overflow-hidden group">
+      <div className="h-full p-6 md:p-8 rounded-2xl md:rounded-3xl bg-white/90 border border-gray-100/80 shadow-[0_20px_60px_-30px_rgba(15,23,42,0.35)] hover:shadow-[0_28px_80px_-32px_rgba(15,23,42,0.5)] transition-all duration-500 relative overflow-hidden group backdrop-blur-sm">
         {/* Gradient accent */}
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 via-orange-500 to-rose-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+        <div className="absolute -top-20 -right-20 w-40 h-40 bg-amber-200/40 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
         
         {/* Quote icon */}
         <div className="absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
@@ -97,74 +98,85 @@ export default function TestimonialsSection() {
   return (
     <section
       ref={sectionRef}
-      className="py-16 md:py-32 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden"
+      className="py-16 md:py-32 bg-gradient-to-b from-white via-amber-50/30 to-gray-50 relative overflow-hidden"
     >
       {/* Background decorations */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-amber-100/50 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-20 right-10 w-72 h-72 bg-orange-100/50 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-16 left-10 w-72 h-72 bg-amber-100/50 rounded-full blur-[110px] pointer-events-none" />
+      <div className="absolute bottom-16 right-10 w-72 h-72 bg-orange-100/40 rounded-full blur-[110px] pointer-events-none" />
+      <svg className="absolute inset-0 w-full h-full opacity-[0.06] pointer-events-none" aria-hidden="true">
+        <defs>
+          <pattern id="testimonial-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+            <path d="M32 0H0V32" fill="none" stroke="currentColor" strokeWidth="1" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#testimonial-grid)" className="text-amber-400" />
+      </svg>
 
       <div className="container mx-auto px-5 md:px-6">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={headerInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-          className="max-w-4xl mx-auto text-center mb-12 md:mb-16"
-        >
-          <span className="inline-flex items-center gap-2 mb-4 text-xs md:text-sm px-4 py-2 rounded-full bg-amber-100 text-amber-700 font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-            {t("testimonials.badge")}
-          </span>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
-            <span className="block gradient-text">{t("testimonials.title")}</span>
-          </h2>
-          <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">
-            {t("testimonials.subtitle")}
-          </p>
-        </motion.div>
+        <div className="grid lg:grid-cols-[minmax(0,420px)_1fr] gap-10 lg:gap-16 items-start">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={headerInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+            className="max-w-2xl text-center lg:text-left"
+          >
+            <span className="inline-flex items-center gap-2 mb-4 text-xs md:text-sm px-4 py-2 rounded-full bg-amber-100 text-amber-700 font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+              {t("testimonials.badge")}
+            </span>
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
+              <span className="block gradient-text">{t("testimonials.title")}</span>
+            </h2>
+            <p className="text-base md:text-xl text-gray-600">
+              {t("testimonials.subtitle")}
+            </p>
 
-        {/* Testimonials horizontal scroll */}
-        <div className="relative -mx-5 md:mx-0">
-          <div className="flex gap-4 md:gap-6 overflow-x-auto pb-6 px-5 md:px-0 snap-x snap-mandatory scrollbar-hide md:justify-center md:flex-wrap">
-            {testimonials.map((testimonial, index) => (
-              <div key={testimonial.id} className="snap-center">
-                <TestimonialCard
-                  testimonial={testimonial}
-                  index={index}
-                  isMobile={isMobile}
-                  t={t}
-                />
+            {/* Trust indicators */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={headerInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="mt-8 flex flex-wrap justify-center lg:justify-start gap-4 text-gray-500 text-sm"
+            >
+              <div className="flex items-center gap-2">
+                <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span>{t("testimonials.trust.1")}</span>
               </div>
-            ))}
+              <div className="flex items-center gap-2">
+                <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span>{t("testimonials.trust.2")}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span>{t("testimonials.trust.3")}</span>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Testimonials */}
+          <div className="relative -mx-5 lg:mx-0">
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-white via-white/70 to-transparent md:hidden" />
+            <div className="flex md:grid md:grid-cols-2 gap-4 md:gap-6 overflow-x-auto md:overflow-visible pb-6 md:pb-0 px-5 md:px-0 snap-x snap-mandatory scrollbar-hide">
+              {testimonials.map((testimonial, index) => (
+                <div key={testimonial.id} className="snap-center md:snap-none">
+                  <TestimonialCard
+                    testimonial={testimonial}
+                    index={index}
+                    isMobile={isMobile}
+                    t={t}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-
-        {/* Trust indicators */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={headerInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-12 md:mt-16 flex flex-wrap justify-center gap-6 md:gap-12 text-gray-500 text-sm"
-        >
-          <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-            <span>{t("testimonials.trust.1")}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-            <span>{t("testimonials.trust.2")}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-            <span>{t("testimonials.trust.3")}</span>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
