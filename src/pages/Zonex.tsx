@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { motion, useInView, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useI18n } from "../i18n/I18nProvider";
@@ -51,6 +51,7 @@ export default function Zonex() {
   const overviewRef = useRef<HTMLDivElement>(null);
   const workRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
+  const showcaseRef = useRef<HTMLDivElement>(null);
   const processRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -59,6 +60,7 @@ export default function Zonex() {
   const overviewInView = useInView(overviewRef, { once: true, margin: "-50px" });
   const workInView = useInView(workRef, { once: true, margin: "-50px" });
   const statsInView = useInView(statsRef, { once: true, margin: "-50px" });
+  const showcaseInView = useInView(showcaseRef, { once: true, margin: "-50px" });
   const processInView = useInView(processRef, { once: true, margin: "-50px" });
   const projectsInView = useInView(projectsRef, { once: true, margin: "-50px" });
   const ctaInView = useInView(ctaRef, { once: true, margin: "-50px" });
@@ -122,6 +124,22 @@ export default function Zonex() {
       },
     ],
   };
+
+  const { scrollYProgress: showcaseProgress } = useScroll({
+    target: showcaseRef,
+    offset: ["start end", "end start"],
+  });
+  const showcaseY = useTransform(
+    showcaseProgress,
+    [0, 1],
+    shouldReduceMotion ? [0, 0] : [0, -360]
+  );
+  const showcaseSpring = useSpring(showcaseY, { stiffness: 120, damping: 26 });
+  const signalY = useTransform(
+    showcaseProgress,
+    [0, 1],
+    shouldReduceMotion ? [0, 0] : [0, 220]
+  );
 
   return (
     <div className="min-h-screen overflow-x-hidden" style={{ background: ZONEX_DARK }}>
@@ -335,6 +353,152 @@ export default function Zonex() {
                 </motion.div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section ref={showcaseRef} className="py-20 md:py-36" style={{ background: "#0f1626" }}>
+        <div className="container mx-auto px-6 md:px-8">
+          <div className="max-w-[1200px] mx-auto grid lg:grid-cols-[0.9fr,1.1fr] gap-10 md:gap-16 items-center">
+            <motion.div
+              initial={fadeUp.initial}
+              animate={showcaseInView ? fadeUp.animate : {}}
+              transition={fadeUp.transition}
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-[1px]" style={{ background: ZONEX_ACCENT, opacity: 0.5 }} />
+                <span className="text-xs uppercase tracking-[0.3em]" style={{ color: ZONEX_ACCENT }}>
+                  {t("zonex.showcase.badge")}
+                </span>
+              </div>
+              <h2
+                className="text-3xl md:text-5xl font-bold mb-6"
+                style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: OFF_WHITE }}
+              >
+                {t("zonex.showcase.title")}
+              </h2>
+              <p className="text-base md:text-lg leading-relaxed" style={{ color: ZONEX_MUTED }}>
+                {t("zonex.showcase.desc")}
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3 text-xs uppercase tracking-[0.25em]" style={{ color: ZONEX_ACCENT }}>
+                <span className="px-3 py-2 rounded-full border" style={{ borderColor: `${ZONEX_ACCENT}30` }}>
+                  UX
+                </span>
+                <span className="px-3 py-2 rounded-full border" style={{ borderColor: `${ZONEX_ACCENT}30` }}>
+                  UI
+                </span>
+                <span className="px-3 py-2 rounded-full border" style={{ borderColor: `${ZONEX_ACCENT}30` }}>
+                  Motion
+                </span>
+                <span className="px-3 py-2 rounded-full border" style={{ borderColor: `${ZONEX_ACCENT}30` }}>
+                  Structure
+                </span>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
+              animate={showcaseInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: shouldReduceMotion ? 0.1 : 0.6, ease: "easeOut", delay: shouldReduceMotion ? 0 : 0.1 }}
+              className="relative"
+            >
+              <div
+                className="rounded-[28px] border overflow-hidden shadow-2xl"
+                style={{ borderColor: `${ZONEX_ACCENT}25`, background: "#0b1220" }}
+              >
+                <div
+                  className="flex items-center justify-between gap-4 px-5 py-4 border-b text-xs uppercase tracking-[0.25em]"
+                  style={{ borderColor: `${ZONEX_ACCENT}20`, color: ZONEX_ACCENT }}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full" style={{ background: ZONEX_ACCENT, opacity: 0.5 }} />
+                    <span className="w-2.5 h-2.5 rounded-full" style={{ background: ZONEX_ACCENT, opacity: 0.35 }} />
+                    <span className="w-2.5 h-2.5 rounded-full" style={{ background: ZONEX_ACCENT, opacity: 0.2 }} />
+                  </div>
+                  <span>{t("zonex.showcase.url")}</span>
+                  <span className="opacity-60">{t("zonex.showcase.label")}</span>
+                </div>
+
+                <div className="relative h-[420px] md:h-[520px] overflow-hidden">
+                  <motion.div
+                    style={shouldReduceMotion ? {} : { y: showcaseSpring }}
+                    className="absolute inset-0 px-8 md:px-10 py-10 space-y-12"
+                  >
+                    <div className="space-y-4">
+                      <div className="h-2 w-24 rounded-full" style={{ background: `${ZONEX_ACCENT}60` }} />
+                      <div className="text-3xl md:text-4xl font-bold" style={{ color: OFF_WHITE }}>
+                        ZONEX INŽENJERING
+                      </div>
+                      <div className="text-sm md:text-base" style={{ color: ZONEX_MUTED }}>
+                        {t("zonex.showcase.heroLine")}
+                      </div>
+                      <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest px-4 py-2 rounded-full border" style={{ borderColor: `${ZONEX_ACCENT}30`, color: ZONEX_ACCENT }}>
+                        {t("zonex.showcase.heroPill")}
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-4">
+                      {["1993", "Retail", "Hospitality"].map((item) => (
+                        <div key={item} className="rounded-2xl p-4 border" style={{ borderColor: `${ZONEX_ACCENT}20` }}>
+                          <div className="text-lg font-semibold" style={{ color: OFF_WHITE }}>
+                            {item}
+                          </div>
+                          <div className="mt-2 h-1 w-12" style={{ background: `${ZONEX_ACCENT}40` }} />
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="grid gap-4">
+                      {[t("zonex.showcase.visual"), t("zonex.showcase.web"), t("zonex.showcase.motion")].map((item) => (
+                        <div
+                          key={item}
+                          className="rounded-2xl p-5 border flex items-center justify-between"
+                          style={{ borderColor: `${ZONEX_ACCENT}20` }}
+                        >
+                          <span className="text-sm md:text-base" style={{ color: OFF_WHITE }}>
+                            {item}
+                          </span>
+                          <span className="text-xs uppercase tracking-widest" style={{ color: ZONEX_ACCENT }}>
+                            Active
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="rounded-2xl p-6 border" style={{ borderColor: `${ZONEX_ACCENT}20` }}>
+                      <div className="text-xs uppercase tracking-[0.3em] mb-3" style={{ color: ZONEX_ACCENT }}>
+                        {t("zonex.showcase.projects")}
+                      </div>
+                      <div className="space-y-3 text-sm" style={{ color: OFF_WHITE }}>
+                        <div className="flex items-center justify-between">
+                          <span>McDonald’s Zrenjanin</span>
+                          <span style={{ color: ZONEX_MUTED }}>2022</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span>Zlatiborski konaci</span>
+                          <span style={{ color: ZONEX_MUTED }}>2020</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between rounded-2xl p-6 border" style={{ borderColor: `${ZONEX_ACCENT}20` }}>
+                      <div className="text-sm" style={{ color: OFF_WHITE }}>
+                        {t("zonex.showcase.cta")}
+                      </div>
+                      <div className="text-xs uppercase tracking-[0.3em]" style={{ color: ZONEX_ACCENT }}>
+                        {t("zonex.showcase.ctaButton")}
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  <div className="absolute top-6 right-6 h-[240px] w-[2px] rounded-full" style={{ background: `${ZONEX_ACCENT}25` }} />
+                  <motion.div
+                    className="absolute top-6 right-6 h-10 w-[2px] rounded-full"
+                    style={{ background: ZONEX_ACCENT, y: shouldReduceMotion ? 0 : signalY }}
+                  />
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
