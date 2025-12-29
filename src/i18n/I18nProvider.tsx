@@ -383,13 +383,13 @@ const dictEn: Dict = {
   "portfolio.viewProject": "View project",
   "studio.concept": "Studio concept",
   "ember.story":
-    "EMBER is a space where coffee is treated as a ritual. The brand and digital presence are designed to feel warm, calm, and grounded.",
+    "EMBER is built around ritual and warmth. A contemporary coffee house designed for slow moments and tactile materials. The identity and digital experience translate that atmosphere into calm, grounded systems.",
   "ember.scope": "Brand identity, visual system, and digital experience.",
   "norma.story":
-    "STUDIO NORMA believes in clarity, proportion, and reduction. The identity and website are built to reflect structure over decoration.",
+    "STUDIO NORMA works at the intersection of architecture and spatial thinking. The identity removes decoration in favor of proportion, grid, and clarity. The website behaves like a curated portfolio wall—quiet and precise.",
   "norma.scope": "Brand identity and portfolio-focused website.",
   "pulse.story":
-    "PULSE is not a single campaign, but a system. Built to scale across formats without losing identity.",
+    "PULSE is a campaign system for brands that live online. Built to scale across formats with a single rhythm and bold typographic voice. Motion is the glue that keeps the system consistent.",
   "pulse.scope": "Creative direction, visual system, and motion-based content.",
 
   "zonex.caseStudy": "Case Study",
@@ -833,13 +833,13 @@ const dictSr: Dict = {
   "portfolio.viewProject": "Pogledaj projekat",
   "studio.concept": "Studio koncept",
   "ember.story":
-    "EMBER je mesto gde je kafa ritual. Brend i digitalno prisustvo su topli, mirni i prizemljeni.",
+    "EMBER je građen oko rituala i topline. Savremeni coffee house za spore trenutke i taktilne materijale. Identitet i digitalno iskustvo prenose tu atmosferu u miran, prizemljen sistem.",
   "ember.scope": "Brend identitet, vizuelni sistem i digitalno iskustvo.",
   "norma.story":
-    "STUDIO NORMA veruje u jasnoću, proporciju i redukciju. Identitet i sajt reflektuju strukturu, ne dekor.",
+    "STUDIO NORMA radi na preseku arhitekture i prostornog dizajna. Identitet uklanja dekoraciju u korist proporcije, grida i jasnoće. Sajt funkcioniše kao kuriran portfolio—tih i precizan.",
   "norma.scope": "Brend identitet i portfolio sajt.",
   "pulse.story":
-    "PULSE nije jedna kampanja, već sistem. Građen da se širi kroz formate bez gubitka identiteta.",
+    "PULSE je sistem kampanje za brendove koji žive online. Građen da se širi kroz formate uz jedinstven ritam i snažnu tipografiju. Motion drži sistem koherentnim.",
   "pulse.scope": "Kreativna direkcija, vizuelni sistem i motion sadržaj.",
 
   "zonex.caseStudy": "Studija slučaja",

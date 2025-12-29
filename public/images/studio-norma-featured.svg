@@ -1,12 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="STUDIO NORMA studio concept">
   <rect width="1200" height="800" fill="#f8f8f8"/>
   <rect x="80" y="120" width="1040" height="560" rx="36" fill="#ffffff" stroke="#e4e4e7" stroke-width="2"/>
-  <text x="140" y="260" font-family="Bricolage Grotesque, Space Grotesk, sans-serif" font-size="84" font-weight="700" fill="#111111" letter-spacing="6">STUDIO</text>
-  <text x="140" y="340" font-family="Bricolage Grotesque, Space Grotesk, sans-serif" font-size="84" font-weight="700" fill="#111111" letter-spacing="6">NORMA</text>
-  <rect x="140" y="400" width="320" height="10" rx="5" fill="#111111" opacity="0.2"/>
-  <rect x="140" y="430" width="240" height="10" rx="5" fill="#111111" opacity="0.12"/>
-  <rect x="720" y="220" width="320" height="360" fill="#f3f4f6" stroke="#e5e7eb" stroke-width="2"/>
-  <rect x="760" y="260" width="240" height="14" rx="7" fill="#111111" opacity="0.2"/>
-  <rect x="760" y="290" width="200" height="14" rx="7" fill="#111111" opacity="0.14"/>
-  <rect x="760" y="340" width="160" height="14" rx="7" fill="#111111" opacity="0.1"/>
+  <g fill="#111111" transform="translate(180 230) scale(1.2)">
+    <path d="M10 110V10h20l40 60V10h20v100h-20l-40-60v60z" />
+    <rect x="120" y="10" width="80" height="100" fill="none" stroke="#111111" stroke-width="14"/>
+    <path d="M230 110V10h60c20 0 30 10 30 30 0 18-9 28-25 30l30 40h-26l-26-38h-21v38z" />
+    <path d="M350 110V10h18l32 48 32-48h18v100h-20V44l-30 42h-2l-30-42v66z" />
+    <path d="M500 110l40-100h20l40 100h-22l-8-22h-40l-8 22zM542 70h26l-13-36z" />
+  </g>
+  <rect x="180" y="420" width="320" height="10" rx="5" fill="#111111" opacity="0.15"/>
+  <rect x="180" y="450" width="240" height="10" rx="5" fill="#111111" opacity="0.08"/>
+  <rect x="760" y="220" width="280" height="360" fill="#f3f4f6" stroke="#e5e7eb" stroke-width="2"/>
+  <rect x="800" y="260" width="200" height="12" rx="6" fill="#111111" opacity="0.12"/>
+  <rect x="800" y="290" width="160" height="12" rx="6" fill="#111111" opacity="0.08"/>
 </svg>

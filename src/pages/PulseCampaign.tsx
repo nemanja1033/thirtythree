@@ -7,6 +7,44 @@ const BG = "#0b0b14";
 const OFF_WHITE = "#f8fafc";
 const MUTED = "#cbd5f5";
 
+function PulseMark({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 120 48" fill="none">
+      <path d="M0 24h18l8-14 10 28 10-20 8 6h66" stroke="#f8fafc" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function PulseWordmark({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 520 120" fill={OFF_WHITE}>
+      {/* P */}
+      <rect x="0" y="0" width="18" height="120" />
+      <rect x="0" y="0" width="70" height="18" />
+      <rect x="0" y="51" width="70" height="18" />
+      <rect x="52" y="18" width="18" height="33" />
+      {/* U */}
+      <rect x="120" y="0" width="18" height="90" />
+      <rect x="172" y="0" width="18" height="90" />
+      <rect x="120" y="90" width="70" height="18" />
+      {/* L */}
+      <rect x="240" y="0" width="18" height="120" />
+      <rect x="240" y="102" width="70" height="18" />
+      {/* S */}
+      <rect x="340" y="0" width="70" height="18" />
+      <rect x="340" y="51" width="70" height="18" />
+      <rect x="340" y="102" width="70" height="18" />
+      <rect x="340" y="18" width="18" height="33" />
+      <rect x="392" y="69" width="18" height="33" />
+      {/* E */}
+      <rect x="440" y="0" width="18" height="120" />
+      <rect x="440" y="0" width="70" height="18" />
+      <rect x="440" y="51" width="60" height="18" />
+      <rect x="440" y="102" width="70" height="18" />
+    </svg>
+  );
+}
+
 export default function PulseCampaign() {
   const { t } = useI18n();
   const reduceMotion = useReducedMotion();
@@ -36,13 +74,11 @@ export default function PulseCampaign() {
             <span className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
               {t("studio.concept")}
             </span>
-            <h1
-              className="mt-6 text-5xl md:text-7xl font-black tracking-[0.2em]"
-              style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: OFF_WHITE }}
-            >
-              PULSE
-            </h1>
-            <p className="mt-4 text-base md:text-lg max-w-2xl" style={{ color: MUTED }}>
+            <div className="mt-6 flex flex-col gap-4">
+              <PulseWordmark className="w-[260px] md:w-[400px]" />
+              <PulseMark className="w-[160px]" />
+            </div>
+            <p className="mt-6 text-base md:text-lg max-w-2xl" style={{ color: MUTED }}>
               {t("pulse.story")}
             </p>
             <p className="mt-3 text-sm md:text-base" style={{ color: OFF_WHITE }}>

@@ -15,6 +15,23 @@ const BG = "#f8f8f8";
 const INK = "#111111";
 const MUTED = "#6b7280";
 
+function NormaWordmark({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 560 120" fill="none" stroke={INK} strokeWidth="14" strokeLinecap="square">
+      {/* N */}
+      <path d="M10 110V10h20l40 60V10h20v100h-20l-40-60v60z" fill={INK} stroke="none" />
+      {/* O */}
+      <rect x="120" y="10" width="80" height="100" fill="none" />
+      {/* R */}
+      <path d="M230 110V10h60c20 0 30 10 30 30 0 18-9 28-25 30l30 40h-26l-26-38h-21v38z" fill={INK} stroke="none" />
+      {/* M */}
+      <path d="M350 110V10h18l32 48 32-48h18v100h-20V44l-30 42h-2l-30-42v66z" fill={INK} stroke="none" />
+      {/* A */}
+      <path d="M500 110l40-100h20l40 100h-22l-8-22h-40l-8 22zM542 70h26l-13-36z" fill={INK} stroke="none" />
+    </svg>
+  );
+}
+
 function NormaFrame({
   progress,
   reduceMotion,
@@ -138,10 +155,7 @@ export default function StudioNorma() {
     offset: ["start end", "end start"],
   });
 
-  const systemItems = useMemo(
-    () => ["Wordmark", "Typographic grid", "Layout logic"],
-    []
-  );
+  const systemItems = useMemo(() => ["Wordmark", "Typographic grid", "Layout logic"], []);
 
   return (
     <div className="min-h-screen overflow-x-hidden" style={{ background: BG }}>
@@ -157,13 +171,10 @@ export default function StudioNorma() {
             <span className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
               {t("studio.concept")}
             </span>
-            <h1
-              className="mt-6 text-4xl md:text-7xl font-black tracking-tight"
-              style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: INK }}
-            >
-              STUDIO NORMA
-            </h1>
-            <p className="mt-4 text-base md:text-lg max-w-2xl" style={{ color: MUTED }}>
+            <div className="mt-6">
+              <NormaWordmark className="w-[280px] md:w-[420px]" />
+            </div>
+            <p className="mt-6 text-base md:text-lg max-w-2xl" style={{ color: MUTED }}>
               {t("norma.story")}
             </p>
             <p className="mt-3 text-sm md:text-base" style={{ color: INK }}>
