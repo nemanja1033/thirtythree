@@ -68,6 +68,25 @@ const ChatIcon = () => (
   </svg>
 );
 
+const SparklesIcon = () => (
+  <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+  </svg>
+);
+
+const GlobeIcon = () => (
+  <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.6 9h16.8M3.6 15h16.8M9 3.6a15 15 0 000 16.8M15 3.6a15 15 0 010 16.8" />
+  </svg>
+);
+
+const LightningIcon = () => (
+  <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
+  </svg>
+);
+
 function App() {
   const [isLoading, setIsLoading] = useState(() => {
     if (typeof window === "undefined") return true;
@@ -192,6 +211,56 @@ function App() {
     { icon: <PencilIcon />, title: t("strategy.1.title"), badge: t("strategy.1.badge"), description: t("strategy.1.desc"), to: "/design", number: "02" },
     { icon: <GearIcon />, title: t("strategy.2.title"), badge: t("strategy.2.badge"), description: t("strategy.2.desc"), to: "/develop", number: "03" },
     { icon: <RocketIcon />, title: t("strategy.3.title"), badge: t("strategy.3.badge"), description: t("strategy.3.desc"), to: "/grow", number: "04" },
+  ];
+
+  const capabilities = [
+    {
+      icon: <SparklesIcon />,
+      title: t("capabilities.0.title"),
+      description: t("capabilities.0.desc"),
+      badge: t("capabilities.0.badge"),
+      accent: "from-amber-500/10 to-orange-500/10",
+    },
+    {
+      icon: <GlobeIcon />,
+      title: t("capabilities.1.title"),
+      description: t("capabilities.1.desc"),
+      badge: t("capabilities.1.badge"),
+      accent: "from-blue-500/10 to-violet-500/10",
+    },
+    {
+      icon: <CodeIcon />,
+      title: t("capabilities.2.title"),
+      description: t("capabilities.2.desc"),
+      badge: t("capabilities.2.badge"),
+      accent: "from-emerald-500/10 to-teal-500/10",
+    },
+    {
+      icon: <LightningIcon />,
+      title: t("capabilities.3.title"),
+      description: t("capabilities.3.desc"),
+      badge: t("capabilities.3.badge"),
+      accent: "from-rose-500/10 to-orange-500/10",
+    },
+  ];
+
+  const featuredProjects = [
+    {
+      title: t("featured.0.title"),
+      category: t("featured.0.category"),
+      description: t("featured.0.desc"),
+      image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
+      to: "/portfolio/flatburger",
+      badge: t("featured.0.badge"),
+    },
+    {
+      title: t("featured.1.title"),
+      category: t("featured.1.category"),
+      description: t("featured.1.desc"),
+      image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+      to: "/services/web",
+      badge: t("featured.1.badge"),
+    },
   ];
 
   return (
@@ -383,6 +452,79 @@ function App() {
           </div>
         </section>
 
+        {/* Capabilities Section */}
+        <section className="py-16 md:py-28 bg-gradient-to-b from-white via-amber-50/30 to-white relative overflow-hidden">
+          {!isMobile && (
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
+              className="absolute -left-24 top-1/2 -translate-y-1/2 w-48 h-48 border border-amber-100 rounded-full"
+            />
+          )}
+
+          <div className="container mx-auto px-5 md:px-6 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: isMobile ? 25 : 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: isMobile ? 0.5 : 0.8 }}
+              className="max-w-4xl mx-auto text-center mb-12 md:mb-18"
+            >
+              <span className="inline-flex items-center gap-2 mb-3 md:mb-4 text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-gray-900 text-white shadow-lg shadow-amber-200/30">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                {t("capabilities.badge")}
+              </span>
+              <h2 className="text-3xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6">
+                {t("capabilities.title.1")}
+                <span className="gradient-text block">{t("capabilities.title.2")}</span>
+              </h2>
+              <p className="text-base md:text-xl text-gray-600 max-w-3xl mx-auto">
+                {t("capabilities.subtitle")}
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
+              {capabilities.map((capability, idx) => (
+                <motion.div
+                  key={capability.title}
+                  initial={{ opacity: 0, y: isMobile ? 18 : 32, scale: 0.98 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: isMobile ? 0.4 : 0.7, delay: idx * 0.05 }}
+                  whileHover={!isMobile ? { y: -10, rotateX: 2 } : undefined}
+                  className="relative group"
+                >
+                  <div className={`h-full p-5 md:p-7 rounded-2xl md:rounded-3xl border border-gray-100 bg-white shadow-lg shadow-amber-50/30 overflow-hidden`}>
+                    <div className={`absolute inset-0 bg-gradient-to-br ${capability.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                    <div className="relative z-10 flex flex-col gap-4">
+                      <div className="flex items-center justify-between">
+                        <div className="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-gray-900 text-white flex items-center justify-center shadow-lg shadow-gray-900/10">
+                          {capability.icon}
+                        </div>
+                        <span className="text-[11px] md:text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200">
+                          {capability.badge}
+                        </span>
+                      </div>
+                      <h3 className="text-lg md:text-xl font-semibold text-gray-900 leading-tight">
+                        {capability.title}
+                      </h3>
+                      <p className="text-sm md:text-base text-gray-600 leading-relaxed">
+                        {capability.description}
+                      </p>
+                      <div className="flex items-center gap-2 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">
+                        <span>{t("capabilities.more")}</span>
+                        <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Strategy Section */}
         <section ref={strategyRef} id="strategy" className="py-16 md:py-32 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden z-10">
           <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
@@ -439,6 +581,77 @@ function App() {
 
         {/* Results Section */}
         <ResultsSection />
+
+        {/* Featured Work */}
+        <section className="py-16 md:py-32 bg-gray-900 text-white relative overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,#f59e0b22,transparent_35%),radial-gradient(circle_at_bottom_right,#6366f122,transparent_35%)]" />
+            <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)", backgroundSize: "80px 80px" }} />
+          </div>
+          <div className="container mx-auto px-5 md:px-6 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: isMobile ? 25 : 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: isMobile ? 0.5 : 0.8 }}
+              className="max-w-4xl mx-auto text-center mb-12 md:mb-18"
+            >
+              <span className="inline-flex items-center gap-2 mb-4 text-xs md:text-sm px-4 py-2 rounded-full bg-white/10 text-white border border-white/10">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                {t("featured.badge")}
+              </span>
+              <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
+                {t("featured.title.1")}
+                <span className="block bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-orange-300 to-rose-300">
+                  {t("featured.title.2")}
+                </span>
+              </h2>
+              <p className="text-base md:text-xl text-gray-300 max-w-3xl mx-auto">
+                {t("featured.subtitle")}
+              </p>
+            </motion.div>
+
+            <div className="grid lg:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto">
+              {featuredProjects.map((project, index) => (
+                <Link key={project.title} to={project.to}>
+                  <motion.div
+                    initial={{ opacity: 0, y: isMobile ? 18 : 30, scale: 0.98 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: isMobile ? 0.4 : 0.7, delay: index * 0.1 }}
+                    whileHover={!isMobile ? { y: -8 } : undefined}
+                    className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-2xl"
+                  >
+                    <div className="absolute inset-0">
+                      <img src={project.image} alt={project.title} className="w-full h-full object-cover opacity-80" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+                    </div>
+                    <div className="relative z-10 p-6 md:p-8 flex flex-col justify-end min-h-[320px]">
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className="text-[11px] uppercase tracking-[0.2em] px-3 py-1 rounded-full bg-white/10 text-white border border-white/10">
+                          {project.badge}
+                        </span>
+                        <span className="text-xs px-3 py-1 rounded-full bg-emerald-400/15 text-emerald-200 border border-emerald-400/20">
+                          {project.category}
+                        </span>
+                      </div>
+                      <h3 className="text-2xl md:text-3xl font-bold mb-3">{project.title}</h3>
+                      <p className="text-gray-200 text-sm md:text-base mb-4 md:mb-6 leading-relaxed">
+                        {project.description}
+                      </p>
+                      <div className="inline-flex items-center gap-2 text-sm font-semibold text-white">
+                        <span>{t("featured.cta")}</span>
+                        <svg className="w-4 h-4 translate-y-[1px] group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </div>
+                    </div>
+                  </motion.div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* Testimonials Section */}
         <TestimonialsSection />

@@ -61,97 +61,6 @@ function EmberWordmark({ className, fill = INK }: { className?: string; fill?: s
   );
 }
 
-function CupMock({ label, tone }: { label: string; tone: "light" | "dark" }) {
-  return (
-    <div className="relative w-full">
-      <div
-        className="mx-auto w-40 h-52 rounded-b-[38px] rounded-t-[28px] border relative"
-        style={{
-          borderColor: tone === "light" ? SOFT : "#3b2f2a",
-          background:
-            tone === "light"
-              ? "linear-gradient(180deg, #fbf4ec 0%, #f0e1d2 100%)"
-              : "linear-gradient(180deg, #3b2f2a 0%, #1f1714 100%)",
-        }}
-      >
-        <div
-          className="absolute -top-5 left-1/2 -translate-x-1/2 w-32 h-8 rounded-full border"
-          style={{ borderColor: tone === "light" ? SOFT : "#4b3a33", background: tone === "light" ? "#f7efe6" : "#2c211d" }}
-        />
-        <div
-          className="absolute top-16 left-1/2 -translate-x-1/2 w-24 h-16 rounded-full"
-          style={{ background: tone === "light" ? "#f4e7da" : "#2c211d" }}
-        />
-        <div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 w-28 h-14 rounded-xl border"
-          style={{ borderColor: tone === "light" ? SOFT : "#4b3a33", background: tone === "light" ? "#efe2d6" : "#3a2b25" }}
-        >
-          <div className="mt-3 flex items-center justify-center">
-            <EmberWordmark className="w-20" fill={tone === "light" ? INK : "#f5efe8"} />
-          </div>
-        </div>
-        <div
-          className="absolute top-3 right-6 w-10 h-10 rounded-full"
-          style={{ background: tone === "light" ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.08)" }}
-        />
-      </div>
-      <div className="mt-4 text-[10px] uppercase tracking-[0.4em] text-center" style={{ color: MUTED }}>
-        {label}
-      </div>
-    </div>
-  );
-}
-
-function BagMock() {
-  return (
-    <div className="relative rounded-[28px] border p-6" style={{ borderColor: SOFT, background: "#efe2d6" }}>
-      <div className="text-[10px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
-        Coffee bag
-      </div>
-      <div className="mt-5 relative h-44 rounded-2xl border" style={{ borderColor: SOFT, background: "#f6efe6" }}>
-        <div className="absolute -top-5 left-6 right-6 h-6 rounded-full" style={{ background: "#e6d5c5" }} />
-        <div
-          className="absolute top-8 left-1/2 -translate-x-1/2 w-24 h-24 rounded-2xl border"
-          style={{ borderColor: SOFT, background: "#f1e1d2" }}
-        >
-          <div className="mt-3 flex items-center justify-center">
-            <EmberMark className="w-10 h-10" />
-          </div>
-          <div className="mt-2 text-[9px] uppercase tracking-[0.4em] text-center" style={{ color: MUTED }}>
-            Lot 09
-          </div>
-        </div>
-        <div className="absolute bottom-4 left-6 text-[11px]" style={{ color: MUTED }}>
-          Notes: cacao, toasted almond, burnt sugar.
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function LabelSheet() {
-  const labels = ["Ritual", "Slow Pour", "House Blend", "Seasonal", "Ember", "Calm"];
-  return (
-    <div className="rounded-[28px] border p-6" style={{ borderColor: SOFT, background: "#f6efe6" }}>
-      <div className="text-[10px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
-        Label sheet
-      </div>
-      <div className="mt-6 grid grid-cols-3 gap-4">
-        {labels.map((label) => (
-          <div key={label} className="rounded-full border px-3 py-4" style={{ borderColor: SOFT, background: "#f1e1d2" }}>
-            <div className="text-[9px] uppercase tracking-[0.35em] text-center" style={{ color: INK }}>
-              {label}
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="mt-6 text-[11px]" style={{ color: MUTED }}>
-        Uncoated paper, matte ink, tactile emboss.
-      </div>
-    </div>
-  );
-}
-
 function MenuSpread() {
   const espresso = [
     ["Ritual Espresso", "2.40"],
@@ -267,6 +176,22 @@ function SignagePanel() {
       </div>
       <div className="mt-6 text-sm" style={{ color: "#d6c7bb" }}>
         Exterior plaque and etched glass mark for a quiet night glow.
+      </div>
+    </div>
+  );
+}
+
+function InteriorWallPanel() {
+  return (
+    <div className="rounded-[32px] border p-12 md:p-14" style={{ borderColor: "#3b2f2a", background: ESPRESSO }}>
+      <div className="text-[10px] uppercase tracking-[0.5em]" style={{ color: "#d6c7bb" }}>
+        Interior wall mark
+      </div>
+      <div className="mt-10 flex items-center justify-center">
+        <EmberWordmark className="w-[260px] md:w-[360px]" fill="#f5efe8" />
+      </div>
+      <div className="mt-8 text-sm md:text-base" style={{ color: "#d6c7bb" }}>
+        A quiet signature on the back wall, designed to glow softly under warm light.
       </div>
     </div>
   );
@@ -546,7 +471,7 @@ export default function EmberCoffeeHouse() {
               <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
                 Concept
               </div>
-              <div className="mt-6 text-4xl md:text-5xl font-semibold leading-[1.05]" style={{ color: INK }}>
+              <div className="mt-6 text-5xl md:text-6xl font-semibold leading-[1.05]" style={{ color: INK }}>
                 A coffee house built around quiet moments, ritual, and the glow of slow mornings.
               </div>
               <div className="mt-8 text-sm md:text-base leading-relaxed max-w-xl" style={{ color: MUTED }}>
@@ -635,19 +560,8 @@ export default function EmberCoffeeHouse() {
             className="grid lg:grid-cols-[1.1fr,0.9fr] gap-8 md:gap-10"
           >
             <div className="space-y-8">
-              <div className="rounded-[32px] border p-10" style={{ borderColor: SOFT, background: PAPER }}>
-                <div className="text-xs uppercase tracking-[0.5em]" style={{ color: MUTED }}>
-                  Packaging
-                </div>
-                <div className="mt-8 grid grid-cols-2 gap-6 items-end">
-                  <CupMock label="Takeaway" tone="light" />
-                  <CupMock label="Night bar" tone="dark" />
-                  <div className="col-span-2">
-                    <BagMock />
-                  </div>
-                </div>
-              </div>
               <MenuSpread />
+              <InteriorWallPanel />
             </div>
             <div className="space-y-8">
               <div className="grid gap-6">
@@ -655,7 +569,6 @@ export default function EmberCoffeeHouse() {
                 <Poster title="Golden hour brews." detail="Seasonal pours with soft spice and toasted sugar." />
               </div>
               <SignagePanel />
-              <LabelSheet />
             </div>
           </motion.div>
         </div>

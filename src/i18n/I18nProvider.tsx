@@ -277,6 +277,40 @@ const dictEn: Dict = {
   "results.cta.item.2": "Custom strategy",
   "results.cta.item.3": "Results guaranteed",
 
+  // Capabilities
+  "capabilities.badge": "Signature Services",
+  "capabilities.title.1": "Built for modern",
+  "capabilities.title.2": "brands that move fast",
+  "capabilities.subtitle": "A premium, cohesive toolkit that blends strategy, storytelling, and technology into one seamless experience.",
+  "capabilities.0.title": "Brand Strategy",
+  "capabilities.0.desc": "Positioning, messaging, and identity that make you unmistakable in any market.",
+  "capabilities.0.badge": "Clarity",
+  "capabilities.1.title": "Global Insight",
+  "capabilities.1.desc": "Multilingual expertise and cultural nuance that translate to international growth.",
+  "capabilities.1.badge": "Reach",
+  "capabilities.2.title": "Experience Design",
+  "capabilities.2.desc": "Premium product and web experiences with accessibility, speed, and delight baked in.",
+  "capabilities.2.badge": "UX",
+  "capabilities.3.title": "Launch & Scale",
+  "capabilities.3.desc": "Go-to-market support, optimization, and campaigns that keep momentum strong.",
+  "capabilities.3.badge": "Momentum",
+  "capabilities.more": "Explore capability",
+
+  // Featured
+  "featured.badge": "Featured work",
+  "featured.title.1": "Signature projects",
+  "featured.title.2": "that define our standard",
+  "featured.subtitle": "A snapshot of recent launches blending bold creative with measurable outcomes.",
+  "featured.cta": "View details",
+  "featured.0.title": "Flat Burger — street food, reimagined",
+  "featured.0.category": "Brand Building",
+  "featured.0.desc": "Naming, identity, web, and launch content that captured Belgrade’s late-night energy.",
+  "featured.0.badge": "Case Study",
+  "featured.1.title": "Digital Flagship Experience",
+  "featured.1.category": "Web Development",
+  "featured.1.desc": "A high-converting, multi-lingual web platform with cinematic motion and sub-second loads.",
+  "featured.1.badge": "Launch",
+
   // Why Choose Us Section
   "why.badge": "Why thirtythree",
   "why.title.1": "What makes us",
@@ -383,7 +417,7 @@ const dictEn: Dict = {
   "portfolio.viewProject": "View project",
   "studio.concept": "Studio concept",
   "ember.story":
-    "EMBER is built for the quiet minutes before the rush. A place where coffee is slow, warm, and intentional. Every detail is designed to feel grounded, tactile, and human.",
+    "EMBER is built for the quiet minutes before the rush. It rejects speed in favor of ritual, warmth, and slowness. Every detail is designed to feel grounded, tactile, and human.",
   "ember.scope": "Brand identity, visual system, and digital experience.",
   "norma.story":
     "STUDIO NORMA works at the intersection of architecture and spatial thinking. The identity removes decoration in favor of proportion, grid, and clarity. The website behaves like a curated portfolio wall—quiet and precise.",
@@ -727,6 +761,40 @@ const dictSr: Dict = {
   "results.cta.item.2": "Prilagođena strategija",
   "results.cta.item.3": "Garantovani rezultati",
 
+  // Capabilities
+  "capabilities.badge": "Ključne usluge",
+  "capabilities.title.1": "Pravljeno za moderne",
+  "capabilities.title.2": "brendove koji brzo napreduju",
+  "capabilities.subtitle": "Premijum, povezan set usluga koji spaja strategiju, priču i tehnologiju u jedno iskustvo.",
+  "capabilities.0.title": "Brend strategija",
+  "capabilities.0.desc": "Pozicioniranje, poruke i identitet koji vas čine prepoznatljivim na svakom tržištu.",
+  "capabilities.0.badge": "Jasnoća",
+  "capabilities.1.title": "Globalni uvid",
+  "capabilities.1.desc": "Više jezika i kulturne nijanse koje donose rast na međunarodnom nivou.",
+  "capabilities.1.badge": "Domet",
+  "capabilities.2.title": "Experience dizajn",
+  "capabilities.2.desc": "Vrhunski digitalni proizvodi i sajtovi sa brzinom, pristupačnošću i zadovoljstvom korisnika.",
+  "capabilities.2.badge": "UX",
+  "capabilities.3.title": "Launch i rast",
+  "capabilities.3.desc": "Go-to-market podrška, optimizacije i kampanje koje održavaju zamah.",
+  "capabilities.3.badge": "Momentum",
+  "capabilities.more": "Istraži uslugu",
+
+  // Featured
+  "featured.badge": "Istaknuti projekti",
+  "featured.title.1": "Radovi koji",
+  "featured.title.2": "postavljaju standard",
+  "featured.subtitle": "Kratak uvid u nedavna lansiranja koja spajaju hrabar dizajn i merljive rezultate.",
+  "featured.cta": "Pogledaj detalje",
+  "featured.0.title": "Flat Burger — street food, drugačije",
+  "featured.0.category": "Izgradnja brenda",
+  "featured.0.desc": "Naziv, identitet, web i launch sadržaj koji hvata energiju noćnog Beograda.",
+  "featured.0.badge": "Studija slučaja",
+  "featured.1.title": "Digitalno flagship iskustvo",
+  "featured.1.category": "Web razvoj",
+  "featured.1.desc": "Višejezička web platforma sa kinematičnim pokretom i učitavanjem ispod jedne sekunde.",
+  "featured.1.badge": "Launch",
+
   // Why Choose Us Section
   "why.badge": "Zašto thirtythree",
   "why.title.1": "Šta nas čini",
@@ -833,7 +901,7 @@ const dictSr: Dict = {
   "portfolio.viewProject": "Pogledaj projekat",
   "studio.concept": "Studio koncept",
   "ember.story":
-    "EMBER je za tihe minute pre gužve. Mesto gde je kafa spora, topla i namerna. Svaki detalj je osmišljen da bude prizemljen, taktilan i ljudski.",
+    "EMBER je za tihe minute pre gužve. Odbija brzinu zarad rituala, topline i sporosti. Svaki detalj je osmišljen da bude prizemljen, taktilan i ljudski.",
   "ember.scope": "Brend identitet, vizuelni sistem i digitalno iskustvo.",
   "norma.story":
     "STUDIO NORMA radi na preseku arhitekture i prostornog dizajna. Identitet uklanja dekoraciju u korist proporcije, grida i jasnoće. Sajt funkcioniše kao kuriran portfolio—tih i precizan.",
