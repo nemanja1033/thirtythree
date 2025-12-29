@@ -46,6 +46,12 @@
     * {
       -webkit-overflow-scrolling: touch;
     }
+
+    /* Improve scroll performance without altering visuals */
+    section {
+      content-visibility: auto;
+      contain-intrinsic-size: 800px;
+    }
   }
 
   /* Premium scrollbar - desktop only */

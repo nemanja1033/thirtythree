@@ -663,6 +663,7 @@ const dictSr: Dict = {
 
   // Testimonials Section
   "testimonials.badge": "Priče klijenata",
+  "testimonials.title": "Šta naši klijenti kažu",
   "testimonials.title.1": "Poverenje",
   "testimonials.title.2": "lidera industrije",
   "testimonials.subtitle": "Ne verujte nam na reč. Evo šta naši klijenti kažu o saradnji sa nama.",
