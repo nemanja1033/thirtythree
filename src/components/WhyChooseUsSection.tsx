@@ -56,27 +56,38 @@ const reasons: Reason[] = [
   },
 ];
 
-function ReasonCard({ reason, index, isInView, isMobile, t }: { reason: Reason; index: number; isInView: boolean; isMobile: boolean; t: (key: string) => string }) {
+function ReasonCard({
+  reason,
+  index,
+  isMobile,
+  t,
+  variants,
+}: {
+  reason: Reason;
+  index: number;
+  isMobile: boolean;
+  t: (key: string) => string;
+  variants: {
+    hidden: { opacity: number; y: number };
+    show: { opacity: number; y: number; transition: { duration: number; ease: string } };
+  };
+}) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{
-        duration: isMobile ? 0.3 : 0.6,
-        delay: isMobile ? index * 0.03 : index * 0.1,
-        ease: "easeOut",
-      }}
-      whileHover={!isMobile ? { y: -8 } : undefined}
+      variants={variants}
+      whileHover={!isMobile ? { y: -6 } : undefined}
       className="group relative"
     >
-      <div className={`h-full p-6 md:p-8 rounded-2xl md:rounded-3xl bg-gradient-to-br ${reason.bgGradient} border border-white/50 shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden`}>
+      <div className={`h-full p-6 md:p-8 rounded-2xl md:rounded-3xl bg-gradient-to-br ${reason.bgGradient} border border-white/70 shadow-[0_18px_50px_-30px_rgba(15,23,42,0.4)] hover:shadow-[0_24px_70px_-30px_rgba(15,23,42,0.55)] transition-all duration-500 relative overflow-hidden`}>
         {/* Animated background shine - desktop only */}
         {!isMobile && (
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
         )}
+        <div className="absolute inset-0 ring-1 ring-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl md:rounded-3xl pointer-events-none" />
+        <div className="absolute -top-20 -right-16 w-40 h-40 bg-white/50 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
         {/* Icon */}
-        <div className={`w-12 h-12 md:w-14 md:h-14 mb-4 md:mb-6 rounded-xl md:rounded-2xl bg-gradient-to-br ${reason.gradient} flex items-center justify-center shadow-lg relative z-10`}>
+        <div className={`w-12 h-12 md:w-14 md:h-14 mb-4 md:mb-6 rounded-xl md:rounded-2xl bg-gradient-to-br ${reason.gradient} flex items-center justify-center shadow-lg relative z-10 transition-transform duration-500 group-hover:scale-[1.02]`}>
           <svg className="w-6 h-6 md:w-7 md:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={reason.iconPath} />
           </svg>
@@ -105,6 +116,22 @@ export default function WhyChooseUsSection() {
   const isInView = useInView(sectionRef, { once: true, margin: "-50px" });
   const [isMobile, setIsMobile] = useState(false);
 
+  const gridVariants = {
+    hidden: { opacity: 1 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: isMobile ? 0.04 : 0.08,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: isMobile ? 12 : 24 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  };
+
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -115,23 +142,33 @@ export default function WhyChooseUsSection() {
   return (
     <section
       ref={sectionRef}
-      className="py-16 md:py-32 bg-white relative overflow-hidden"
+      className="py-16 md:py-32 bg-gradient-to-b from-white via-slate-50/40 to-white relative overflow-hidden"
     >
       {/* Subtle background elements */}
+      <div className="absolute -top-28 left-1/4 w-[520px] h-[520px] bg-gradient-to-br from-amber-100/60 via-orange-100/30 to-transparent rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute -bottom-40 right-1/4 w-[560px] h-[560px] bg-gradient-to-tr from-blue-100/50 via-indigo-100/20 to-transparent rounded-full blur-[150px] pointer-events-none" />
       {!isMobile && (
         <>
           <motion.div
             animate={{ rotate: 360 }}
-            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-            className="absolute top-20 -left-20 w-40 h-40 border border-amber-100 rounded-full"
+            transition={{ duration: 70, repeat: Infinity, ease: "linear" }}
+            className="absolute top-24 -left-24 w-48 h-48 border border-amber-100/70 rounded-full"
           />
           <motion.div
             animate={{ rotate: -360 }}
-            transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
-            className="absolute bottom-20 -right-20 w-60 h-60 border border-orange-100 rounded-full"
+            transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
+            className="absolute bottom-24 -right-28 w-64 h-64 border border-indigo-100/70 rounded-full"
           />
         </>
       )}
+      <svg className="absolute inset-0 w-full h-full opacity-[0.05] pointer-events-none" aria-hidden="true">
+        <defs>
+          <pattern id="why-grid" width="36" height="36" patternUnits="userSpaceOnUse">
+            <path d="M36 0H0V36" fill="none" stroke="currentColor" strokeWidth="1" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#why-grid)" className="text-slate-300" />
+      </svg>
 
       <div className="container mx-auto px-5 md:px-6">
         {/* Header */}
@@ -141,8 +178,8 @@ export default function WhyChooseUsSection() {
           transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
           className="max-w-4xl mx-auto text-center mb-12 md:mb-20"
         >
-          <span className="inline-flex items-center gap-2 mb-4 text-xs md:text-sm px-4 py-2 rounded-full bg-gray-100 text-gray-600 font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-gray-400" />
+          <span className="inline-flex items-center gap-2 mb-4 text-xs md:text-sm px-4 py-2 rounded-full bg-white/80 text-gray-700 font-medium border border-gray-200/70 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-amber-400 to-orange-500" />
             {t("why.badge")}
           </span>
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
@@ -155,18 +192,23 @@ export default function WhyChooseUsSection() {
         </motion.div>
 
         {/* Reasons grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto mb-12 md:mb-16">
+        <motion.div
+          variants={gridVariants}
+          initial="hidden"
+          animate={isInView ? "show" : "hidden"}
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto mb-12 md:mb-16"
+        >
           {reasons.map((reason, index) => (
             <ReasonCard
               key={reason.titleKey}
               reason={reason}
               index={index}
-              isInView={isInView}
               isMobile={isMobile}
               t={t}
+              variants={cardVariants}
             />
           ))}
-        </div>
+        </motion.div>
 
         {/* CTA */}
         <motion.div
@@ -189,4 +231,3 @@ export default function WhyChooseUsSection() {
     </section>
   );
 }
-
