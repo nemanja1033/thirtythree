@@ -15,9 +15,9 @@ import FAQ from "./pages/FAQ";
 import Portfolio from "./pages/Portfolio";
 import FlatBurger from "./pages/FlatBurger";
 import Zonex from "./pages/Zonex";
-import SignalWorks from "./pages/SignalWorks";
-import NoirSupply from "./pages/NoirSupply";
-import Pulse from "./pages/Pulse";
+import EmberCoffeeHouse from "./pages/EmberCoffeeHouse";
+import StudioNorma from "./pages/StudioNorma";
+import PulseCampaign from "./pages/PulseCampaign";
 import ScrollToTop from "./components/ScrollToTop";
 import "./index.css";
 import { I18nProvider } from "./i18n/I18nProvider";
@@ -54,9 +54,9 @@ function RouteTransitions() {
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/portfolio/flatburger" element={<FlatBurger />} />
           <Route path="/portfolio/zonex" element={<Zonex />} />
-          <Route path="/portfolio/signal-works" element={<SignalWorks />} />
-          <Route path="/portfolio/noir-supply" element={<NoirSupply />} />
-          <Route path="/portfolio/pulse" element={<Pulse />} />
+          <Route path="/portfolio/ember-coffee-house" element={<EmberCoffeeHouse />} />
+          <Route path="/portfolio/studio-norma" element={<StudioNorma />} />
+          <Route path="/portfolio/pulse-campaign" element={<PulseCampaign />} />
         </Routes>
       </motion.div>
     </AnimatePresence>

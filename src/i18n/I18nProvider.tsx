@@ -382,9 +382,15 @@ const dictEn: Dict = {
 
   "portfolio.viewProject": "View project",
   "studio.concept": "Studio concept",
-  "noir.one": "Brand identity & visual system",
-  "signal.one": "Digital experience & interaction design",
-  "pulse.one": "Creative direction & digital content system",
+  "ember.story":
+    "EMBER is a space where coffee is treated as a ritual. The brand and digital presence are designed to feel warm, calm, and grounded.",
+  "ember.scope": "Brand identity, visual system, and digital experience.",
+  "norma.story":
+    "STUDIO NORMA believes in clarity, proportion, and reduction. The identity and website are built to reflect structure over decoration.",
+  "norma.scope": "Brand identity and portfolio-focused website.",
+  "pulse.story":
+    "PULSE is not a single campaign, but a system. Built to scale across formats without losing identity.",
+  "pulse.scope": "Creative direction, visual system, and motion-based content.",
 
   "zonex.caseStudy": "Case Study",
   "zonex.heroTitle": "ZONEX INŽENJERING",
@@ -826,9 +832,15 @@ const dictSr: Dict = {
 
   "portfolio.viewProject": "Pogledaj projekat",
   "studio.concept": "Studio koncept",
-  "noir.one": "Brend identitet i vizuelni sistem",
-  "signal.one": "Digitalno iskustvo i interakcioni dizajn",
-  "pulse.one": "Kreativna direkcija i digitalni content sistem",
+  "ember.story":
+    "EMBER je mesto gde je kafa ritual. Brend i digitalno prisustvo su topli, mirni i prizemljeni.",
+  "ember.scope": "Brend identitet, vizuelni sistem i digitalno iskustvo.",
+  "norma.story":
+    "STUDIO NORMA veruje u jasnoću, proporciju i redukciju. Identitet i sajt reflektuju strukturu, ne dekor.",
+  "norma.scope": "Brend identitet i portfolio sajt.",
+  "pulse.story":
+    "PULSE nije jedna kampanja, već sistem. Građen da se širi kroz formate bez gubitka identiteta.",
+  "pulse.scope": "Kreativna direkcija, vizuelni sistem i motion sadržaj.",
 
   "zonex.caseStudy": "Studija slučaja",
   "zonex.heroTitle": "ZONEX INŽENJERING",
