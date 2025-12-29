@@ -548,18 +548,26 @@ const dictEn: Dict = {
   "norma.story":
     "STUDIO NORMA works at the intersection of architecture and spatial thinking. The identity removes decoration in favor of proportion, grid, and clarity. The website behaves like a curated portfolio wall—quiet and precise.",
   "norma.scope": "Brand identity and portfolio-focused website.",
-  "norma.hero.headline": "Clarity, proportion, and reduction.",
-  "norma.hero.body":
-    "Studio NORMA is a spatial practice that removes excess to reveal structure. Each project is framed with restraint, precision, and quiet authority.",
-  "norma.hero.sheetLabel": "Studio brief",
-  "norma.hero.sheetTitle": "International practice, local rigor.",
-  "norma.hero.sheetBody":
-    "Identity and digital portfolio designed to present work with calm hierarchy and architectural discipline.",
-  "norma.hero.signature": "STRUCTURAL PRACTICE",
-  "norma.hero.signatureBody": "Architecture, spatial design, and cultural institutions.",
-  "norma.identity.label": "Identity",
+  "norma.opening.title": "Architecture shaped by discipline, not spectacle.",
+  "norma.opening.body":
+    "A studio devoted to clarity, proportion, and quiet authority. NORMA designs spaces that feel inevitable—reduced to what matters and held by structure.",
+  "norma.opening.sheetLabel": "Studio brief",
+  "norma.opening.sheetTitle": "International practice, measured presence.",
+  "norma.opening.sheetBody":
+    "Identity and digital portfolio created to frame work with restraint, precision, and editorial pace.",
+  "norma.opening.signature": "STRUCTURAL PRACTICE",
+  "norma.opening.signatureBody": "Architecture, spatial design, cultural institutions.",
+  "norma.philosophy.label": "Philosophy",
+  "norma.philosophy.title": "Less, but better.",
+  "norma.philosophy.body1":
+    "NORMA exists to protect the work from noise. It refuses spectacle and trend in favor of structure and proportion.",
+  "norma.philosophy.body2":
+    "The studio attracts projects that demand clarity—public buildings, cultural spaces, and residential work with long-term value.",
+  "norma.philosophy.body3":
+    "It declines work that seeks decoration without purpose. Silence is confidence, not absence.",
+  "norma.identity.label": "Identity as consequence",
   "norma.identity.body":
-    "A refined wordmark balances weight and spacing, mirroring structural proportion across every application.",
+    "A refined wordmark and measured typography translate the studio’s restraint into visible form.",
   "norma.identity.lockupLabel": "Cover sheet",
   "norma.identity.lockupTitle": "Studio cover & project headers",
   "norma.identity.lockupBody":
@@ -568,17 +576,45 @@ const dictEn: Dict = {
   "norma.identity.signageTitle": "Exterior studio mark",
   "norma.identity.signageBody":
     "Quiet typographic mark applied to entry plates and project rooms.",
+  "norma.work.label": "Work & practice",
+  "norma.work.title": "Selected work framed with restraint.",
+  "norma.work.body":
+    "Project titles, categories, and concise descriptions reflect a studio built on proportion and clarity.",
+  "norma.work.project.one.title": "Civic Hall Renewal",
+  "norma.work.project.one.meta": "Public",
+  "norma.work.project.one.body":
+    "A measured renovation that restores daylight, circulation, and public dignity.",
+  "norma.work.project.two.title": "Gallery Wing Expansion",
+  "norma.work.project.two.meta": "Culture",
+  "norma.work.project.two.body":
+    "A quiet extension that respects the original volume while rebalancing the grid.",
+  "norma.work.project.three.title": "Residential Atrium",
+  "norma.work.project.three.meta": "Residential",
+  "norma.work.project.three.body":
+    "A disciplined plan that turns circulation into light and calm.",
+  "norma.work.project.four.title": "Studio Archive",
+  "norma.work.project.four.meta": "Practice",
+  "norma.work.project.four.body":
+    "An internal system for drawings, models, and the studio’s spatial memory.",
   "norma.digital.title": "Digital experience",
   "norma.digital.heroLabel": "Homepage",
   "norma.digital.heroTitle": "Selected projects and spatial studies.",
   "norma.digital.project.one.title": "Civic Hall Renewal",
   "norma.digital.project.one.meta": "Public",
+  "norma.digital.project.one.body":
+    "A calm listing built on hierarchy, spacing, and clear taxonomy.",
   "norma.digital.project.two.title": "Gallery Wing Expansion",
   "norma.digital.project.two.meta": "Culture",
+  "norma.digital.project.two.body":
+    "Project cards structured as editorial entries, not marketing tiles.",
   "norma.digital.project.three.title": "Residential Atrium",
   "norma.digital.project.three.meta": "Residential",
+  "norma.digital.project.three.body":
+    "A strict grid that prioritizes clarity over decoration.",
   "norma.digital.project.four.title": "Studio Archive",
   "norma.digital.project.four.meta": "Practice",
+  "norma.digital.project.four.body":
+    "Reference material and process notes held in quiet balance.",
   "norma.digital.detailLabel": "Project detail",
   "norma.digital.detailTitle": "Material palette and process notes.",
   "norma.digital.detailBody":
@@ -1271,37 +1307,73 @@ const dictSr: Dict = {
   "norma.story":
     "STUDIO NORMA radi na preseku arhitekture i prostornog dizajna. Identitet uklanja dekoraciju u korist proporcije, grida i jasnoće. Sajt funkcioniše kao kuriran portfolio—tih i precizan.",
   "norma.scope": "Brend identitet i portfolio sajt.",
-  "norma.hero.headline": "Jasnoća, proporcija i redukcija.",
-  "norma.hero.body":
-    "Studio NORMA je prostorna praksa koja uklanja višak da bi otkrila strukturu. Svaki projekat je uokviren uzdržano, precizno i sa tihim autoritetom.",
-  "norma.hero.sheetLabel": "Studijski brief",
-  "norma.hero.sheetTitle": "Međunarodna praksa, lokalna disciplina.",
-  "norma.hero.sheetBody":
-    "Identitet i digitalni portfolio dizajnirani za mirnu hijerarhiju i arhitektonsku disciplinu.",
-  "norma.hero.signature": "STRUKTURNA PRAKSA",
-  "norma.hero.signatureBody": "Arhitektura, prostorni dizajn i kulturne institucije.",
-  "norma.identity.label": "Identitet",
+  "norma.opening.title": "Arhitektura oblikovana disciplinom, ne spektaklom.",
+  "norma.opening.body":
+    "Studio posvećen jasnoći, proporciji i tihom autoritetu. NORMA gradi prostore koji deluju neizbežno—svedene na suštinu i vođene strukturom.",
+  "norma.opening.sheetLabel": "Studijski brief",
+  "norma.opening.sheetTitle": "Međunarodna praksa, merena prisutnost.",
+  "norma.opening.sheetBody":
+    "Identitet i digitalni portfolio oblikovani za uzdržanu hijerarhiju i arhitektonski ritam.",
+  "norma.opening.signature": "STRUKTURNA PRAKSA",
+  "norma.opening.signatureBody": "Arhitektura, prostorni dizajn, kulturne institucije.",
+  "norma.philosophy.label": "Filozofija",
+  "norma.philosophy.title": "Manje, ali bolje.",
+  "norma.philosophy.body1":
+    "NORMA postoji da zaštiti rad od buke. Odbija spektakl i trend u korist strukture i proporcije.",
+  "norma.philosophy.body2":
+    "Privlači projekte koji zahtevaju jasnoću—javne zgrade, kulturne prostore i stambene zahvate dugog veka.",
+  "norma.philosophy.body3":
+    "Odbija rad koji traži dekor bez svrhe. Tišina je samopouzdanje, ne odsustvo.",
+  "norma.identity.label": "Identitet kao posledica",
   "norma.identity.body":
-    "Rafinirani logotip balansira težinu i razmake, prateći strukturnu proporciju u svakoj primeni.",
+    "Rafinirani logotip i merena tipografija prevode uzdržanost studija u vidljivu formu.",
   "norma.identity.lockupLabel": "Naslovna stranica",
-  "norma.identity.lockupTitle": "Studijski cover i naslovi projekata",
+  "norma.identity.lockupTitle": "Studijski cover i zaglavlja projekata",
   "norma.identity.lockupBody":
     "Primarna postavka za prezentacije, arhivu i editorial rasporede.",
   "norma.identity.signageLabel": "Signalizacija",
   "norma.identity.signageTitle": "Spoljni znak studija",
   "norma.identity.signageBody":
-    "Tihi tipografski znak primenjen na ulaznim pločama i prostorijama.",
+    "Tihi tipografski znak primenjen na ulaznim pločama i projektnim prostorima.",
+  "norma.work.label": "Rad i praksa",
+  "norma.work.title": "Odabrani rad uokviren uzdržano.",
+  "norma.work.body":
+    "Nazivi projekata, kategorije i sažeti opisi odražavaju studio građen na proporciji i jasnoći.",
+  "norma.work.project.one.title": "Obnova gradske hale",
+  "norma.work.project.one.meta": "Javno",
+  "norma.work.project.one.body":
+    "Merena rekonstrukcija koja vraća svetlo, cirkulaciju i javno dostojanstvo.",
+  "norma.work.project.two.title": "Proširenje galerijskog krila",
+  "norma.work.project.two.meta": "Kultura",
+  "norma.work.project.two.body":
+    "Tiho proširenje koje poštuje originalni volumen i rebalansira grid.",
+  "norma.work.project.three.title": "Stambeni atrijum",
+  "norma.work.project.three.meta": "Stambeno",
+  "norma.work.project.three.body":
+    "Disciplinovan plan koji cirkulaciju pretvara u svetlo i mir.",
+  "norma.work.project.four.title": "Studijska arhiva",
+  "norma.work.project.four.meta": "Praksa",
+  "norma.work.project.four.body":
+    "Interni sistem za crteže, modele i prostornu memoriju studija.",
   "norma.digital.title": "Digitalno iskustvo",
   "norma.digital.heroLabel": "Početna",
   "norma.digital.heroTitle": "Odabrani projekti i prostorne studije.",
   "norma.digital.project.one.title": "Obnova gradske hale",
   "norma.digital.project.one.meta": "Javno",
+  "norma.digital.project.one.body":
+    "Smiren prikaz zasnovan na hijerarhiji, razmacima i jasnoj taksonomiji.",
   "norma.digital.project.two.title": "Proširenje galerijskog krila",
   "norma.digital.project.two.meta": "Kultura",
+  "norma.digital.project.two.body":
+    "Projektne stavke postavljene kao editorial zapisi, bez marketinške buke.",
   "norma.digital.project.three.title": "Stambeni atrijum",
   "norma.digital.project.three.meta": "Stambeno",
+  "norma.digital.project.three.body":
+    "Strog grid koji daje prednost jasnoći nad dekoracijom.",
   "norma.digital.project.four.title": "Studijska arhiva",
   "norma.digital.project.four.meta": "Praksa",
+  "norma.digital.project.four.body":
+    "Referentni materijali i procesne beleške održani u tihom balansu.",
   "norma.digital.detailLabel": "Projektna stranica",
   "norma.digital.detailTitle": "Materijalna paleta i beleške procesa.",
   "norma.digital.detailBody":
