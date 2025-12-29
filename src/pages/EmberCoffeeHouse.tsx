@@ -33,72 +33,87 @@ function EmberMark({ className, stroke = INK }: { className?: string; stroke?: s
 
 function EmberWordmark({ className, fill = INK }: { className?: string; fill?: string }) {
   return (
-    <svg className={className} viewBox="0 0 580 120" fill={fill}>
+    <svg className={className} viewBox="0 0 660 120" fill={fill}>
       <rect x="0" y="0" width="18" height="120" rx="4" />
-      <rect x="0" y="0" width="74" height="18" rx="4" />
-      <rect x="0" y="51" width="58" height="18" rx="4" />
-      <rect x="0" y="102" width="74" height="18" rx="4" />
-      <rect x="112" y="0" width="18" height="120" rx="4" />
-      <rect x="194" y="0" width="18" height="120" rx="4" />
-      <polygon points="130,0 150,0 176,62 156,62" />
-      <polygon points="176,62 196,0 216,0 196,62" />
-      <rect x="252" y="0" width="18" height="120" rx="4" />
-      <rect x="252" y="0" width="72" height="18" rx="4" />
-      <rect x="252" y="51" width="72" height="18" rx="4" />
-      <rect x="252" y="102" width="72" height="18" rx="4" />
-      <rect x="304" y="18" width="18" height="33" rx="4" />
-      <rect x="304" y="69" width="18" height="33" rx="4" />
-      <rect x="350" y="0" width="18" height="120" rx="4" />
-      <rect x="350" y="0" width="74" height="18" rx="4" />
-      <rect x="350" y="51" width="58" height="18" rx="4" />
-      <rect x="350" y="102" width="74" height="18" rx="4" />
-      <rect x="460" y="0" width="18" height="120" rx="4" />
-      <rect x="460" y="0" width="72" height="18" rx="4" />
-      <rect x="460" y="51" width="72" height="18" rx="4" />
-      <rect x="514" y="18" width="18" height="33" rx="4" />
-      <polygon points="478,74 534,120 506,120 462,86" />
+      <rect x="0" y="0" width="78" height="18" rx="4" />
+      <rect x="0" y="51" width="32" height="18" rx="4" />
+      <rect x="46" y="51" width="26" height="18" rx="4" />
+      <rect x="0" y="102" width="78" height="18" rx="4" />
+
+      <rect x="116" y="0" width="18" height="120" rx="4" />
+      <rect x="196" y="0" width="18" height="120" rx="4" />
+      <polygon points="134,0 152,0 186,62 168,62" />
+      <polygon points="186,62 204,0 222,0 204,62" />
+
+      <rect x="256" y="0" width="18" height="120" rx="4" />
+      <rect x="256" y="0" width="80" height="18" rx="4" />
+      <rect x="256" y="51" width="70" height="18" rx="4" />
+      <rect x="256" y="102" width="80" height="18" rx="4" />
+      <rect x="314" y="18" width="18" height="33" rx="4" />
+      <rect x="314" y="69" width="18" height="33" rx="4" />
+
+      <rect x="374" y="0" width="18" height="120" rx="4" />
+      <rect x="374" y="0" width="78" height="18" rx="4" />
+      <rect x="374" y="51" width="32" height="18" rx="4" />
+      <rect x="420" y="51" width="26" height="18" rx="4" />
+      <rect x="374" y="102" width="78" height="18" rx="4" />
+
+      <rect x="498" y="0" width="18" height="120" rx="4" />
+      <rect x="498" y="0" width="76" height="18" rx="4" />
+      <rect x="498" y="51" width="64" height="18" rx="4" />
+      <rect x="554" y="18" width="18" height="33" rx="4" />
+      <polygon points="516,74 582,120 548,120 496,86" />
     </svg>
   );
 }
 
-function MenuSpread() {
-  const espresso = [
-    ["Ritual Espresso", "2.40"],
-    ["Ember Latte", "3.60"],
-    ["Oat Flat", "3.40"],
-    ["Warm Spice", "3.80"],
-  ];
-  const filter = [
-    ["Kalita", "3.40"],
-    ["Chemex", "3.60"],
-    ["V60", "3.20"],
-  ];
-  const specials = [
-    ["Golden Milk", "4.10"],
-    ["Cacao Tonic", "4.40"],
-  ];
+function MenuSpread({
+  label,
+  title,
+  edition,
+  espressoLabel,
+  filterLabel,
+  seasonalLabel,
+  notesLabel,
+  notesBody,
+  items,
+  filters,
+  specials,
+}: {
+  label: string;
+  title: string;
+  edition: string;
+  espressoLabel: string;
+  filterLabel: string;
+  seasonalLabel: string;
+  notesLabel: string;
+  notesBody: string;
+  items: Array<[string, string]>;
+  filters: Array<[string, string]>;
+  specials: Array<[string, string]>;
+}) {
   return (
     <div className="rounded-[30px] border p-8" style={{ borderColor: SOFT, background: "#f8f1e8" }}>
       <div className="flex items-center justify-between">
         <div>
           <div className="text-xs uppercase tracking-[0.5em]" style={{ color: MUTED }}>
-            Menu
+            {label}
           </div>
           <div className="mt-2 text-2xl font-semibold" style={{ color: INK }}>
-            Quiet Morning Menu
+            {title}
           </div>
         </div>
         <div className="text-[10px] uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-          Winter 24
+          {edition}
         </div>
       </div>
       <div className="mt-8 grid md:grid-cols-2 gap-8 text-sm" style={{ color: INK }}>
         <div>
           <div className="text-[11px] uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-            Espresso
+            {espressoLabel}
           </div>
           <div className="mt-4 space-y-3">
-            {espresso.map(([name, price]) => (
+            {items.map(([name, price]) => (
               <div key={name} className="flex items-center justify-between">
                 <span>{name}</span>
                 <span style={{ color: MUTED }}>{price}</span>
@@ -106,10 +121,10 @@ function MenuSpread() {
             ))}
           </div>
           <div className="mt-6 text-[11px] uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-            Filter
+            {filterLabel}
           </div>
           <div className="mt-4 space-y-3">
-            {filter.map(([name, price]) => (
+            {filters.map(([name, price]) => (
               <div key={name} className="flex items-center justify-between">
                 <span>{name}</span>
                 <span style={{ color: MUTED }}>{price}</span>
@@ -119,7 +134,7 @@ function MenuSpread() {
         </div>
         <div>
           <div className="text-[11px] uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-            Seasonal
+            {seasonalLabel}
           </div>
           <div className="mt-4 space-y-3">
             {specials.map(([name, price]) => (
@@ -131,10 +146,10 @@ function MenuSpread() {
           </div>
           <div className="mt-6 rounded-2xl border px-4 py-4" style={{ borderColor: SOFT, background: "#efe2d6" }}>
             <div className="text-[11px] uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-              Notes
+              {notesLabel}
             </div>
             <div className="mt-3 text-[13px]" style={{ color: INK }}>
-              Milk options: oat, almond, whole. Single origin rotation every week.
+              {notesBody}
             </div>
           </div>
         </div>
@@ -143,11 +158,11 @@ function MenuSpread() {
   );
 }
 
-function Poster({ title, detail }: { title: string; detail: string }) {
+function Poster({ title, detail, brand }: { title: string; detail: string; brand: string }) {
   return (
     <div className="rounded-[28px] border p-8 h-full" style={{ borderColor: SOFT, background: "#efe2d6" }}>
       <div className="text-[10px] uppercase tracking-[0.6em]" style={{ color: MUTED }}>
-        Ember
+        {brand}
       </div>
       <div className="mt-8 text-3xl font-semibold leading-tight" style={{ color: INK }}>
         {title}
@@ -160,52 +175,70 @@ function Poster({ title, detail }: { title: string; detail: string }) {
   );
 }
 
-function SignagePanel() {
+function SignagePanel({ title, subtitle, body }: { title: string; subtitle: string; body: string }) {
   return (
     <div className="rounded-[28px] border p-10" style={{ borderColor: "#3a2a25", background: ESPRESSO }}>
       <div className="flex items-center justify-between">
         <div className="text-[10px] uppercase tracking-[0.5em]" style={{ color: "#d6c7bb" }}>
-          Signage
+          {title}
         </div>
         <div className="text-[10px] uppercase tracking-[0.4em]" style={{ color: "#d6c7bb" }}>
-          Window decal
+          {subtitle}
         </div>
       </div>
       <div className="mt-10 flex items-center justify-center rounded-2xl border py-10" style={{ borderColor: "#3b2f2a" }}>
         <EmberWordmark className="w-[240px]" fill="#f5efe8" />
       </div>
       <div className="mt-6 text-sm" style={{ color: "#d6c7bb" }}>
-        Exterior plaque and etched glass mark for a quiet night glow.
+        {body}
       </div>
     </div>
   );
 }
 
-function InteriorWallPanel() {
+function InteriorWallPanel({ title, body }: { title: string; body: string }) {
   return (
     <div className="rounded-[32px] border p-12 md:p-14" style={{ borderColor: "#3b2f2a", background: ESPRESSO }}>
       <div className="text-[10px] uppercase tracking-[0.5em]" style={{ color: "#d6c7bb" }}>
-        Interior wall mark
+        {title}
       </div>
       <div className="mt-10 flex items-center justify-center">
         <EmberWordmark className="w-[260px] md:w-[360px]" fill="#f5efe8" />
       </div>
       <div className="mt-8 text-sm md:text-base" style={{ color: "#d6c7bb" }}>
-        A quiet signature on the back wall, designed to glow softly under warm light.
+        {body}
       </div>
     </div>
   );
 }
 
-function BrandSheet() {
+function BrandSheet({
+  title,
+  subtitle,
+  ritualLabel,
+  secondaryLabel,
+  safeSpaceLabel,
+  safeSpaceNote,
+  wordmark,
+  wordmarkSub,
+}: {
+  title: string;
+  subtitle: string;
+  ritualLabel: string;
+  secondaryLabel: string;
+  safeSpaceLabel: string;
+  safeSpaceNote: string;
+  wordmark: string;
+  wordmarkSub: string;
+}) {
   return (
     <div className="rounded-[30px] border p-10" style={{ borderColor: SOFT, background: "#f8f1e8" }}>
       <div className="flex items-center justify-between">
         <div className="text-xs uppercase tracking-[0.5em]" style={{ color: MUTED }}>
-          Logo system
+          {title}
         </div>
         <div className="text-[10px] uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-          Primary / Secondary
+          {subtitle}
         </div>
       </div>
       <div className="mt-8 flex flex-col gap-8">
@@ -214,27 +247,27 @@ function BrandSheet() {
           <div className="flex items-center gap-6">
             <EmberMark className="w-14 h-14" />
             <div className="text-xs uppercase tracking-[0.35em]" style={{ color: MUTED }}>
-              Ritual mark
+              {ritualLabel}
             </div>
           </div>
         </div>
         <div className="grid md:grid-cols-2 gap-6 items-center">
           <div className="rounded-2xl border px-6 py-6" style={{ borderColor: SOFT, background: "#f1e1d2" }}>
             <div className="text-[10px] uppercase tracking-[0.5em]" style={{ color: MUTED }}>
-              Secondary lockup
+              {secondaryLabel}
             </div>
             <div className="mt-6">
               <div className="text-xs uppercase tracking-[0.6em]" style={{ color: INK }}>
-                EMBER
+                {wordmark}
               </div>
               <div className="text-[10px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
-                COFFEE HOUSE
+                {wordmarkSub}
               </div>
             </div>
           </div>
           <div className="rounded-2xl border px-6 py-6" style={{ borderColor: SOFT, background: "#f1e1d2" }}>
             <div className="text-[10px] uppercase tracking-[0.5em]" style={{ color: MUTED }}>
-              Safe space
+              {safeSpaceLabel}
             </div>
             <div className="mt-6 relative h-16">
               <div className="absolute inset-0 border border-dashed" style={{ borderColor: "#d5c6ba" }} />
@@ -243,6 +276,9 @@ function BrandSheet() {
                 <EmberMark className="w-10 h-10" />
               </div>
             </div>
+            <div className="mt-4 text-[11px]" style={{ color: MUTED }}>
+              {safeSpaceNote}
+            </div>
           </div>
         </div>
       </div>
@@ -250,37 +286,54 @@ function BrandSheet() {
   );
 }
 
-function TypeSystem() {
+function TypeSystem({
+  title,
+  headline,
+  subhead,
+  body,
+  headlineLabel,
+  bodyLabel,
+  headlineExample,
+  bodyExample,
+}: {
+  title: string;
+  headline: string;
+  subhead: string;
+  body: string;
+  headlineLabel: string;
+  bodyLabel: string;
+  headlineExample: string;
+  bodyExample: string;
+}) {
   return (
     <div className="rounded-[30px] border p-10" style={{ borderColor: SOFT, background: "#efe2d6" }}>
       <div className="text-xs uppercase tracking-[0.5em]" style={{ color: MUTED }}>
-        Typography
+        {title}
       </div>
       <div className="mt-8 space-y-4">
         <div className="text-5xl md:text-6xl font-semibold leading-[1.05]" style={{ color: INK }}>
-          Ritual over rush.
+          {headline}
         </div>
         <div className="text-2xl md:text-3xl" style={{ color: INK }}>
-          Warmth in the details.
+          {subhead}
         </div>
         <div className="text-sm md:text-base leading-relaxed max-w-xl" style={{ color: MUTED }}>
-          The type system leans into calm contrast: expressive headlines and soft body copy that reads like a quiet
-          invitation.
+          {body}
         </div>
       </div>
       <div className="mt-8 grid md:grid-cols-2 gap-6 text-sm" style={{ color: INK }}>
         <div>
           <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-            Headline
+            {headlineLabel}
           </div>
-          <div className="mt-3 text-3xl font-semibold">Slow mornings. Golden light.</div>
+          <div className="mt-3 text-3xl font-semibold">{headlineExample}</div>
         </div>
         <div>
           <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-            Body
+            {bodyLabel}
           </div>
           <div className="mt-3 text-sm leading-relaxed" style={{ color: MUTED }}>
-            EMBER is the pause before the day accelerates. The tone stays warm, tactile, and human in every line.
+            {bodyExample}
           </div>
         </div>
       </div>
@@ -288,17 +341,23 @@ function TypeSystem() {
   );
 }
 
-function ColorSpread() {
-  const swatches = [
-    { name: "Off White", hex: "#f5efe8" },
-    { name: "Ember", hex: "#c97c4b" },
-    { name: "Warm Stone", hex: "#b3886b" },
-    { name: "Deep Brown", hex: "#3b2f2a" },
-  ];
+function ColorSpread({
+  title,
+  swatches,
+  note,
+  contrastTitle,
+  contrastBody,
+}: {
+  title: string;
+  swatches: Array<{ name: string; hex: string; desc: string }>;
+  note: string;
+  contrastTitle: string;
+  contrastBody: string;
+}) {
   return (
     <div className="rounded-[30px] border p-10" style={{ borderColor: SOFT, background: PAPER }}>
       <div className="text-xs uppercase tracking-[0.5em]" style={{ color: MUTED }}>
-        Color in use
+        {title}
       </div>
       <div className="mt-6 grid grid-cols-2 gap-4">
         {swatches.map((swatch) => (
@@ -308,24 +367,37 @@ function ColorSpread() {
               {swatch.name}
             </div>
             <div className="mt-2 text-[11px]" style={{ color: INK }}>
-              Used on menus, packaging, and warm lighting cues.
+              {swatch.desc}
             </div>
           </div>
         ))}
       </div>
+      <div className="mt-6 text-sm" style={{ color: MUTED }}>
+        {note}
+      </div>
       <div className="mt-6 rounded-2xl border px-6 py-5" style={{ borderColor: SOFT, background: "#3b2f2a" }}>
         <div className="text-[10px] uppercase tracking-[0.5em]" style={{ color: "#e6d8cb" }}>
-          Espresso contrast
+          {contrastTitle}
         </div>
         <div className="mt-3 text-sm" style={{ color: "#f5efe8" }}>
-          Dark surfaces add depth and spotlight the warm accent tones.
+          {contrastBody}
         </div>
       </div>
     </div>
   );
 }
 
-function DigitalScreen({ title, subtitle, body }: { title: string; subtitle: string; body: string }) {
+function DigitalScreen({
+  subtitle,
+  title,
+  body,
+  tags,
+}: {
+  subtitle: string;
+  title: string;
+  body: string;
+  tags: string[];
+}) {
   return (
     <div className="rounded-[26px] border p-8" style={{ borderColor: SOFT, background: "#f8f1e8" }}>
       <div className="text-[10px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
@@ -338,7 +410,7 @@ function DigitalScreen({ title, subtitle, body }: { title: string; subtitle: str
         {body}
       </div>
       <div className="mt-6 flex flex-wrap gap-3">
-        {["Visit", "Menu", "Story"].map((label) => (
+        {tags.map((label) => (
           <div
             key={label}
             className="rounded-full border px-4 py-2 text-[11px] uppercase tracking-[0.35em]"
@@ -371,79 +443,118 @@ export default function EmberCoffeeHouse() {
   const closeInView = useInView(closeRef, { once: true, margin: "-60px" });
 
   const { scrollYProgress } = useScroll({ target: digitalRef, offset: ["start end", "end start"] });
-  const digitalY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [30, -40]);
-  const digitalScale = useTransform(scrollYProgress, [0, 0.5, 1], reduceMotion ? [1, 1, 1] : [0.98, 1, 0.96]);
-  const digitalSpring = useSpring(digitalY, { stiffness: 70, damping: 28 });
+  const digitalY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [24, -32]);
+  const digitalScale = useTransform(scrollYProgress, [0, 0.5, 1], reduceMotion ? [1, 1, 1] : [0.99, 1, 0.97]);
+  const digitalSpring = useSpring(digitalY, { stiffness: 60, damping: 26 });
+
+  const ease = [0.16, 1, 0.3, 1] as const;
+  const staggerChildren = reduceMotion ? 0 : 0.12;
+
+  const reveal = {
+    hidden: { opacity: 0, y: reduceMotion ? 0 : 16 },
+    show: { opacity: 1, y: 0, transition: { duration: 1.1, ease } },
+  };
+
+  const heroContainer = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren, delayChildren: reduceMotion ? 0 : 0.1 },
+    },
+  };
 
   return (
     <div className="min-h-screen overflow-x-hidden" style={{ background: BG }}>
       <Navbar />
 
       <section ref={heroRef} className="pt-24 md:pt-32 pb-20 md:pb-28 relative overflow-hidden">
-        <div className="absolute inset-0" style={{ background: "radial-gradient(circle at 20% 20%, #fff7ef 0%, #f4e7da 38%, #d9c0ab 70%, #b07b5c 100%)" }} />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(circle at 20% 20%, #fff7ef 0%, #f4e7da 38%, #d9c0ab 70%, #b07b5c 100%)",
+          }}
+        />
         <div className="absolute inset-0 opacity-[0.22]" style={{ backgroundImage: grainBg }} />
         <div className="container mx-auto px-6 md:px-8 relative">
           <div className="grid lg:grid-cols-[1.1fr,0.9fr] gap-12 md:gap-16 items-start">
             <motion.div
-              initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
-              animate={heroInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: reduceMotion ? 0.1 : 0.9, ease: "easeOut" }}
+              variants={heroContainer}
+              initial="hidden"
+              animate={heroInView ? "show" : "hidden"}
             >
-              <span className="text-xs uppercase tracking-[0.5em]" style={{ color: MUTED }}>
+              <motion.span
+                variants={reveal}
+                className="text-xs uppercase tracking-[0.5em]"
+                style={{ color: MUTED }}
+              >
                 {t("studio.concept")}
-              </span>
+              </motion.span>
               <div className="mt-8 overflow-hidden">
                 <motion.div
-                  initial={{ y: reduceMotion ? 0 : 90 }}
-                  animate={heroInView ? { y: 0 } : {}}
-                  transition={{ duration: reduceMotion ? 0.1 : 1.1, ease: [0.16, 1, 0.3, 1] }}
+                  variants={reveal}
+                  className="inline-block"
+                  transition={{ duration: reduceMotion ? 0.1 : 1.3, ease }}
                 >
                   <EmberWordmark className="w-[320px] md:w-[560px]" />
                 </motion.div>
               </div>
-              <p className="mt-8 text-lg md:text-xl leading-relaxed max-w-2xl" style={{ color: MUTED }}>
+              <motion.p
+                variants={reveal}
+                className="mt-8 text-lg md:text-xl leading-relaxed max-w-2xl"
+                style={{ color: MUTED }}
+              >
                 {t("ember.story")}
-              </p>
-              <p className="mt-4 text-sm md:text-base" style={{ color: INK }}>
+              </motion.p>
+              <motion.p
+                variants={reveal}
+                className="mt-4 text-sm md:text-base"
+                style={{ color: INK }}
+              >
                 {t("ember.scope")}
-              </p>
+              </motion.p>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: reduceMotion ? 0 : 28 }}
+              initial={{ opacity: 0, y: reduceMotion ? 0 : 18 }}
               animate={heroInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: reduceMotion ? 0.1 : 0.9, delay: reduceMotion ? 0 : 0.1 }}
+              transition={{ duration: reduceMotion ? 0.1 : 1.1, ease }}
               className="rounded-[36px] border p-10 relative overflow-hidden"
-              style={{ borderColor: SOFT, background: "linear-gradient(160deg, #fdf6ee 0%, #f1e1d2 60%, #d6b79c 100%)" }}
+              style={{
+                borderColor: SOFT,
+                background: "linear-gradient(160deg, #fdf6ee 0%, #f1e1d2 60%, #d6b79c 100%)",
+              }}
             >
               <div className="absolute inset-0 opacity-[0.2]" style={{ backgroundImage: grainBg }} />
-              <div className="absolute inset-0" style={{ background: "radial-gradient(circle at 70% 20%, rgba(255,255,255,0.45) 0%, rgba(0,0,0,0.15) 65%)" }} />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(circle at 70% 20%, rgba(255,255,255,0.45) 0%, rgba(0,0,0,0.15) 65%)",
+                }}
+              />
               <div className="relative">
                 <div className="flex items-start justify-between">
                   <EmberMark className="w-20 h-20" />
                   <div className="text-right">
                     <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-                      Ritual mark
+                      {t("ember.hero.ritualMark")}
                     </div>
                     <div className="text-lg font-semibold" style={{ color: INK }}>
-                      Heat halo + cutline
+                      {t("ember.hero.ritualMarkDesc")}
                     </div>
                   </div>
                 </div>
                 <div className="mt-10">
                   <div className="text-xs uppercase tracking-[0.6em]" style={{ color: INK }}>
-                    EMBER
+                    {t("ember.hero.wordmark")}
                   </div>
                   <div className="text-[10px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
-                    COFFEE HOUSE
+                    {t("ember.hero.wordmarkSub")}
                   </div>
                 </div>
                 <div className="mt-10 grid grid-cols-3 gap-3">
-                  {[
-                    "Warm ritual",
-                    "Slow pace",
-                    "Tactile detail",
-                  ].map((label) => (
+                  {[t("ember.hero.pill1"), t("ember.hero.pill2"), t("ember.hero.pill3")].map((label) => (
                     <div
                       key={label}
                       className="rounded-2xl border px-4 py-6 text-[10px] uppercase tracking-[0.3em]"
@@ -462,50 +573,48 @@ export default function EmberCoffeeHouse() {
       <section ref={conceptRef} className="py-14 md:py-20">
         <div className="container mx-auto px-6 md:px-8">
           <motion.div
-            initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
+            initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
             animate={conceptInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: reduceMotion ? 0.1 : 0.9 }}
+            transition={{ duration: reduceMotion ? 0.1 : 1.05, ease }}
             className="grid lg:grid-cols-[1.1fr,0.9fr] gap-10 md:gap-16 items-start"
           >
             <div>
               <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-                Concept
+                {t("ember.concept.label")}
               </div>
               <div className="mt-6 text-5xl md:text-6xl font-semibold leading-[1.05]" style={{ color: INK }}>
-                A coffee house built around quiet moments, ritual, and the glow of slow mornings.
+                {t("ember.concept.headline")}
               </div>
               <div className="mt-8 text-sm md:text-base leading-relaxed max-w-xl" style={{ color: MUTED }}>
-                EMBER pushes against fast coffee culture. The brand is warm, grounded, and tactile—designed to make the
-                space feel lived in and human, from the first pour to the last sip.
+                {t("ember.concept.body")}
               </div>
             </div>
             <div className="rounded-[32px] border p-8" style={{ borderColor: SOFT, background: PAPER }}>
               <div className="text-[10px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
-                Brand idea
+                {t("ember.concept.blockTitle")}
               </div>
               <div className="mt-6 space-y-6 text-sm" style={{ color: INK }}>
-                <div>
-                  <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-                    Ritual over rush
+                {[
+                  {
+                    title: t("ember.concept.point1.title"),
+                    body: t("ember.concept.point1.body"),
+                  },
+                  {
+                    title: t("ember.concept.point2.title"),
+                    body: t("ember.concept.point2.body"),
+                  },
+                  {
+                    title: t("ember.concept.point3.title"),
+                    body: t("ember.concept.point3.body"),
+                  },
+                ].map((item) => (
+                  <div key={item.title}>
+                    <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+                      {item.title}
+                    </div>
+                    <div className="mt-3">{item.body}</div>
                   </div>
-                  <div className="mt-3">
-                    Every detail is designed to feel like a pause, not a transaction.
-                  </div>
-                </div>
-                <div>
-                  <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-                    Warmth in the room
-                  </div>
-                  <div className="mt-3">
-                    Materials and tone stay soft, tactile, and quietly premium.
-                  </div>
-                </div>
-                <div>
-                  <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-                    Slow craft
-                  </div>
-                  <div className="mt-3">Designed to hold up to daily use and still feel intimate.</div>
-                </div>
+                ))}
               </div>
             </div>
           </motion.div>
@@ -515,36 +624,62 @@ export default function EmberCoffeeHouse() {
       <section ref={identityRef} className="py-16 md:py-24">
         <div className="container mx-auto px-6 md:px-8">
           <motion.div
-            initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
+            initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
             animate={identityInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: reduceMotion ? 0.1 : 0.9 }}
+            transition={{ duration: reduceMotion ? 0.1 : 1.05, ease }}
             className="grid lg:grid-cols-2 gap-8 md:gap-10"
           >
-            <BrandSheet />
-            <TypeSystem />
-            <ColorSpread />
+            <BrandSheet
+              title={t("ember.identity.logoSystem")}
+              subtitle={t("ember.identity.primarySecondary")}
+              ritualLabel={t("ember.identity.ritualMark")}
+              secondaryLabel={t("ember.identity.secondaryLockup")}
+              safeSpaceLabel={t("ember.identity.safeSpace")}
+              safeSpaceNote={t("ember.identity.safeSpaceNote")}
+              wordmark={t("ember.identity.wordmark")}
+              wordmarkSub={t("ember.identity.wordmarkSub")}
+            />
+            <TypeSystem
+              title={t("ember.identity.typography")}
+              headline={t("ember.identity.typographyHeadline")}
+              subhead={t("ember.identity.typographySubhead")}
+              body={t("ember.identity.typographyBody")}
+              headlineLabel={t("ember.identity.typographyHeadlineLabel")}
+              bodyLabel={t("ember.identity.typographyBodyLabel")}
+              headlineExample={t("ember.identity.typographyHeadlineExample")}
+              bodyExample={t("ember.identity.typographyBodyExample")}
+            />
+            <ColorSpread
+              title={t("ember.identity.colorInUse")}
+              swatches={[
+                { name: t("ember.identity.color1"), hex: "#f5efe8", desc: t("ember.identity.color1Desc") },
+                { name: t("ember.identity.color2"), hex: "#c97c4b", desc: t("ember.identity.color2Desc") },
+                { name: t("ember.identity.color3"), hex: "#b3886b", desc: t("ember.identity.color3Desc") },
+                { name: t("ember.identity.color4"), hex: "#3b2f2a", desc: t("ember.identity.color4Desc") },
+              ]}
+              note={t("ember.identity.colorNote")}
+              contrastTitle={t("ember.identity.espressoContrast")}
+              contrastBody={t("ember.identity.espressoContrastDesc")}
+            />
             <div className="rounded-[30px] border p-10" style={{ borderColor: SOFT, background: "#f1e1d2" }}>
               <div className="text-xs uppercase tracking-[0.5em]" style={{ color: MUTED }}>
-                Materials
+                {t("ember.identity.materials")}
               </div>
               <div className="mt-8 grid grid-cols-2 gap-6">
-                {[
-                  "Uncoated paper",
-                  "Embossed stamp",
-                  "Raw cotton",
-                  "Matte ink",
-                ].map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-2xl border px-5 py-6 text-[11px] uppercase tracking-[0.3em]"
-                    style={{ borderColor: SOFT, color: MUTED, background: "#f8f1e8" }}
-                  >
-                    {item}
-                  </div>
-                ))}
+                {[t("ember.identity.material1"), t("ember.identity.material2"), t("ember.identity.material3"), t("ember.identity.material4")].map(
+                  (item) => (
+                    <div
+                      key={item}
+                      className="rounded-2xl border px-5 py-6 text-[11px] uppercase tracking-[0.3em]"
+                      style={{ borderColor: SOFT, color: MUTED, background: "#f8f1e8" }}
+                    >
+                      {item}
+                    </div>
+                  )
+                )}
               </div>
               <div className="mt-8 text-sm" style={{ color: MUTED }}>
-                Warm surfaces and tactile printing bring the identity into the room.
+                {t("ember.identity.materialsDesc")}
               </div>
             </div>
           </motion.div>
@@ -554,21 +689,61 @@ export default function EmberCoffeeHouse() {
       <section ref={appsRef} className="py-16 md:py-24">
         <div className="container mx-auto px-6 md:px-8">
           <motion.div
-            initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
+            initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
             animate={appsInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: reduceMotion ? 0.1 : 0.9 }}
+            transition={{ duration: reduceMotion ? 0.1 : 1.05, ease }}
             className="grid lg:grid-cols-[1.1fr,0.9fr] gap-8 md:gap-10"
           >
             <div className="space-y-8">
-              <MenuSpread />
-              <InteriorWallPanel />
+              <MenuSpread
+                label={t("ember.menu.label")}
+                title={t("ember.menu.title")}
+                edition={t("ember.menu.edition")}
+                espressoLabel={t("ember.menu.espresso")}
+                filterLabel={t("ember.menu.filter")}
+                seasonalLabel={t("ember.menu.seasonal")}
+                notesLabel={t("ember.menu.notesLabel")}
+                notesBody={t("ember.menu.notesBody")}
+                items={[
+                  [t("ember.menu.item1"), t("ember.menu.item1Price")],
+                  [t("ember.menu.item2"), t("ember.menu.item2Price")],
+                  [t("ember.menu.item3"), t("ember.menu.item3Price")],
+                  [t("ember.menu.item4"), t("ember.menu.item4Price")],
+                ]}
+                filters={[
+                  [t("ember.menu.filter1"), t("ember.menu.filter1Price")],
+                  [t("ember.menu.filter2"), t("ember.menu.filter2Price")],
+                  [t("ember.menu.filter3"), t("ember.menu.filter3Price")],
+                ]}
+                specials={[
+                  [t("ember.menu.special1"), t("ember.menu.special1Price")],
+                  [t("ember.menu.special2"), t("ember.menu.special2Price")],
+                ]}
+              />
+              <InteriorWallPanel title={t("ember.interior.title")} body={t("ember.interior.body")} />
             </div>
             <div className="space-y-8">
               <div className="grid gap-6">
-                <Poster title="Ritual over rush." detail="Slow coffee, warm light, and a quiet table to reset." />
-                <Poster title="Golden hour brews." detail="Seasonal pours with soft spice and toasted sugar." />
+                <motion.div whileHover={!reduceMotion ? { y: -3 } : undefined} transition={{ duration: 0.4 }}>
+                  <Poster
+                    brand={t("ember.poster.brand")}
+                    title={t("ember.poster.one.title")}
+                    detail={t("ember.poster.one.body")}
+                  />
+                </motion.div>
+                <motion.div whileHover={!reduceMotion ? { y: -3 } : undefined} transition={{ duration: 0.4 }}>
+                  <Poster
+                    brand={t("ember.poster.brand")}
+                    title={t("ember.poster.two.title")}
+                    detail={t("ember.poster.two.body")}
+                  />
+                </motion.div>
               </div>
-              <SignagePanel />
+              <SignagePanel
+                title={t("ember.signage.title")}
+                subtitle={t("ember.signage.subtitle")}
+                body={t("ember.signage.body")}
+              />
             </div>
           </motion.div>
         </div>
@@ -577,16 +752,16 @@ export default function EmberCoffeeHouse() {
       <section ref={digitalRef} className="py-16 md:py-24">
         <div className="container mx-auto px-6 md:px-8">
           <motion.div
-            initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
+            initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
             animate={digitalInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: reduceMotion ? 0.1 : 0.9 }}
+            transition={{ duration: reduceMotion ? 0.1 : 1.05, ease }}
             className="rounded-[36px] border p-10 relative overflow-hidden"
             style={{ borderColor: SOFT, background: PAPER }}
           >
             <div className="absolute inset-0 opacity-[0.12]" style={{ backgroundImage: grainBg }} />
             <div className="relative">
               <div className="text-xs uppercase tracking-[0.5em] mb-6" style={{ color: MUTED }}>
-                Digital experience
+                {t("ember.digital.title")}
               </div>
               <motion.div
                 style={{
@@ -605,20 +780,23 @@ export default function EmberCoffeeHouse() {
                 </div>
                 <div className="px-10 py-10 space-y-8">
                   <DigitalScreen
-                    subtitle="Homepage"
-                    title="EMBER COFFEE HOUSE"
-                    body="A quiet place to slow down. Ritual, warmth, and the soft glow of morning light."
+                    subtitle={t("ember.digital.screen1.subtitle")}
+                    title={t("ember.digital.screen1.title")}
+                    body={t("ember.digital.screen1.body")}
+                    tags={[t("ember.digital.tag1"), t("ember.digital.tag2"), t("ember.digital.tag3")]}
                   />
                   <div className="grid md:grid-cols-2 gap-6">
                     <DigitalScreen
-                      subtitle="Menu"
-                      title="Seasonal ritual menu"
-                      body="Espresso, filter, and warm seasonal pours presented with calm typographic rhythm."
+                      subtitle={t("ember.digital.screen2.subtitle")}
+                      title={t("ember.digital.screen2.title")}
+                      body={t("ember.digital.screen2.body")}
+                      tags={[t("ember.digital.tag4"), t("ember.digital.tag5"), t("ember.digital.tag6")]}
                     />
                     <DigitalScreen
-                      subtitle="Story"
-                      title="A place built on slowness"
-                      body="Origin rotation, daily bake, and the craft behind every pour — presented with softness."
+                      subtitle={t("ember.digital.screen3.subtitle")}
+                      title={t("ember.digital.screen3.title")}
+                      body={t("ember.digital.screen3.body")}
+                      tags={[t("ember.digital.tag7"), t("ember.digital.tag8"), t("ember.digital.tag9")]}
                     />
                   </div>
                 </div>
@@ -631,9 +809,9 @@ export default function EmberCoffeeHouse() {
       <section ref={closeRef} className="py-16 md:py-24">
         <div className="container mx-auto px-6 md:px-8">
           <motion.div
-            initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
+            initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
             animate={closeInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: reduceMotion ? 0.1 : 0.9 }}
+            transition={{ duration: reduceMotion ? 0.1 : 1.05, ease }}
             className="rounded-[36px] border p-12 md:p-16 relative overflow-hidden"
             style={{ borderColor: "#3b2f2a", background: ESPRESSO }}
           >
@@ -641,7 +819,7 @@ export default function EmberCoffeeHouse() {
             <div className="relative">
               <EmberWordmark className="w-[240px] md:w-[360px]" fill="#f5efe8" />
               <div className="mt-6 text-lg md:text-xl" style={{ color: "#d6c7bb" }}>
-                A brand designed to feel warm, lived-in, and quietly unforgettable.
+                {t("ember.closing")}
               </div>
             </div>
           </motion.div>
