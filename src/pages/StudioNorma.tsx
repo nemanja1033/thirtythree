@@ -145,9 +145,11 @@ export default function StudioNorma() {
   const reduceMotion = useReducedMotion();
   const heroRef = useRef<HTMLDivElement>(null);
   const systemRef = useRef<HTMLDivElement>(null);
+  const wallRef = useRef<HTMLDivElement>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
   const heroInView = useInView(heroRef, { once: true, margin: "-50px" });
   const systemInView = useInView(systemRef, { once: true, margin: "-50px" });
+  const wallInView = useInView(wallRef, { once: true, margin: "-50px" });
   const experienceInView = useInView(experienceRef, { once: true, margin: "-50px" });
 
   const { scrollYProgress } = useScroll({
@@ -161,18 +163,29 @@ export default function StudioNorma() {
     <div className="min-h-screen overflow-x-hidden" style={{ background: BG }}>
       <Navbar />
 
-      <section ref={heroRef} className="pt-24 md:pt-32 pb-16 md:pb-20">
+      <section ref={heroRef} className="pt-24 md:pt-32 pb-16 md:pb-20 relative overflow-hidden">
+        <div
+          className="absolute inset-0 opacity-[0.15]"
+          style={{
+            backgroundImage:
+              "linear-gradient(#111111 1px, transparent 1px), linear-gradient(90deg, #111111 1px, transparent 1px)",
+            backgroundSize: "120px 120px",
+          }}
+        />
         <div className="container mx-auto px-6 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }}
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: reduceMotion ? 0.1 : 0.6 }}
+            transition={{ duration: reduceMotion ? 0.1 : 0.7, ease: "easeOut" }}
           >
             <span className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
               {t("studio.concept")}
             </span>
-            <div className="mt-6">
-              <NormaWordmark className="w-[280px] md:w-[420px]" />
+            <div className="mt-6 flex items-end justify-between gap-10">
+              <NormaWordmark className="w-[280px] md:w-[520px]" />
+              <div className="text-xs uppercase tracking-[0.6em]" style={{ color: INK }}>
+                NORMA GRID
+              </div>
             </div>
             <p className="mt-6 text-base md:text-lg max-w-2xl" style={{ color: MUTED }}>
               {t("norma.story")}
@@ -207,6 +220,49 @@ export default function StudioNorma() {
                   {item}
                 </div>
                 <div className="mt-4 h-1 w-16 rounded-full" style={{ background: "#111111", opacity: 0.2 }} />
+              </motion.div>
+            ))}
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }}
+            animate={systemInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: reduceMotion ? 0.1 : 0.7, delay: reduceMotion ? 0 : 0.1 }}
+            className="mt-10 rounded-3xl border p-8 md:p-10"
+            style={{ borderColor: "#e5e7eb" }}
+          >
+            <div className="text-xs uppercase tracking-[0.4em] mb-6" style={{ color: MUTED }}>
+              Grid discipline
+            </div>
+            <div className="grid grid-cols-6 md:grid-cols-12 gap-3">
+              {Array.from({ length: 24 }).map((_, i) => (
+                <div key={i} className="h-16 rounded-lg border" style={{ borderColor: "#e5e7eb" }} />
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section ref={wallRef} className="py-16 md:py-24">
+        <div className="container mx-auto px-6 md:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }}
+            animate={wallInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: reduceMotion ? 0.1 : 0.7 }}
+            className="grid md:grid-cols-2 gap-6 md:gap-8"
+          >
+            {Array.from({ length: 6 }).map((_, index) => (
+              <motion.div
+                key={index}
+                className="rounded-3xl border p-8 md:p-10"
+                style={{ borderColor: "#e5e7eb" }}
+                whileHover={!reduceMotion ? { scale: 1.02, y: -6 } : undefined}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+                  Project {String(index + 1).padStart(2, "0")}
+                </div>
+                <div className="mt-6 h-40 md:h-48 rounded-2xl bg-[#f3f4f6]" />
+                <div className="mt-5 h-3 w-2/3 rounded-full" style={{ background: "#111111", opacity: 0.2 }} />
               </motion.div>
             ))}
           </motion.div>

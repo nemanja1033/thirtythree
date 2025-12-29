@@ -50,9 +50,11 @@ export default function PulseCampaign() {
   const reduceMotion = useReducedMotion();
   const heroRef = useRef<HTMLDivElement>(null);
   const systemRef = useRef<HTMLDivElement>(null);
+  const wallRef = useRef<HTMLDivElement>(null);
   const motionRef = useRef<HTMLDivElement>(null);
   const heroInView = useInView(heroRef, { once: true, margin: "-50px" });
   const systemInView = useInView(systemRef, { once: true, margin: "-50px" });
+  const wallInView = useInView(wallRef, { once: true, margin: "-50px" });
   const motionInView = useInView(motionRef, { once: true, margin: "-50px" });
 
   const palette = useMemo(
@@ -130,6 +132,42 @@ export default function PulseCampaign() {
         </div>
       </section>
 
+      <section ref={wallRef} className="py-16 md:py-24">
+        <div className="container mx-auto px-6 md:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }}
+            animate={wallInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: reduceMotion ? 0.1 : 0.6 }}
+            className="grid grid-cols-3 sm:grid-cols-4 gap-4 md:gap-6"
+          >
+            {Array.from({ length: 12 }).map((_, index) => (
+              <motion.div
+                key={index}
+                className="aspect-square rounded-2xl"
+                style={{ background: palette[index % palette.length] }}
+                animate={
+                  reduceMotion
+                    ? undefined
+                    : {
+                        y: index % 2 === 0 ? [0, -8, 0] : [0, 8, 0],
+                      }
+                }
+                transition={
+                  reduceMotion
+                    ? undefined
+                    : {
+                        duration: 3 + index * 0.2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }
+                }
+                whileHover={!reduceMotion ? { scale: 1.04 } : undefined}
+              />
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       <section ref={motionRef} className="py-16 md:py-24">
         <div className="container mx-auto px-6 md:px-8">
           <motion.div
@@ -170,6 +208,38 @@ export default function PulseCampaign() {
                 />
               </motion.div>
             ))}
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }}
+            animate={motionInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: reduceMotion ? 0.1 : 0.6, delay: reduceMotion ? 0 : 0.1 }}
+            className="mt-10 rounded-2xl border p-6 md:p-8"
+            style={{ borderColor: "#1f2937" }}
+          >
+            <div className="text-xs uppercase tracking-[0.4em] mb-4" style={{ color: MUTED }}>
+              Motion language
+            </div>
+            <div className="grid grid-cols-3 gap-4">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="h-3 rounded-full"
+                  style={{ background: palette[i % palette.length] }}
+                  animate={
+                    reduceMotion
+                      ? undefined
+                      : {
+                          scaleX: [0.6, 1, 0.6],
+                        }
+                  }
+                  transition={
+                    reduceMotion
+                      ? undefined
+                      : { duration: 1.6 + i * 0.15, repeat: Infinity, ease: "easeInOut" }
+                  }
+                />
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>
