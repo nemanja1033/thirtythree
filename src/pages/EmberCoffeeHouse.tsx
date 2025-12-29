@@ -1,5 +1,12 @@
 import { useMemo, useRef } from "react";
-import { motion, useInView, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
+import {
+  motion,
+  useInView,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import Navbar from "../components/Navbar";
 import { useI18n } from "../i18n/I18nProvider";
 
@@ -8,8 +15,8 @@ const INK = "#3b2f2a";
 const MUTED = "#6b4b3e";
 const ACCENT = "#c97c4b";
 const SOFT = "#e0d4c7";
-const DARK = "#2a201c";
 const PAPER = "#f1e8dd";
+const DARK = "#2a201c";
 
 const grainBg =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E\")";
@@ -87,7 +94,10 @@ function CupMock({ label }: { label: string }) {
 function BagMock() {
   return (
     <div className="rounded-2xl border p-6" style={{ borderColor: SOFT, background: "#f1e8dd" }}>
-      <div className="h-40 rounded-xl border" style={{ borderColor: SOFT, background: "#efe2d6" }} />
+      <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+        Coffee bag
+      </div>
+      <div className="mt-4 h-40 rounded-xl border" style={{ borderColor: SOFT, background: "#efe2d6" }} />
       <div className="mt-6 flex items-center gap-3">
         <EmberMark className="w-8 h-8" />
         <div className="text-xs uppercase tracking-[0.4em]" style={{ color: INK }}>
@@ -95,7 +105,7 @@ function BagMock() {
         </div>
       </div>
       <div className="mt-3 text-[11px]" style={{ color: MUTED }}>
-        Roasted for slow mornings and late golden afternoons.
+        Notes: cacao, toasted almond, burnt sugar.
       </div>
     </div>
   );
@@ -109,13 +119,30 @@ function MenuMock() {
     ["Oat Flat", "3.40"],
     ["Warm Spice", "3.80"],
   ];
+  const filters = [
+    ["Kalita", "3.40"],
+    ["Chemex", "3.60"],
+    ["V60", "3.20"],
+  ];
   return (
     <div className="rounded-2xl border p-6" style={{ borderColor: SOFT, background: "#f8f1e8" }}>
       <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
         Menu
       </div>
-      <div className="mt-4 space-y-3 text-sm" style={{ color: INK }}>
+      <div className="mt-4 space-y-4 text-sm" style={{ color: INK }}>
+        <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+          Espresso
+        </div>
         {items.map(([name, price]) => (
+          <div key={name} className="flex items-center justify-between">
+            <span>{name}</span>
+            <span style={{ color: MUTED }}>{price}</span>
+          </div>
+        ))}
+        <div className="mt-4 text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+          Filter
+        </div>
+        {filters.map(([name, price]) => (
           <div key={name} className="flex items-center justify-between">
             <span>{name}</span>
             <span style={{ color: MUTED }}>{price}</span>
@@ -124,7 +151,7 @@ function MenuMock() {
       </div>
       <div className="mt-6 h-px" style={{ background: SOFT }} />
       <div className="mt-4 text-[11px]" style={{ color: MUTED }}>
-        Add oat milk +0.40 / Single origin +0.70
+        Milk: oat, almond, whole. Single origin rotation every week.
       </div>
     </div>
   );
@@ -153,6 +180,38 @@ function SignageMock() {
       <div className="mt-6 flex items-center justify-center h-28 rounded-xl border" style={{ borderColor: "#3b2f2a" }}>
         <EmberWordmark className="w-[200px]" />
       </div>
+      <div className="mt-4 text-[11px]" style={{ color: "#d6c7bb" }}>
+        Exterior plaque / window decal concept.
+      </div>
+    </div>
+  );
+}
+
+function StickerSheet() {
+  return (
+    <div className="rounded-2xl border p-6" style={{ borderColor: SOFT, background: "#f1e8dd" }}>
+      <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+        Sticker sheet
+      </div>
+      <div className="mt-6 grid grid-cols-3 gap-4">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="h-12 rounded-full border" style={{ borderColor: SOFT }} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function SocialTile({ caption }: { caption: string }) {
+  return (
+    <div className="rounded-2xl border p-6" style={{ borderColor: SOFT, background: "#efe2d6" }}>
+      <div className="text-[10px] uppercase tracking-[0.6em]" style={{ color: MUTED }}>
+        Ember
+      </div>
+      <div className="mt-4 text-lg font-semibold leading-snug" style={{ color: INK }}>
+        {caption}
+      </div>
+      <div className="mt-6 h-2 w-16 rounded-full" style={{ background: ACCENT }} />
     </div>
   );
 }
@@ -163,11 +222,13 @@ export default function EmberCoffeeHouse() {
   const heroRef = useRef<HTMLDivElement>(null);
   const identityRef = useRef<HTMLDivElement>(null);
   const appsRef = useRef<HTMLDivElement>(null);
+  const socialRef = useRef<HTMLDivElement>(null);
   const digitalRef = useRef<HTMLDivElement>(null);
 
   const heroInView = useInView(heroRef, { once: true, margin: "-50px" });
   const identityInView = useInView(identityRef, { once: true, margin: "-50px" });
   const appsInView = useInView(appsRef, { once: true, margin: "-50px" });
+  const socialInView = useInView(socialRef, { once: true, margin: "-50px" });
   const digitalInView = useInView(digitalRef, { once: true, margin: "-50px" });
 
   const colors = useMemo(
@@ -324,11 +385,13 @@ export default function EmberCoffeeHouse() {
 
             <div className="rounded-3xl border p-8" style={{ borderColor: SOFT }}>
               <div className="text-xs uppercase tracking-[0.4em] mb-6" style={{ color: MUTED }}>
-                Layout rhythm
+                Materials
               </div>
-              <div className="grid grid-cols-4 gap-4">
-                {Array.from({ length: 8 }).map((_, i) => (
-                  <div key={i} className="h-16 rounded-xl border" style={{ borderColor: SOFT }} />
+              <div className="grid grid-cols-2 gap-4">
+                {["Uncoated paper", "Embossed stamp", "Raw cotton", "Matte ink"].map((item) => (
+                  <div key={item} className="rounded-2xl border px-4 py-5 text-xs uppercase tracking-[0.3em]" style={{ borderColor: SOFT, color: MUTED }}>
+                    {item}
+                  </div>
                 ))}
               </div>
             </div>
@@ -366,6 +429,39 @@ export default function EmberCoffeeHouse() {
               <MenuMock />
               <PosterMock headline="Slow mornings. Warm light." />
               <SignageMock />
+              <StickerSheet />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section ref={socialRef} className="py-16 md:py-24">
+        <div className="container mx-auto px-6 md:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }}
+            animate={socialInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: reduceMotion ? 0.1 : 0.7 }}
+          >
+            <div className="text-xs uppercase tracking-[0.4em] mb-6" style={{ color: MUTED }}>
+              Social system
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {[
+                "Ritual over rush.",
+                "Warmth in the details.",
+                "Slow mornings. Golden light.",
+                "A quiet cup to reset.",
+                "Grounded by craft.",
+                "Ember, always warm.",
+              ].map((caption) => (
+                <motion.div
+                  key={caption}
+                  whileHover={!reduceMotion ? { scale: 1.02, y: -3 } : undefined}
+                  transition={{ duration: 0.3 }}
+                >
+                  <SocialTile caption={caption} />
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </div>
@@ -416,7 +512,10 @@ export default function EmberCoffeeHouse() {
                         <div className="text-sm" style={{ color: INK }}>
                           {label}
                         </div>
-                        <div className="mt-4 h-24 rounded-xl" style={{ background: PAPER }} />
+                        <div className="mt-4 text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+                          Slow mornings
+                        </div>
+                        <div className="mt-3 h-2 w-16 rounded-full" style={{ background: ACCENT }} />
                       </div>
                     ))}
                   </div>
