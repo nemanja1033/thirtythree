@@ -78,16 +78,11 @@ function ReasonCard({
       whileHover={!isMobile ? { y: -6 } : undefined}
       className="group relative"
     >
-      <div className={`relative h-full p-6 md:p-8 rounded-2xl md:rounded-3xl bg-gradient-to-br ${reason.bgGradient} border border-white/70 shadow-[0_14px_40px_-28px_rgba(15,23,42,0.35)] hover:shadow-[0_20px_50px_-30px_rgba(15,23,42,0.45)] transition-all duration-300 overflow-hidden`}>
-        {/* Animated background shine - desktop only */}
-        {!isMobile && (
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-        )}
-        <div className="absolute inset-0 ring-1 ring-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl md:rounded-3xl pointer-events-none" />
-        <div className="absolute -top-20 -right-16 w-40 h-40 bg-white/50 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+      <div className="relative h-full p-6 md:p-8 rounded-2xl md:rounded-3xl bg-white border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
+        <div className={`absolute inset-0 bg-gradient-to-br ${reason.bgGradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
 
         {/* Icon */}
-        <div className={`w-12 h-12 md:w-14 md:h-14 mb-4 md:mb-6 rounded-xl md:rounded-2xl bg-gradient-to-br ${reason.gradient} flex items-center justify-center shadow-lg relative z-10 transition-transform duration-300 group-hover:scale-[1.03]`}>
+        <div className={`w-12 h-12 md:w-14 md:h-14 mb-4 md:mb-6 rounded-xl md:rounded-2xl bg-gradient-to-br ${reason.gradient} flex items-center justify-center shadow-lg relative z-10 transition-transform duration-300 group-hover:scale-[1.02]`}>
           <svg className="w-6 h-6 md:w-7 md:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={reason.iconPath} />
           </svg>
@@ -143,7 +138,7 @@ export default function WhyChooseUsSection() {
 
   const cardVariants = {
     hidden: { opacity: 0, y: isMobile ? 12 : 24, scale: 0.97 },
-    show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.55, ease: "easeOut" } },
+    show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: "easeOut" } },
   };
 
   useEffect(() => {
@@ -156,25 +151,16 @@ export default function WhyChooseUsSection() {
   return (
     <section
       ref={sectionRef}
-      className="py-16 md:py-32 bg-gradient-to-b from-white via-slate-50/40 to-white relative overflow-hidden"
+      className="py-16 md:py-32 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden"
     >
-      {/* Subtle background elements */}
-      <div className="absolute -top-28 left-1/4 w-[520px] h-[520px] bg-gradient-to-br from-amber-100/60 via-orange-100/30 to-transparent rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute -bottom-40 right-1/4 w-[560px] h-[560px] bg-gradient-to-tr from-blue-100/50 via-indigo-100/20 to-transparent rounded-full blur-[150px] pointer-events-none" />
-      {!isMobile && (
-        <>
-          <div className="absolute top-24 -left-24 w-48 h-48 border border-amber-100/70 rounded-full" />
-          <div className="absolute bottom-24 -right-28 w-64 h-64 border border-indigo-100/70 rounded-full" />
-        </>
-      )}
-      <svg className="absolute inset-0 w-full h-full opacity-[0.05] pointer-events-none" aria-hidden="true">
-        <defs>
-          <pattern id="why-grid" width="36" height="36" patternUnits="userSpaceOnUse">
-            <path d="M36 0H0V36" fill="none" stroke="currentColor" strokeWidth="1" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#why-grid)" className="text-slate-300" />
-      </svg>
+      {/* Background pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: "radial-gradient(circle at 1px 1px, rgb(0,0,0) 1px, transparent 0)",
+          backgroundSize: "40px 40px",
+        }}
+      />
 
       <div className="container mx-auto px-5 md:px-6">
         {/* Header */}
@@ -186,9 +172,13 @@ export default function WhyChooseUsSection() {
         >
           <motion.span
             variants={headerItem}
-            className="inline-flex items-center gap-2 mb-4 text-xs md:text-sm px-4 py-2 rounded-full bg-white/80 text-gray-700 font-medium border border-gray-200/70 shadow-sm"
+            className="inline-flex items-center gap-2 mb-4 text-xs md:text-sm px-4 py-2 rounded-full bg-gradient-to-r from-amber-100 to-orange-100 text-amber-700 font-medium border border-amber-200/50"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-amber-400 to-orange-500" />
+            <motion.span
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="w-1.5 h-1.5 rounded-full bg-amber-500"
+            />
             {t("why.badge")}
           </motion.span>
           <motion.h2 variants={headerItem} className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
