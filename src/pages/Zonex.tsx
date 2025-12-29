@@ -359,55 +359,34 @@ export default function Zonex() {
 
       <section ref={showcaseRef} className="py-20 md:py-36" style={{ background: "#0f1626" }}>
         <div className="container mx-auto px-6 md:px-8">
-          <div className="max-w-[1200px] mx-auto grid lg:grid-cols-[0.9fr,1.1fr] gap-10 md:gap-16 items-center">
+          <div className="max-w-[1400px] mx-auto">
             <motion.div
               initial={fadeUp.initial}
               animate={showcaseInView ? fadeUp.animate : {}}
               transition={fadeUp.transition}
+              className="flex items-center justify-between gap-4 mb-10"
             >
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-[1px]" style={{ background: ZONEX_ACCENT, opacity: 0.5 }} />
-                <span className="text-xs uppercase tracking-[0.3em]" style={{ color: ZONEX_ACCENT }}>
-                  {t("zonex.showcase.badge")}
-                </span>
-              </div>
-              <h2
-                className="text-3xl md:text-5xl font-bold mb-6"
-                style={{ fontFamily: '"Bricolage Grotesque", sans-serif', color: OFF_WHITE }}
+              <span
+                className="text-xs uppercase tracking-[0.4em]"
+                style={{ color: ZONEX_ACCENT }}
               >
-                {t("zonex.showcase.title")}
-              </h2>
-              <p className="text-base md:text-lg leading-relaxed" style={{ color: ZONEX_MUTED }}>
-                {t("zonex.showcase.desc")}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3 text-xs uppercase tracking-[0.25em]" style={{ color: ZONEX_ACCENT }}>
-                <span className="px-3 py-2 rounded-full border" style={{ borderColor: `${ZONEX_ACCENT}30` }}>
-                  UX
-                </span>
-                <span className="px-3 py-2 rounded-full border" style={{ borderColor: `${ZONEX_ACCENT}30` }}>
-                  UI
-                </span>
-                <span className="px-3 py-2 rounded-full border" style={{ borderColor: `${ZONEX_ACCENT}30` }}>
-                  Motion
-                </span>
-                <span className="px-3 py-2 rounded-full border" style={{ borderColor: `${ZONEX_ACCENT}30` }}>
-                  Structure
-                </span>
-              </div>
+                {t("zonex.showcase.short")}
+              </span>
+              <div className="h-px flex-1" style={{ background: `${ZONEX_ACCENT}30` }} />
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
               animate={showcaseInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: shouldReduceMotion ? 0.1 : 0.6, ease: "easeOut", delay: shouldReduceMotion ? 0 : 0.1 }}
+              transition={{ duration: shouldReduceMotion ? 0.1 : 0.6, ease: "easeOut", delay: shouldReduceMotion ? 0 : 0.05 }}
               className="relative"
             >
               <div
-                className="rounded-[28px] border overflow-hidden shadow-2xl"
+                className="rounded-[32px] border overflow-hidden shadow-2xl"
                 style={{ borderColor: `${ZONEX_ACCENT}25`, background: "#0b1220" }}
               >
                 <div
-                  className="flex items-center justify-between gap-4 px-5 py-4 border-b text-xs uppercase tracking-[0.25em]"
+                  className="flex items-center justify-between gap-4 px-6 py-4 border-b text-xs uppercase tracking-[0.3em]"
                   style={{ borderColor: `${ZONEX_ACCENT}20`, color: ZONEX_ACCENT }}
                 >
                   <div className="flex items-center gap-2">
@@ -419,17 +398,17 @@ export default function Zonex() {
                   <span className="opacity-60">{t("zonex.showcase.label")}</span>
                 </div>
 
-                <div className="relative h-[420px] md:h-[520px] overflow-hidden">
+                <div className="relative h-[520px] md:h-[640px] lg:h-[720px] overflow-hidden">
                   <motion.div
                     style={shouldReduceMotion ? {} : { y: showcaseSpring }}
-                    className="absolute inset-0 px-8 md:px-10 py-10 space-y-12"
+                    className="absolute inset-0 px-8 md:px-16 py-12 md:py-16 space-y-14"
                   >
-                    <div className="space-y-4">
+                    <div className="space-y-6">
                       <div className="h-2 w-24 rounded-full" style={{ background: `${ZONEX_ACCENT}60` }} />
-                      <div className="text-3xl md:text-4xl font-bold" style={{ color: OFF_WHITE }}>
+                      <div className="text-4xl md:text-6xl font-bold" style={{ color: OFF_WHITE }}>
                         ZONEX INŽENJERING
                       </div>
-                      <div className="text-sm md:text-base" style={{ color: ZONEX_MUTED }}>
+                      <div className="text-base md:text-lg" style={{ color: ZONEX_MUTED }}>
                         {t("zonex.showcase.heroLine")}
                       </div>
                       <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest px-4 py-2 rounded-full border" style={{ borderColor: `${ZONEX_ACCENT}30`, color: ZONEX_ACCENT }}>
@@ -437,10 +416,10 @@ export default function Zonex() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid md:grid-cols-3 gap-5">
                       {["1993", "Retail", "Hospitality"].map((item) => (
-                        <div key={item} className="rounded-2xl p-4 border" style={{ borderColor: `${ZONEX_ACCENT}20` }}>
-                          <div className="text-lg font-semibold" style={{ color: OFF_WHITE }}>
+                        <div key={item} className="rounded-2xl p-5 border" style={{ borderColor: `${ZONEX_ACCENT}20` }}>
+                          <div className="text-xl font-semibold" style={{ color: OFF_WHITE }}>
                             {item}
                           </div>
                           <div className="mt-2 h-1 w-12" style={{ background: `${ZONEX_ACCENT}40` }} />
@@ -448,8 +427,8 @@ export default function Zonex() {
                       ))}
                     </div>
 
-                    <div className="grid gap-4">
-                      {[t("zonex.showcase.visual"), t("zonex.showcase.web"), t("zonex.showcase.motion")].map((item) => (
+                    <div className="grid md:grid-cols-2 gap-5">
+                      {[t("zonex.showcase.visual"), t("zonex.showcase.web"), t("zonex.showcase.motion"), t("zonex.showcase.structure")].map((item) => (
                         <div
                           key={item}
                           className="rounded-2xl p-5 border flex items-center justify-between"
@@ -491,9 +470,9 @@ export default function Zonex() {
                     </div>
                   </motion.div>
 
-                  <div className="absolute top-6 right-6 h-[240px] w-[2px] rounded-full" style={{ background: `${ZONEX_ACCENT}25` }} />
+                  <div className="absolute top-8 right-8 h-[320px] w-[2px] rounded-full" style={{ background: `${ZONEX_ACCENT}25` }} />
                   <motion.div
-                    className="absolute top-6 right-6 h-10 w-[2px] rounded-full"
+                    className="absolute top-8 right-8 h-12 w-[2px] rounded-full"
                     style={{ background: ZONEX_ACCENT, y: shouldReduceMotion ? 0 : signalY }}
                   />
                 </div>

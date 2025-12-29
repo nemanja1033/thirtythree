@@ -437,10 +437,7 @@ const dictEn: Dict = {
   "zonex.cta.desc":
     "Share the basics of your project and we return with structure, scope, and a delivery proposal.",
   "zonex.cta.button": "Contact",
-  "zonex.showcase.badge": "Website",
-  "zonex.showcase.title": "We designed and built the full Zonex website.",
-  "zonex.showcase.desc":
-    "A live web experience with structured sections, refined motion, and clear engineering storytelling.",
+  "zonex.showcase.short": "Website design & development",
   "zonex.showcase.url": "zonex-roan.vercel.app",
   "zonex.showcase.label": "Live experience",
   "zonex.showcase.heroLine": "Inženjering visokog standarda za objekte koji traju.",
@@ -448,6 +445,7 @@ const dictEn: Dict = {
   "zonex.showcase.visual": "Vizuelni sistem",
   "zonex.showcase.web": "Web iskustvo",
   "zonex.showcase.motion": "Motion pravac",
+  "zonex.showcase.structure": "Struktura",
   "zonex.showcase.projects": "Selected projects",
   "zonex.showcase.cta": "Ready for a project with clear standards?",
   "zonex.showcase.ctaButton": "Contact",
@@ -879,10 +877,7 @@ const dictSr: Dict = {
   "zonex.cta.desc":
     "Pošaljite osnovne informacije o projektu, a mi vraćamo strukturu, obim i predlog dinamike.",
   "zonex.cta.button": "Kontakt",
-  "zonex.showcase.badge": "Website",
-  "zonex.showcase.title": "Dizajnirali smo i izgradili kompletan Zonex sajt.",
-  "zonex.showcase.desc":
-    "Živo web iskustvo sa jasnom strukturom, profinjenim motionom i inženjerskim narativom.",
+  "zonex.showcase.short": "Dizajn i izrada sajta",
   "zonex.showcase.url": "zonex-roan.vercel.app",
   "zonex.showcase.label": "Live iskustvo",
   "zonex.showcase.heroLine": "Inženjering visokog standarda za objekte koji traju.",
@@ -890,6 +885,7 @@ const dictSr: Dict = {
   "zonex.showcase.visual": "Vizuelni sistem",
   "zonex.showcase.web": "Web iskustvo",
   "zonex.showcase.motion": "Motion pravac",
+  "zonex.showcase.structure": "Struktura",
   "zonex.showcase.projects": "Odabrani projekti",
   "zonex.showcase.cta": "Spremni za projekat sa jasnim standardima?",
   "zonex.showcase.ctaButton": "Kontakt",
