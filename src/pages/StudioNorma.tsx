@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import Navbar from "../components/Navbar";
 import { useI18n } from "../i18n/I18nProvider";
@@ -40,6 +40,29 @@ function ProjectRow({ title, meta, body }: { title: string; meta: string; body: 
         {body}
       </div>
     </motion.div>
+  );
+}
+
+function DigitalPanel({ label, title, body, tags }: { label: string; title: string; body: string; tags: string[] }) {
+  return (
+    <div className="border px-8 py-8" style={{ borderColor: LINE, background: "#ffffff" }}>
+      <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+        {label}
+      </div>
+      <div className="mt-4 text-2xl font-semibold" style={{ color: INK }}>
+        {title}
+      </div>
+      <div className="mt-4 text-sm" style={{ color: MUTED }}>
+        {body}
+      </div>
+      <div className="mt-6 flex flex-wrap gap-3">
+        {tags.map((tag) => (
+          <span key={tag} className="border px-4 py-2 text-[11px] uppercase tracking-[0.35em]" style={{ borderColor: LINE, color: MUTED }}>
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
   );
 }
 
