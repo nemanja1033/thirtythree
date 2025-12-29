@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import {
   motion,
   useInView,
@@ -148,9 +148,9 @@ export default function Zonex() {
     shouldReduceMotion ? [0, 0] : [24, -24]
   );
   const showcaseSpring = useSpring(showcaseY, { stiffness: 120, damping: 26 });
-  const [iframeLoaded, setIframeLoaded] = useState(false);
   const [shouldLoadIframe, setShouldLoadIframe] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const loadingRef = useRef<HTMLDivElement | null>(null);
   const lastIndexRef = useRef(0);
 
   const showcaseUrls = useMemo(
@@ -181,17 +181,106 @@ export default function Zonex() {
   }, []);
 
   useMotionValueEvent(showcaseProgress, "change", (value) => {
-    if (shouldReduceMotion || !shouldLoadIframe) return;
+    if (shouldReduceMotion || !shouldLoadIframe || !iframeRef.current) return;
     const nextIndex = Math.min(
       showcaseUrls.length - 1,
       Math.max(0, Math.floor(value * showcaseUrls.length))
     );
     if (nextIndex !== lastIndexRef.current) {
       lastIndexRef.current = nextIndex;
-      setActiveIndex(nextIndex);
-      setIframeLoaded(false);
+      if (loadingRef.current) {
+        loadingRef.current.style.opacity = "1";
+      }
+      iframeRef.current.src = showcaseUrls[nextIndex];
     }
   });
+
+  const handleIframeLoad = () => {
+    if (loadingRef.current) {
+      loadingRef.current.style.opacity = "0";
+    }
+  };
+
+  const ShowcaseFrame = useMemo(() => {
+    return memo(function Frame({
+      scale,
+      translateY,
+      shouldReduce,
+      shouldLoad,
+    }: {
+      scale: number | string;
+      translateY: number | string;
+      shouldReduce: boolean;
+      shouldLoad: boolean;
+    }) {
+      return (
+        <motion.div
+          style={{
+            scale: shouldReduce ? 1 : scale,
+            y: shouldReduce ? 0 : translateY,
+            borderColor: `${ZONEX_ACCENT}25`,
+            background: "#0b1220",
+            willChange: "transform, opacity",
+            transform: "translateZ(0)",
+          }}
+          className="rounded-[32px] border overflow-hidden shadow-2xl transition-shadow duration-500"
+        >
+          <div
+            className="flex items-center justify-between gap-4 px-6 py-4 border-b text-xs uppercase tracking-[0.3em]"
+            style={{ borderColor: `${ZONEX_ACCENT}20`, color: ZONEX_ACCENT }}
+          >
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full" style={{ background: ZONEX_ACCENT, opacity: 0.5 }} />
+              <span className="w-2.5 h-2.5 rounded-full" style={{ background: ZONEX_ACCENT, opacity: 0.35 }} />
+              <span className="w-2.5 h-2.5 rounded-full" style={{ background: ZONEX_ACCENT, opacity: 0.2 }} />
+            </div>
+            <span>{t("zonex.showcase.url")}</span>
+            <span className="opacity-60">{t("zonex.showcase.label")}</span>
+          </div>
+
+          <div className="relative h-[520px] md:h-[640px] lg:h-[720px] overflow-hidden">
+            <div className="absolute inset-0">
+              <div
+                ref={loadingRef}
+                className="absolute inset-0 animate-pulse transition-opacity duration-500"
+                style={{
+                  background:
+                    "linear-gradient(120deg, rgba(203,213,245,0.08), rgba(203,213,245,0.18), rgba(203,213,245,0.08))",
+                  opacity: 1,
+                  willChange: "opacity",
+                }}
+              />
+              {shouldLoad && (
+                <iframe
+                  ref={iframeRef}
+                  title="Zonex Website"
+                  src={showcaseUrls[0]}
+                  className="w-full h-full"
+                  loading="lazy"
+                  onLoad={handleIframeLoad}
+                  style={{ border: "0", background: "#0b1220" }}
+                />
+              )}
+            </div>
+
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                boxShadow: "inset 0 0 120px rgba(0,0,0,0.35)",
+              }}
+            />
+            <div
+              className="pointer-events-none absolute inset-0 opacity-[0.12]"
+              style={{
+                backgroundImage:
+                  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E\")",
+              }}
+            />
+          </div>
+        </motion.div>
+      );
+    });
+  }, [t, showcaseUrls]);
 
   return (
     <div className="min-h-screen overflow-x-hidden" style={{ background: ZONEX_DARK }}>
@@ -433,67 +522,12 @@ export default function Zonex() {
               transition={{ duration: shouldReduceMotion ? 0.1 : 0.6, ease: "easeOut", delay: shouldReduceMotion ? 0 : 0.05 }}
               className="relative"
             >
-              <motion.div
-                style={{
-                  scale: shouldReduceMotion ? 1 : showcaseScale,
-                  y: shouldReduceMotion ? 0 : showcaseSpring,
-                  borderColor: `${ZONEX_ACCENT}25`,
-                  background: "#0b1220",
-                }}
-                className="rounded-[32px] border overflow-hidden shadow-2xl transition-shadow duration-500"
-              >
-                <div
-                  className="flex items-center justify-between gap-4 px-6 py-4 border-b text-xs uppercase tracking-[0.3em]"
-                  style={{ borderColor: `${ZONEX_ACCENT}20`, color: ZONEX_ACCENT }}
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full" style={{ background: ZONEX_ACCENT, opacity: 0.5 }} />
-                    <span className="w-2.5 h-2.5 rounded-full" style={{ background: ZONEX_ACCENT, opacity: 0.35 }} />
-                    <span className="w-2.5 h-2.5 rounded-full" style={{ background: ZONEX_ACCENT, opacity: 0.2 }} />
-                  </div>
-                  <span>{t("zonex.showcase.url")}</span>
-                  <span className="opacity-60">{t("zonex.showcase.label")}</span>
-                </div>
-
-                <div className="relative h-[520px] md:h-[640px] lg:h-[720px] overflow-hidden">
-                  <div className="absolute inset-0">
-                    {!iframeLoaded && (
-                      <div
-                        className="absolute inset-0 animate-pulse"
-                        style={{
-                          background:
-                            "linear-gradient(120deg, rgba(203,213,245,0.08), rgba(203,213,245,0.18), rgba(203,213,245,0.08))",
-                        }}
-                      />
-                    )}
-                    {shouldLoadIframe && (
-                      <iframe
-                        key={activeIndex}
-                        title="Zonex Website"
-                        src={showcaseUrls[activeIndex]}
-                        className="w-full h-full"
-                        loading="lazy"
-                        onLoad={() => setIframeLoaded(true)}
-                        style={{ border: "0", background: "#0b1220" }}
-                      />
-                    )}
-                  </div>
-
-                  <div
-                    className="pointer-events-none absolute inset-0"
-                    style={{
-                      boxShadow: "inset 0 0 120px rgba(0,0,0,0.35)",
-                    }}
-                  />
-                  <div
-                    className="pointer-events-none absolute inset-0 opacity-[0.12]"
-                    style={{
-                      backgroundImage:
-                        "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E\")",
-                    }}
-                  />
-                </div>
-              </motion.div>
+              <ShowcaseFrame
+                scale={showcaseScale}
+                translateY={showcaseSpring}
+                shouldReduce={shouldReduceMotion}
+                shouldLoad={shouldLoadIframe}
+              />
             </motion.div>
           </div>
         </div>
