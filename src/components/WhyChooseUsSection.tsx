@@ -151,16 +151,17 @@ export default function WhyChooseUsSection() {
   return (
     <section
       ref={sectionRef}
-      className="py-16 md:py-32 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden"
+      className="py-16 md:py-32 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden"
     >
       {/* Background pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.02]"
-        style={{
-          backgroundImage: "radial-gradient(circle at 1px 1px, rgb(0,0,0) 1px, transparent 0)",
-          backgroundSize: "40px 40px",
-        }}
-      />
+      <svg className="absolute inset-0 w-full h-full opacity-[0.05] pointer-events-none" aria-hidden="true">
+        <defs>
+          <pattern id="why-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+            <path d="M32 0H0V32" fill="none" stroke="currentColor" strokeWidth="1" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#why-grid)" className="text-amber-300" />
+      </svg>
 
       <div className="container mx-auto px-5 md:px-6">
         {/* Header */}
