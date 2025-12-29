@@ -62,7 +62,6 @@ function ReasonCard({
   isMobile,
   t,
   variants,
-  isActive,
 }: {
   reason: Reason;
   index: number;
@@ -72,39 +71,27 @@ function ReasonCard({
     hidden: { opacity: number; y: number };
     show: { opacity: number; y: number; transition: { duration: number; ease: string } };
   };
-  isActive: boolean;
 }) {
   return (
     <motion.div
       variants={variants}
-      whileHover={!isMobile ? { y: -8, scale: 1.015 } : undefined}
-      transition={{ type: "spring", stiffness: 180, damping: 18 }}
+      whileHover={!isMobile ? { y: -6 } : undefined}
       className="group relative"
     >
-      <div className="absolute inset-0 rounded-2xl md:rounded-3xl bg-gradient-to-br from-white/70 via-amber-100/50 to-orange-100/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      <div className={`relative h-full p-6 md:p-8 rounded-2xl md:rounded-3xl bg-gradient-to-br ${reason.bgGradient} border border-white/70 shadow-[0_18px_50px_-30px_rgba(15,23,42,0.4)] hover:shadow-[0_28px_80px_-34px_rgba(15,23,42,0.6)] transition-all duration-500 overflow-hidden`}>
+      <div className={`relative h-full p-6 md:p-8 rounded-2xl md:rounded-3xl bg-gradient-to-br ${reason.bgGradient} border border-white/70 shadow-[0_14px_40px_-28px_rgba(15,23,42,0.35)] hover:shadow-[0_20px_50px_-30px_rgba(15,23,42,0.45)] transition-all duration-300 overflow-hidden`}>
         {/* Animated background shine - desktop only */}
         {!isMobile && (
-          <motion.div
-            initial={{ x: "-120%" }}
-            animate={isActive ? { x: "120%" } : { x: "-120%" }}
-            transition={{ duration: 1.4, ease: "easeInOut", delay: 0.4 + index * 0.08 }}
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-          />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
         )}
         <div className="absolute inset-0 ring-1 ring-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl md:rounded-3xl pointer-events-none" />
         <div className="absolute -top-20 -right-16 w-40 h-40 bg-white/50 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
         {/* Icon */}
-        <motion.div
-          animate={!isMobile && isActive ? { y: [0, -4, 0] } : { y: 0 }}
-          transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: index * 0.35 }}
-          className={`w-12 h-12 md:w-14 md:h-14 mb-4 md:mb-6 rounded-xl md:rounded-2xl bg-gradient-to-br ${reason.gradient} flex items-center justify-center shadow-lg relative z-10 transition-transform duration-500 group-hover:scale-[1.04]`}
-        >
+        <div className={`w-12 h-12 md:w-14 md:h-14 mb-4 md:mb-6 rounded-xl md:rounded-2xl bg-gradient-to-br ${reason.gradient} flex items-center justify-center shadow-lg relative z-10 transition-transform duration-300 group-hover:scale-[1.03]`}>
           <svg className="w-6 h-6 md:w-7 md:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={reason.iconPath} />
           </svg>
-        </motion.div>
+        </div>
 
         {/* Content */}
         <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3 relative z-10 group-hover:text-gray-800 transition-colors">
@@ -148,7 +135,7 @@ export default function WhyChooseUsSection() {
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: isMobile ? 0.04 : 0.08,
+        staggerChildren: isMobile ? 0.03 : 0.06,
         delayChildren: 0.1,
       },
     },
@@ -156,7 +143,7 @@ export default function WhyChooseUsSection() {
 
   const cardVariants = {
     hidden: { opacity: 0, y: isMobile ? 12 : 24, scale: 0.97 },
-    show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, ease: "easeOut" } },
+    show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.55, ease: "easeOut" } },
   };
 
   useEffect(() => {
@@ -172,28 +159,12 @@ export default function WhyChooseUsSection() {
       className="py-16 md:py-32 bg-gradient-to-b from-white via-slate-50/40 to-white relative overflow-hidden"
     >
       {/* Subtle background elements */}
-      <motion.div
-        animate={!isMobile ? { x: [-12, 10, -12], y: [0, 18, 0] } : undefined}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -top-28 left-1/4 w-[520px] h-[520px] bg-gradient-to-br from-amber-100/60 via-orange-100/30 to-transparent rounded-full blur-[140px] pointer-events-none"
-      />
-      <motion.div
-        animate={!isMobile ? { x: [10, -14, 10], y: [0, -16, 0] } : undefined}
-        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -bottom-40 right-1/4 w-[560px] h-[560px] bg-gradient-to-tr from-blue-100/50 via-indigo-100/20 to-transparent rounded-full blur-[150px] pointer-events-none"
-      />
+      <div className="absolute -top-28 left-1/4 w-[520px] h-[520px] bg-gradient-to-br from-amber-100/60 via-orange-100/30 to-transparent rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute -bottom-40 right-1/4 w-[560px] h-[560px] bg-gradient-to-tr from-blue-100/50 via-indigo-100/20 to-transparent rounded-full blur-[150px] pointer-events-none" />
       {!isMobile && (
         <>
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 70, repeat: Infinity, ease: "linear" }}
-            className="absolute top-24 -left-24 w-48 h-48 border border-amber-100/70 rounded-full"
-          />
-          <motion.div
-            animate={{ rotate: -360 }}
-            transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
-            className="absolute bottom-24 -right-28 w-64 h-64 border border-indigo-100/70 rounded-full"
-          />
+          <div className="absolute top-24 -left-24 w-48 h-48 border border-amber-100/70 rounded-full" />
+          <div className="absolute bottom-24 -right-28 w-64 h-64 border border-indigo-100/70 rounded-full" />
         </>
       )}
       <svg className="absolute inset-0 w-full h-full opacity-[0.05] pointer-events-none" aria-hidden="true">
@@ -244,7 +215,6 @@ export default function WhyChooseUsSection() {
               isMobile={isMobile}
               t={t}
               variants={cardVariants}
-              isActive={isInView}
             />
           ))}
         </motion.div>
