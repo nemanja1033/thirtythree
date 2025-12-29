@@ -1,5 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion, useInView, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
+import {
+  motion,
+  useInView,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+  useMotionValueEvent,
+} from "framer-motion";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useI18n } from "../i18n/I18nProvider";
@@ -129,17 +137,61 @@ export default function Zonex() {
     target: showcaseRef,
     offset: ["start end", "end start"],
   });
+  const showcaseScale = useTransform(
+    showcaseProgress,
+    [0, 0.35, 0.7, 1],
+    shouldReduceMotion ? [1, 1, 1, 1] : [0.98, 1, 1, 0.98]
+  );
   const showcaseY = useTransform(
     showcaseProgress,
     [0, 1],
-    shouldReduceMotion ? [0, 0] : [0, -360]
+    shouldReduceMotion ? [0, 0] : [24, -24]
   );
   const showcaseSpring = useSpring(showcaseY, { stiffness: 120, damping: 26 });
-  const signalY = useTransform(
-    showcaseProgress,
-    [0, 1],
-    shouldReduceMotion ? [0, 0] : [0, 220]
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+  const [shouldLoadIframe, setShouldLoadIframe] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const lastIndexRef = useRef(0);
+
+  const showcaseUrls = useMemo(
+    () => [
+      "https://zonex-roan.vercel.app/",
+      "https://zonex-roan.vercel.app/#services",
+      "https://zonex-roan.vercel.app/#projects",
+      "https://zonex-roan.vercel.app/#contact",
+    ],
+    []
   );
+
+  useEffect(() => {
+    if (!showcaseRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setShouldLoadIframe(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { rootMargin: "600px" }
+    );
+    observer.observe(showcaseRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useMotionValueEvent(showcaseProgress, "change", (value) => {
+    if (shouldReduceMotion || !shouldLoadIframe) return;
+    const nextIndex = Math.min(
+      showcaseUrls.length - 1,
+      Math.max(0, Math.floor(value * showcaseUrls.length))
+    );
+    if (nextIndex !== lastIndexRef.current) {
+      lastIndexRef.current = nextIndex;
+      setActiveIndex(nextIndex);
+      setIframeLoaded(false);
+    }
+  });
 
   return (
     <div className="min-h-screen overflow-x-hidden" style={{ background: ZONEX_DARK }}>
@@ -381,9 +433,14 @@ export default function Zonex() {
               transition={{ duration: shouldReduceMotion ? 0.1 : 0.6, ease: "easeOut", delay: shouldReduceMotion ? 0 : 0.05 }}
               className="relative"
             >
-              <div
-                className="rounded-[32px] border overflow-hidden shadow-2xl"
-                style={{ borderColor: `${ZONEX_ACCENT}25`, background: "#0b1220" }}
+              <motion.div
+                style={{
+                  scale: shouldReduceMotion ? 1 : showcaseScale,
+                  y: shouldReduceMotion ? 0 : showcaseSpring,
+                  borderColor: `${ZONEX_ACCENT}25`,
+                  background: "#0b1220",
+                }}
+                className="rounded-[32px] border overflow-hidden shadow-2xl transition-shadow duration-500"
               >
                 <div
                   className="flex items-center justify-between gap-4 px-6 py-4 border-b text-xs uppercase tracking-[0.3em]"
@@ -399,84 +456,44 @@ export default function Zonex() {
                 </div>
 
                 <div className="relative h-[520px] md:h-[640px] lg:h-[720px] overflow-hidden">
-                  <motion.div
-                    style={shouldReduceMotion ? {} : { y: showcaseSpring }}
-                    className="absolute inset-0 px-8 md:px-16 py-12 md:py-16 space-y-14"
-                  >
-                    <div className="space-y-6">
-                      <div className="h-2 w-24 rounded-full" style={{ background: `${ZONEX_ACCENT}60` }} />
-                      <div className="text-4xl md:text-6xl font-bold" style={{ color: OFF_WHITE }}>
-                        ZONEX INŽENJERING
-                      </div>
-                      <div className="text-base md:text-lg" style={{ color: ZONEX_MUTED }}>
-                        {t("zonex.showcase.heroLine")}
-                      </div>
-                      <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest px-4 py-2 rounded-full border" style={{ borderColor: `${ZONEX_ACCENT}30`, color: ZONEX_ACCENT }}>
-                        {t("zonex.showcase.heroPill")}
-                      </div>
-                    </div>
+                  <div className="absolute inset-0">
+                    {!iframeLoaded && (
+                      <div
+                        className="absolute inset-0 animate-pulse"
+                        style={{
+                          background:
+                            "linear-gradient(120deg, rgba(203,213,245,0.08), rgba(203,213,245,0.18), rgba(203,213,245,0.08))",
+                        }}
+                      />
+                    )}
+                    {shouldLoadIframe && (
+                      <iframe
+                        key={activeIndex}
+                        title="Zonex Website"
+                        src={showcaseUrls[activeIndex]}
+                        className="w-full h-full"
+                        loading="lazy"
+                        onLoad={() => setIframeLoaded(true)}
+                        style={{ border: "0", background: "#0b1220" }}
+                      />
+                    )}
+                  </div>
 
-                    <div className="grid md:grid-cols-3 gap-5">
-                      {["1993", "Retail", "Hospitality"].map((item) => (
-                        <div key={item} className="rounded-2xl p-5 border" style={{ borderColor: `${ZONEX_ACCENT}20` }}>
-                          <div className="text-xl font-semibold" style={{ color: OFF_WHITE }}>
-                            {item}
-                          </div>
-                          <div className="mt-2 h-1 w-12" style={{ background: `${ZONEX_ACCENT}40` }} />
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-5">
-                      {[t("zonex.showcase.visual"), t("zonex.showcase.web"), t("zonex.showcase.motion"), t("zonex.showcase.structure")].map((item) => (
-                        <div
-                          key={item}
-                          className="rounded-2xl p-5 border flex items-center justify-between"
-                          style={{ borderColor: `${ZONEX_ACCENT}20` }}
-                        >
-                          <span className="text-sm md:text-base" style={{ color: OFF_WHITE }}>
-                            {item}
-                          </span>
-                          <span className="text-xs uppercase tracking-widest" style={{ color: ZONEX_ACCENT }}>
-                            Active
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="rounded-2xl p-6 border" style={{ borderColor: `${ZONEX_ACCENT}20` }}>
-                      <div className="text-xs uppercase tracking-[0.3em] mb-3" style={{ color: ZONEX_ACCENT }}>
-                        {t("zonex.showcase.projects")}
-                      </div>
-                      <div className="space-y-3 text-sm" style={{ color: OFF_WHITE }}>
-                        <div className="flex items-center justify-between">
-                          <span>McDonald’s Zrenjanin</span>
-                          <span style={{ color: ZONEX_MUTED }}>2022</span>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <span>Zlatiborski konaci</span>
-                          <span style={{ color: ZONEX_MUTED }}>2020</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between rounded-2xl p-6 border" style={{ borderColor: `${ZONEX_ACCENT}20` }}>
-                      <div className="text-sm" style={{ color: OFF_WHITE }}>
-                        {t("zonex.showcase.cta")}
-                      </div>
-                      <div className="text-xs uppercase tracking-[0.3em]" style={{ color: ZONEX_ACCENT }}>
-                        {t("zonex.showcase.ctaButton")}
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  <div className="absolute top-8 right-8 h-[320px] w-[2px] rounded-full" style={{ background: `${ZONEX_ACCENT}25` }} />
-                  <motion.div
-                    className="absolute top-8 right-8 h-12 w-[2px] rounded-full"
-                    style={{ background: ZONEX_ACCENT, y: shouldReduceMotion ? 0 : signalY }}
+                  <div
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      boxShadow: "inset 0 0 120px rgba(0,0,0,0.35)",
+                    }}
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-0 opacity-[0.12]"
+                    style={{
+                      backgroundImage:
+                        "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E\")",
+                    }}
                   />
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
