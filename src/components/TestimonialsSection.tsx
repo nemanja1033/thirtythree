@@ -57,6 +57,7 @@ function TestimonialCard({ testimonial, index, isMobile, t }: { testimonial: Tes
         {/* Gradient accent */}
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
         <div className="absolute -top-20 -right-20 w-40 h-40 bg-amber-200/40 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+        <div className="absolute inset-0 ring-1 ring-amber-200/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl md:rounded-3xl pointer-events-none" />
         
         {/* Quote icon */}
         <div className="absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
@@ -98,11 +99,14 @@ export default function TestimonialsSection() {
   return (
     <section
       ref={sectionRef}
-      className="py-16 md:py-32 bg-gradient-to-b from-white via-amber-50/30 to-gray-50 relative overflow-hidden"
+      className="py-16 md:py-32 bg-gradient-to-b from-white via-amber-50/40 to-gray-50 relative overflow-hidden"
     >
       {/* Background decorations */}
       <div className="absolute top-16 left-10 w-72 h-72 bg-amber-100/50 rounded-full blur-[110px] pointer-events-none" />
       <div className="absolute bottom-16 right-10 w-72 h-72 bg-orange-100/40 rounded-full blur-[110px] pointer-events-none" />
+      <div className="absolute -top-32 right-1/3 w-[520px] h-[520px] bg-gradient-to-br from-amber-200/40 via-orange-100/20 to-transparent rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute -bottom-40 left-1/4 w-[560px] h-[560px] bg-gradient-to-tr from-rose-200/30 via-amber-100/20 to-transparent rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white/70 to-transparent pointer-events-none" />
       <svg className="absolute inset-0 w-full h-full opacity-[0.06] pointer-events-none" aria-hidden="true">
         <defs>
           <pattern id="testimonial-grid" width="32" height="32" patternUnits="userSpaceOnUse">
@@ -110,6 +114,16 @@ export default function TestimonialsSection() {
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#testimonial-grid)" className="text-amber-400" />
+      </svg>
+      <svg className="absolute inset-0 w-full h-full opacity-[0.18] mix-blend-soft-light pointer-events-none" aria-hidden="true">
+        <defs>
+          <radialGradient id="testimonial-glow" cx="50%" cy="30%" r="60%">
+            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.16" />
+            <stop offset="50%" stopColor="#fb923c" stopOpacity="0.08" />
+            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#testimonial-glow)" />
       </svg>
 
       <div className="container mx-auto px-5 md:px-6">
