@@ -306,10 +306,10 @@ const dictEn: Dict = {
   "featured.0.category": "Brand Building",
   "featured.0.desc": "Naming, identity, web, and launch content that captured Belgrade’s late-night energy.",
   "featured.0.badge": "Case Study",
-  "featured.1.title": "Digital Flagship Experience",
-  "featured.1.category": "Web Development",
-  "featured.1.desc": "A high-converting, multi-lingual web platform with cinematic motion and sub-second loads.",
-  "featured.1.badge": "Launch",
+  "featured.1.title": "Zonex Inženjering — high-standard engineering",
+  "featured.1.category": "Web experience",
+  "featured.1.desc": "Premium web presence shaped for clarity, structure, and engineering precision.",
+  "featured.1.badge": "Case Study",
 
   // Why Choose Us Section
   "why.badge": "Why thirtythree",
@@ -1064,10 +1064,10 @@ const dictSr: Dict = {
   "featured.0.category": "Izgradnja brenda",
   "featured.0.desc": "Naziv, identitet, web i launch sadržaj koji hvata energiju noćnog Beograda.",
   "featured.0.badge": "Studija slučaja",
-  "featured.1.title": "Digitalno flagship iskustvo",
-  "featured.1.category": "Web razvoj",
-  "featured.1.desc": "Višejezička web platforma sa kinematičnim pokretom i učitavanjem ispod jedne sekunde.",
-  "featured.1.badge": "Launch",
+  "featured.1.title": "Zonex Inženjering — inženjering visokog standarda",
+  "featured.1.category": "Web iskustvo",
+  "featured.1.desc": "Premijum web prisustvo oblikovano za jasnoću, strukturu i preciznost.",
+  "featured.1.badge": "Studija slučaja",
 
   // Why Choose Us Section
   "why.badge": "Zašto thirtythree",
