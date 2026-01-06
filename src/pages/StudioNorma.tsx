@@ -19,27 +19,37 @@ const DEEP = "#0d0f12";
 
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="border px-6 py-5" style={{ borderColor: LINE, background: "#ffffff" }}>
+    <motion.div
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      className="border px-6 py-5"
+      style={{ borderColor: LINE, background: "#ffffff" }}
+    >
       <div className="text-[10px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
         {label}
       </div>
       <div className="mt-3 text-lg font-semibold" style={{ color: INK }}>
         {value}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 function PrincipleCard({ title, body }: { title: string; body: string }) {
   return (
-    <div className="border px-7 py-7" style={{ borderColor: LINE, background: "#ffffff" }}>
+    <motion.div
+      whileHover={{ y: -6, boxShadow: "0 18px 40px rgba(18,18,18,0.08)" }}
+      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      className="border px-7 py-7"
+      style={{ borderColor: LINE, background: "#ffffff" }}
+    >
       <div className="text-lg font-semibold" style={{ color: INK }}>
         {title}
       </div>
       <div className="mt-3 text-sm" style={{ color: MUTED }}>
         {body}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -55,7 +65,12 @@ function ProjectCard({
   body: string;
 }) {
   return (
-    <div className="border p-8" style={{ borderColor: LINE, background: "#ffffff" }}>
+    <motion.div
+      whileHover={{ y: -8, boxShadow: "0 24px 50px rgba(18,18,18,0.08)" }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      className="border p-8"
+      style={{ borderColor: LINE, background: "#ffffff" }}
+    >
       <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.4em]" style={{ color: MUTED }}>
         <span>{meta}</span>
         <span>{year}</span>
@@ -66,39 +81,54 @@ function ProjectCard({
       <div className="mt-4 text-sm" style={{ color: MUTED }}>
         {body}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 function IdentityCard({ title, body }: { title: string; body: string }) {
   return (
-    <div className="border px-8 py-7" style={{ borderColor: LINE, background: "#ffffff" }}>
+    <motion.div
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      className="border px-8 py-7"
+      style={{ borderColor: LINE, background: "#ffffff" }}
+    >
       <div className="text-sm font-semibold" style={{ color: INK }}>
         {title}
       </div>
       <div className="mt-3 text-sm" style={{ color: MUTED }}>
         {body}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 function DigitalPanel({ title, body }: { title: string; body: string }) {
   return (
-    <div className="border border-dashed px-6 py-5" style={{ borderColor: LINE, background: "#fcfbf8" }}>
+    <motion.div
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      className="border border-dashed px-6 py-5"
+      style={{ borderColor: LINE, background: "#fcfbf8" }}
+    >
       <div className="text-sm font-semibold" style={{ color: INK }}>
         {title}
       </div>
       <div className="mt-2 text-xs" style={{ color: MUTED }}>
         {body}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 function Plate({ title, meta, body }: { title: string; meta: string; body: string }) {
   return (
-    <div className="border p-6" style={{ borderColor: LINE, background: "#ffffff" }}>
+    <motion.div
+      whileHover={{ y: -6, boxShadow: "0 18px 36px rgba(18,18,18,0.08)" }}
+      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      className="border p-6"
+      style={{ borderColor: LINE, background: "#ffffff" }}
+    >
       <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
         <span>{meta}</span>
         <span>04</span>
@@ -118,13 +148,18 @@ function Plate({ title, meta, body }: { title: string; meta: string; body: strin
           />
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 function GridPlate({ label }: { label: string }) {
   return (
-    <div className="relative border overflow-hidden" style={{ borderColor: LINE, background: "#f7f4ee" }}>
+    <motion.div
+      whileHover={{ y: -8 }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      className="relative border overflow-hidden"
+      style={{ borderColor: LINE, background: "#f7f4ee" }}
+    >
       <div
         className="absolute inset-0 opacity-60"
         style={{
@@ -172,13 +207,18 @@ function GridPlate({ label }: { label: string }) {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 function FullBleedPanel({ label, title, body }: { label: string; title: string; body: string }) {
   return (
-    <div className="relative overflow-hidden border" style={{ borderColor: LINE, background: "#efe9dd" }}>
+    <motion.div
+      whileHover={{ y: -8 }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      className="relative overflow-hidden border"
+      style={{ borderColor: LINE, background: "#efe9dd" }}
+    >
       <div
         className="absolute inset-0 opacity-50"
         style={{
@@ -214,13 +254,18 @@ function FullBleedPanel({ label, title, body }: { label: string; title: string; 
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 function SpreadPanel({ title, body }: { title: string; body: string }) {
   return (
-    <div className="grid md:grid-cols-2 gap-0 border" style={{ borderColor: LINE, background: "#ffffff" }}>
+    <motion.div
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      className="grid md:grid-cols-2 gap-0 border"
+      style={{ borderColor: LINE, background: "#ffffff" }}
+    >
       <div className="p-8 border-b md:border-b-0 md:border-r" style={{ borderColor: LINE }}>
         <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
           Spread A
@@ -248,13 +293,18 @@ function SpreadPanel({ title, body }: { title: string; body: string }) {
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 function SignagePanel({ label }: { label: string }) {
   return (
-    <div className="border p-8" style={{ borderColor: LINE, background: "#ffffff" }}>
+    <motion.div
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      className="border p-8"
+      style={{ borderColor: LINE, background: "#ffffff" }}
+    >
       <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
         {label}
       </div>
@@ -267,7 +317,7 @@ function SignagePanel({ label }: { label: string }) {
       <div className="mt-6 border-t pt-5 text-xs uppercase tracking-[0.35em]" style={{ borderColor: LINE, color: MUTED }}>
         Brass plate / Exterior mark
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -351,12 +401,14 @@ export default function StudioNorma() {
                 "radial-gradient(circle at 20% 20%, #ffffff 0%, #f4f1ea 35%, #ece7dd 70%, #e6dfd3 100%)",
             }}
           />
-          <div
+          <motion.div
             className="absolute inset-0 opacity-[0.25]"
             style={{
               backgroundImage:
                 "repeating-linear-gradient(90deg, rgba(17,17,17,0.04) 0, rgba(17,17,17,0.04) 1px, transparent 1px, transparent 120px)",
             }}
+            animate={reduceMotion ? {} : { backgroundPosition: ["0px 0px", "120px 0px", "0px 0px"] }}
+            transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
           />
         </div>
 
@@ -374,9 +426,14 @@ export default function StudioNorma() {
                   <span className="h-px w-16" style={{ background: LINE }} />
                   <span style={{ color: ACCENT }}>{t("norma.hero.location")}</span>
                 </div>
-                <div className="text-[13vw] leading-[0.82] font-bold" style={{ color: INK }}>
+                <motion.div
+                  className="text-[13vw] leading-[0.82] font-bold"
+                  style={{ color: INK }}
+                  animate={reduceMotion ? {} : { letterSpacing: ["-0.02em", "0.02em", "-0.01em"] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                >
                   NORMA
-                </div>
+                </motion.div>
                 <div className="text-3xl md:text-5xl font-semibold leading-[1.05]" style={{ color: INK }}>
                   {t("norma.hero.title")}
                 </div>
@@ -387,20 +444,24 @@ export default function StudioNorma() {
                   {t("norma.hero.scope")}
                 </div>
                 <div className="flex flex-wrap items-center gap-4">
-                  <Link
+                  <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+                    <Link
                     to="/book"
                     className="px-7 py-3 text-xs uppercase tracking-[0.4em] font-semibold"
                     style={{ background: DEEP, color: "#ffffff" }}
-                  >
-                    {t("norma.hero.cta")}
-                  </Link>
-                  <Link
+                    >
+                      {t("norma.hero.cta")}
+                    </Link>
+                  </motion.div>
+                  <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+                    <Link
                     to="/portfolio"
                     className="px-7 py-3 text-xs uppercase tracking-[0.4em] font-semibold border"
                     style={{ borderColor: LINE, color: INK }}
-                  >
-                    {t("norma.hero.secondary")}
-                  </Link>
+                    >
+                      {t("norma.hero.secondary")}
+                    </Link>
+                  </motion.div>
                 </div>
               </motion.div>
 
@@ -417,11 +478,22 @@ export default function StudioNorma() {
                     <span>{t("norma.hero.cardYear")}</span>
                   </div>
                   <div className="mt-6 border" style={{ borderColor: LINE, background: BASE }}>
-                    <img
-                      src="/images/studio-norma-featured.svg"
-                      alt="Studio Norma portfolio preview"
-                      className="w-full h-[240px] md:h-[280px] object-cover"
-                    />
+                    <div className="h-[240px] md:h-[280px] p-6">
+                      <div
+                        className="h-full w-full border"
+                        style={{
+                          borderColor: LINE,
+                          background:
+                            "linear-gradient(135deg, rgba(248,246,241,0.9) 0%, rgba(232,226,214,0.9) 100%)",
+                        }}
+                      >
+                        <div className="h-full w-full grid place-items-center">
+                          <div className="text-xs uppercase tracking-[0.5em]" style={{ color: MUTED }}>
+                            Concept plate
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div className="mt-6 text-sm" style={{ color: MUTED }}>
                     {t("norma.hero.cardBody")}
@@ -534,8 +606,18 @@ export default function StudioNorma() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 border-t" style={{ borderColor: LINE }}>
-        <div className="container mx-auto px-6 md:px-10">
+      <section className="relative py-16 md:py-24 border-t overflow-hidden" style={{ borderColor: LINE }}>
+        <motion.div
+          className="absolute inset-0 opacity-[0.15]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(18,18,18,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(18,18,18,0.08) 1px, transparent 1px)",
+            backgroundSize: "120px 120px",
+          }}
+          animate={reduceMotion ? {} : { backgroundPosition: ["0px 0px", "120px 0px", "0px 0px"] }}
+          transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
+        />
+        <div className="container mx-auto px-6 md:px-10 relative z-10">
           <motion.div
             initial="hidden"
             animate={challengeInView ? "show" : "hidden"}
