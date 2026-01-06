@@ -121,6 +121,24 @@ function DigitalPanel({ title, body }: { title: string; body: string }) {
   );
 }
 
+function ArtifactTile({ label, title }: { label: string; title: string }) {
+  return (
+    <motion.div
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      className="border px-5 py-4"
+      style={{ borderColor: LINE, background: "#ffffff" }}
+    >
+      <div className="text-[10px] uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+        {label}
+      </div>
+      <div className="mt-3 text-sm font-semibold" style={{ color: INK }}>
+        {title}
+      </div>
+    </motion.div>
+  );
+}
+
 function Plate({ title, meta, body }: { title: string; meta: string; body: string }) {
   return (
     <motion.div
@@ -542,24 +560,36 @@ export default function StudioNorma() {
                 {t("norma.overview.quote")}
               </div>
             </motion.div>
-            <motion.div variants={reveal} className="border p-8" style={{ borderColor: LINE, background: "#ffffff" }}>
-              <div className="text-[11px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
-                {t("norma.overview.servicesLabel")}
+            <motion.div variants={reveal} className="space-y-6">
+              <div className="border p-8" style={{ borderColor: LINE, background: "#ffffff" }}>
+                <div className="text-[11px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
+                  {t("norma.overview.servicesLabel")}
+                </div>
+                <div className="mt-6 space-y-4 text-sm" style={{ color: MUTED }}>
+                  {[
+                    t("norma.overview.service1"),
+                    t("norma.overview.service2"),
+                    t("norma.overview.service3"),
+                  ].map((item) => (
+                    <div key={item} className="flex items-start gap-3">
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full" style={{ background: ACCENT }} />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-8 border-t pt-6 text-xs uppercase tracking-[0.45em]" style={{ borderColor: LINE, color: MUTED }}>
+                  {t("norma.overview.note")}
+                </div>
               </div>
-              <div className="mt-6 space-y-4 text-sm" style={{ color: MUTED }}>
-                {[
-                  t("norma.overview.service1"),
-                  t("norma.overview.service2"),
-                  t("norma.overview.service3"),
-                ].map((item) => (
-                  <div key={item} className="flex items-start gap-3">
-                    <span className="mt-1 h-1.5 w-1.5 rounded-full" style={{ background: ACCENT }} />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-8 border-t pt-6 text-xs uppercase tracking-[0.45em]" style={{ borderColor: LINE, color: MUTED }}>
-                {t("norma.overview.note")}
+              <div className="border p-6" style={{ borderColor: LINE, background: "#ffffff" }}>
+                <div className="text-[11px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
+                  {t("norma.artifacts.label")}
+                </div>
+                <div className="mt-4 grid gap-3">
+                  <ArtifactTile label={t("norma.artifacts.item1.label")} title={t("norma.artifacts.item1.title")} />
+                  <ArtifactTile label={t("norma.artifacts.item2.label")} title={t("norma.artifacts.item2.title")} />
+                  <ArtifactTile label={t("norma.artifacts.item3.label")} title={t("norma.artifacts.item3.title")} />
+                </div>
               </div>
             </motion.div>
           </motion.div>
@@ -589,17 +619,10 @@ export default function StudioNorma() {
               <div className="text-xs uppercase tracking-[0.45em]" style={{ color: MUTED }}>
                 {t("norma.challenge.goalsLabel")}
               </div>
-              <div className="mt-6 space-y-4 text-sm" style={{ color: MUTED }}>
-                {[
-                  t("norma.challenge.goal1"),
-                  t("norma.challenge.goal2"),
-                  t("norma.challenge.goal3"),
-                ].map((item) => (
-                  <div key={item} className="flex items-start gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 rounded-full" style={{ background: ACCENT }} />
-                    <span>{item}</span>
-                  </div>
-                ))}
+              <div className="mt-6 grid gap-3">
+                <ArtifactTile label="01" title={t("norma.challenge.goal1")} />
+                <ArtifactTile label="02" title={t("norma.challenge.goal2")} />
+                <ArtifactTile label="03" title={t("norma.challenge.goal3")} />
               </div>
             </motion.div>
           </motion.div>
@@ -1005,6 +1028,15 @@ export default function StudioNorma() {
               </div>
             </motion.div>
             <motion.div variants={reveal} className="grid gap-4">
+              <div className="border p-6" style={{ borderColor: LINE, background: "#ffffff" }}>
+                <div className="text-[11px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
+                  {t("norma.outcomes.artifactsLabel")}
+                </div>
+                <div className="mt-4 grid gap-3">
+                  <ArtifactTile label={t("norma.outcomes.artifact1.label")} title={t("norma.outcomes.artifact1.title")} />
+                  <ArtifactTile label={t("norma.outcomes.artifact2.label")} title={t("norma.outcomes.artifact2.title")} />
+                </div>
+              </div>
               {[
                 { title: t("norma.outcomes.one.title"), body: t("norma.outcomes.one.body") },
                 { title: t("norma.outcomes.two.title"), body: t("norma.outcomes.two.body") },
