@@ -111,6 +111,9 @@ export default function StudioNorma() {
   const outcomesRef = useRef<HTMLDivElement>(null);
   const deliverablesRef = useRef<HTMLDivElement>(null);
   const processRef = useRef<HTMLDivElement>(null);
+  const contextRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const comparisonRef = useRef<HTMLDivElement>(null);
   const closingRef = useRef<HTMLDivElement>(null);
 
   const heroInView = useInView(heroRef, { once: true, margin: "-80px" });
@@ -124,6 +127,9 @@ export default function StudioNorma() {
   const outcomesInView = useInView(outcomesRef, { once: true, margin: "-80px" });
   const deliverablesInView = useInView(deliverablesRef, { once: true, margin: "-80px" });
   const processInView = useInView(processRef, { once: true, margin: "-80px" });
+  const contextInView = useInView(contextRef, { once: true, margin: "-80px" });
+  const timelineInView = useInView(timelineRef, { once: true, margin: "-80px" });
+  const comparisonInView = useInView(comparisonRef, { once: true, margin: "-80px" });
   const closingInView = useInView(closingRef, { once: true, margin: "-80px" });
 
   const heroScroll = useScroll({ target: heroRef, offset: ["start start", "end start"] });
@@ -605,6 +611,47 @@ export default function StudioNorma() {
         </div>
       </section>
 
+      <section ref={contextRef} className="py-16 md:py-24 border-t" style={{ borderColor: LINE }}>
+        <div className="container mx-auto px-6 md:px-10">
+          <motion.div
+            initial="hidden"
+            animate={contextInView ? "show" : "hidden"}
+            variants={{ show: { transition: { staggerChildren: 0.12 } } }}
+            className="grid lg:grid-cols-[0.9fr,1.1fr] gap-10 items-start"
+          >
+            <motion.div variants={reveal} className="space-y-5">
+              <div className="text-xs uppercase tracking-[0.5em]" style={{ color: MUTED }}>
+                {t("norma.context.label")}
+              </div>
+              <div className="text-3xl md:text-4xl font-semibold" style={{ color: INK }}>
+                {t("norma.context.title")}
+              </div>
+              <div className="text-sm md:text-base" style={{ color: MUTED }}>
+                {t("norma.context.body")}
+              </div>
+            </motion.div>
+            <motion.div variants={reveal} className="border" style={{ borderColor: LINE, background: "#ffffff" }}>
+              {[
+                { label: t("norma.context.item1.label"), value: t("norma.context.item1.value") },
+                { label: t("norma.context.item2.label"), value: t("norma.context.item2.value") },
+                { label: t("norma.context.item3.label"), value: t("norma.context.item3.value") },
+                { label: t("norma.context.item4.label"), value: t("norma.context.item4.value") },
+                { label: t("norma.context.item5.label"), value: t("norma.context.item5.value") },
+              ].map((row) => (
+                <div key={row.label} className="flex items-center justify-between border-b px-6 py-5" style={{ borderColor: LINE }}>
+                  <span className="text-[11px] uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+                    {row.label}
+                  </span>
+                  <span className="text-sm font-semibold" style={{ color: INK }}>
+                    {row.value}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
       <section ref={outcomesRef} className="py-16 md:py-24 border-t" style={{ borderColor: LINE }}>
         <div className="container mx-auto px-6 md:px-10">
           <motion.div
@@ -632,6 +679,46 @@ export default function StudioNorma() {
               ].map((item) => (
                 <div key={item.title} className="border px-7 py-6" style={{ borderColor: LINE, background: "#ffffff" }}>
                   <div className="text-lg font-semibold" style={{ color: INK }}>
+                    {item.title}
+                  </div>
+                  <div className="mt-3 text-sm" style={{ color: MUTED }}>
+                    {item.body}
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section ref={timelineRef} className="py-16 md:py-24 border-t" style={{ borderColor: LINE }}>
+        <div className="container mx-auto px-6 md:px-10">
+          <motion.div
+            initial="hidden"
+            animate={timelineInView ? "show" : "hidden"}
+            variants={{ show: { transition: { staggerChildren: 0.12 } } }}
+            className="space-y-8"
+          >
+            <motion.div variants={reveal}>
+              <div className="text-xs uppercase tracking-[0.5em]" style={{ color: MUTED }}>
+                {t("norma.timeline.label")}
+              </div>
+              <div className="mt-4 text-3xl md:text-4xl font-semibold" style={{ color: INK }}>
+                {t("norma.timeline.title")}
+              </div>
+            </motion.div>
+            <motion.div variants={reveal} className="grid md:grid-cols-4 gap-4">
+              {[
+                { step: "01", title: t("norma.timeline.step1.title"), body: t("norma.timeline.step1.body") },
+                { step: "02", title: t("norma.timeline.step2.title"), body: t("norma.timeline.step2.body") },
+                { step: "03", title: t("norma.timeline.step3.title"), body: t("norma.timeline.step3.body") },
+                { step: "04", title: t("norma.timeline.step4.title"), body: t("norma.timeline.step4.body") },
+              ].map((item) => (
+                <div key={item.step} className="border px-6 py-6" style={{ borderColor: LINE, background: "#ffffff" }}>
+                  <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+                    {item.step}
+                  </div>
+                  <div className="mt-4 text-lg font-semibold" style={{ color: INK }}>
                     {item.title}
                   </div>
                   <div className="mt-3 text-sm" style={{ color: MUTED }}>
@@ -689,6 +776,54 @@ export default function StudioNorma() {
                   </div>
                 </div>
               ))}
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section ref={comparisonRef} className="py-16 md:py-24 border-t" style={{ borderColor: LINE }}>
+        <div className="container mx-auto px-6 md:px-10">
+          <motion.div
+            initial="hidden"
+            animate={comparisonInView ? "show" : "hidden"}
+            variants={{ show: { transition: { staggerChildren: 0.12 } } }}
+            className="grid lg:grid-cols-[1fr,1fr] gap-8"
+          >
+            <motion.div variants={reveal} className="space-y-4">
+              <div className="text-xs uppercase tracking-[0.5em]" style={{ color: MUTED }}>
+                {t("norma.comparison.beforeLabel")}
+              </div>
+              <div className="border px-6 py-6" style={{ borderColor: LINE, background: "#ffffff" }}>
+                <div className="text-lg font-semibold" style={{ color: INK }}>
+                  {t("norma.comparison.beforeTitle")}
+                </div>
+                <div className="mt-3 text-sm" style={{ color: MUTED }}>
+                  {t("norma.comparison.beforeBody")}
+                </div>
+                <div className="mt-5 grid gap-3 text-xs uppercase tracking-[0.35em]" style={{ color: MUTED }}>
+                  <span>{t("norma.comparison.beforePoint1")}</span>
+                  <span>{t("norma.comparison.beforePoint2")}</span>
+                  <span>{t("norma.comparison.beforePoint3")}</span>
+                </div>
+              </div>
+            </motion.div>
+            <motion.div variants={reveal} className="space-y-4">
+              <div className="text-xs uppercase tracking-[0.5em]" style={{ color: MUTED }}>
+                {t("norma.comparison.afterLabel")}
+              </div>
+              <div className="border px-6 py-6" style={{ borderColor: LINE, background: "#ffffff" }}>
+                <div className="text-lg font-semibold" style={{ color: INK }}>
+                  {t("norma.comparison.afterTitle")}
+                </div>
+                <div className="mt-3 text-sm" style={{ color: MUTED }}>
+                  {t("norma.comparison.afterBody")}
+                </div>
+                <div className="mt-5 grid gap-3 text-xs uppercase tracking-[0.35em]" style={{ color: MUTED }}>
+                  <span>{t("norma.comparison.afterPoint1")}</span>
+                  <span>{t("norma.comparison.afterPoint2")}</span>
+                  <span>{t("norma.comparison.afterPoint3")}</span>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         </div>
