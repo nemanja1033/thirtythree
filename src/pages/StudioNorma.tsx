@@ -392,7 +392,7 @@ export default function StudioNorma() {
     <div className="min-h-screen overflow-x-hidden" style={{ background: BASE }}>
       <Navbar />
 
-      <section ref={heroRef} className="relative overflow-hidden">
+      <section ref={heroRef} className="relative overflow-hidden min-h-screen flex items-center">
         <div className="absolute inset-0">
           <div
             className="absolute inset-0 opacity-70"
@@ -412,13 +412,13 @@ export default function StudioNorma() {
           />
         </div>
 
-        <motion.div style={{ y: heroShift }} className="relative z-10">
-          <div className="container mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-16 md:pb-24">
+        <motion.div style={{ y: heroShift }} className="relative z-10 w-full">
+          <div className="container mx-auto px-6 md:px-10 pt-24 md:pt-28 pb-16 md:pb-20 flex flex-col justify-center min-h-screen">
             <motion.div
               initial="hidden"
               animate={heroInView ? "show" : "hidden"}
               variants={{ show: { transition: { staggerChildren: 0.12 } } }}
-              className="grid lg:grid-cols-[1.1fr,0.9fr] gap-12 items-center"
+              className="grid lg:grid-cols-[1.15fr,0.85fr] gap-12 items-center"
             >
               <motion.div variants={reveal} className="space-y-6">
                 <div className="flex items-center gap-6 text-[11px] uppercase tracking-[0.5em]" style={{ color: MUTED }}>
@@ -427,7 +427,7 @@ export default function StudioNorma() {
                   <span style={{ color: ACCENT }}>{t("norma.hero.location")}</span>
                 </div>
                 <motion.div
-                  className="text-[13vw] leading-[0.82] font-bold"
+                  className="text-[16vw] md:text-[14vw] lg:text-[11vw] leading-[0.82] font-bold"
                   style={{ color: INK }}
                   animate={reduceMotion ? {} : { letterSpacing: ["-0.02em", "0.02em", "-0.01em"] }}
                   transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
@@ -478,7 +478,7 @@ export default function StudioNorma() {
                     <span>{t("norma.hero.cardYear")}</span>
                   </div>
                   <div className="mt-6 border" style={{ borderColor: LINE, background: BASE }}>
-                    <div className="h-[240px] md:h-[280px] p-6">
+                    <div className="h-[280px] md:h-[360px] p-6">
                       <div
                         className="h-full w-full border"
                         style={{
