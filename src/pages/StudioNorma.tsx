@@ -96,6 +96,181 @@ function DigitalPanel({ title, body }: { title: string; body: string }) {
   );
 }
 
+function Plate({ title, meta, body }: { title: string; meta: string; body: string }) {
+  return (
+    <div className="border p-6" style={{ borderColor: LINE, background: "#ffffff" }}>
+      <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
+        <span>{meta}</span>
+        <span>04</span>
+      </div>
+      <div className="mt-6 text-lg font-semibold" style={{ color: INK }}>
+        {title}
+      </div>
+      <div className="mt-3 text-xs" style={{ color: MUTED }}>
+        {body}
+      </div>
+      <div className="mt-6 grid grid-cols-6 gap-3">
+        {Array.from({ length: 12 }).map((_, idx) => (
+          <span
+            key={`${title}-cell-${idx}`}
+            className="h-2 rounded-full"
+            style={{ background: idx % 3 === 0 ? ACCENT : LINE, opacity: idx % 4 === 0 ? 0.8 : 0.45 }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function GridPlate({ label }: { label: string }) {
+  return (
+    <div className="relative border overflow-hidden" style={{ borderColor: LINE, background: "#f7f4ee" }}>
+      <div
+        className="absolute inset-0 opacity-60"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(17,17,17,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(17,17,17,0.06) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+        }}
+      />
+      <div className="relative z-10 p-8">
+        <div className="text-[10px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
+          {label}
+        </div>
+        <div className="mt-6 grid grid-cols-3 gap-4">
+          {[0, 1, 2].map((idx) => (
+            <div key={`${label}-${idx}`} className="border p-4" style={{ borderColor: LINE, background: "#ffffff" }}>
+              <div className="text-xs uppercase tracking-[0.35em]" style={{ color: MUTED }}>
+                Plate {idx + 1}
+              </div>
+              <div className="mt-3 h-16 border" style={{ borderColor: LINE, background: BASE }} />
+              <div className="mt-3 h-2 w-16 rounded-full" style={{ background: LINE }} />
+            </div>
+          ))}
+        </div>
+        <div className="mt-8 grid md:grid-cols-2 gap-4">
+          <div className="border p-5" style={{ borderColor: LINE, background: "#ffffff" }}>
+            <div className="text-xs uppercase tracking-[0.35em]" style={{ color: MUTED }}>
+              Elevation notes
+            </div>
+            <div className="mt-4 space-y-2">
+              {Array.from({ length: 5 }).map((_, idx) => (
+                <div key={`line-${idx}`} className="h-2 rounded-full" style={{ background: idx % 2 === 0 ? LINE : "#cfc7b9" }} />
+              ))}
+            </div>
+          </div>
+          <div className="border p-5" style={{ borderColor: LINE, background: "#ffffff" }}>
+            <div className="text-xs uppercase tracking-[0.35em]" style={{ color: MUTED }}>
+              Material register
+            </div>
+            <div className="mt-4 flex gap-3">
+              {["#f3f0e9", "#d8d2c6", "#b8925a", "#121212"].map((tone) => (
+                <span key={tone} className="h-8 w-8 rounded-full border" style={{ background: tone, borderColor: LINE }} />
+              ))}
+            </div>
+            <div className="mt-4 h-2 w-24 rounded-full" style={{ background: LINE }} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FullBleedPanel({ label, title, body }: { label: string; title: string; body: string }) {
+  return (
+    <div className="relative overflow-hidden border" style={{ borderColor: LINE, background: "#efe9dd" }}>
+      <div
+        className="absolute inset-0 opacity-50"
+        style={{
+          background:
+            "radial-gradient(circle at 20% 20%, rgba(255,255,255,0.8), rgba(239,233,221,0.6) 45%, rgba(228,220,205,0.9))",
+        }}
+      />
+      <div
+        className="absolute inset-0 opacity-40"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(18,18,18,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(18,18,18,0.08) 1px, transparent 1px)",
+          backgroundSize: "90px 90px",
+        }}
+      />
+      <div className="relative z-10 p-10 md:p-14">
+        <div className="text-[10px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
+          {label}
+        </div>
+        <div className="mt-6 text-2xl md:text-3xl font-semibold" style={{ color: INK }}>
+          {title}
+        </div>
+        <div className="mt-4 max-w-xl text-sm" style={{ color: MUTED }}>
+          {body}
+        </div>
+        <div className="mt-10 grid grid-cols-5 gap-3">
+          {Array.from({ length: 10 }).map((_, idx) => (
+            <div
+              key={`${label}-bar-${idx}`}
+              className="h-2 rounded-full"
+              style={{ background: idx % 2 === 0 ? LINE : ACCENT, opacity: idx % 3 === 0 ? 0.9 : 0.5 }}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SpreadPanel({ title, body }: { title: string; body: string }) {
+  return (
+    <div className="grid md:grid-cols-2 gap-0 border" style={{ borderColor: LINE, background: "#ffffff" }}>
+      <div className="p-8 border-b md:border-b-0 md:border-r" style={{ borderColor: LINE }}>
+        <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+          Spread A
+        </div>
+        <div className="mt-6 h-40 border" style={{ borderColor: LINE, background: BASE }} />
+        <div className="mt-6 space-y-2">
+          {Array.from({ length: 4 }).map((_, idx) => (
+            <div key={`spread-a-${idx}`} className="h-2 rounded-full" style={{ background: idx % 2 === 0 ? LINE : "#cfc7b9" }} />
+          ))}
+        </div>
+      </div>
+      <div className="p-8">
+        <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+          Spread B
+        </div>
+        <div className="mt-6 text-2xl font-semibold" style={{ color: INK }}>
+          {title}
+        </div>
+        <div className="mt-3 text-sm" style={{ color: MUTED }}>
+          {body}
+        </div>
+        <div className="mt-6 grid grid-cols-2 gap-3">
+          {Array.from({ length: 4 }).map((_, idx) => (
+            <div key={`spread-b-${idx}`} className="h-12 border" style={{ borderColor: LINE, background: BASE }} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SignagePanel({ label }: { label: string }) {
+  return (
+    <div className="border p-8" style={{ borderColor: LINE, background: "#ffffff" }}>
+      <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+        {label}
+      </div>
+      <div className="mt-6 flex items-center justify-between">
+        <div className="text-2xl font-semibold tracking-[0.2em]" style={{ color: INK }}>
+          NORMA
+        </div>
+        <div className="h-16 w-16 rounded-full border" style={{ borderColor: LINE, background: BASE }} />
+      </div>
+      <div className="mt-6 border-t pt-5 text-xs uppercase tracking-[0.35em]" style={{ borderColor: LINE, color: MUTED }}>
+        Brass plate / Exterior mark
+      </div>
+    </div>
+  );
+}
+
 export default function StudioNorma() {
   const { t } = useI18n();
   const reduceMotion = useReducedMotion();
@@ -353,6 +528,82 @@ export default function StudioNorma() {
                     <span>{item}</span>
                   </div>
                 ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24 border-t" style={{ borderColor: LINE }}>
+        <div className="container mx-auto px-6 md:px-10">
+          <motion.div
+            initial="hidden"
+            animate={challengeInView ? "show" : "hidden"}
+            variants={{ show: { transition: { staggerChildren: 0.12 } } }}
+            className="grid lg:grid-cols-[1.1fr,0.9fr] gap-10 items-start"
+          >
+            <motion.div variants={reveal} className="space-y-6">
+              <div className="text-xs uppercase tracking-[0.5em]" style={{ color: MUTED }}>
+                {t("norma.visuals.label")}
+              </div>
+              <div className="text-3xl md:text-4xl font-semibold" style={{ color: INK }}>
+                {t("norma.visuals.title")}
+              </div>
+              <div className="text-sm md:text-base" style={{ color: MUTED }}>
+                {t("norma.visuals.body")}
+              </div>
+              <div className="grid gap-4">
+                <Plate title={t("norma.visuals.card1.title")} meta={t("norma.visuals.card1.meta")} body={t("norma.visuals.card1.body")} />
+                <Plate title={t("norma.visuals.card2.title")} meta={t("norma.visuals.card2.meta")} body={t("norma.visuals.card2.body")} />
+              </div>
+            </motion.div>
+            <motion.div variants={reveal}>
+              <GridPlate label={t("norma.visuals.gridLabel")} />
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24 border-t" style={{ borderColor: LINE }}>
+        <div className="container mx-auto px-6 md:px-10">
+          <motion.div
+            initial="hidden"
+            animate={challengeInView ? "show" : "hidden"}
+            variants={{ show: { transition: { staggerChildren: 0.12 } } }}
+            className="space-y-6"
+          >
+            <motion.div variants={reveal} className="grid lg:grid-cols-3 gap-6">
+              <FullBleedPanel
+                label={t("norma.gallery.panel1.label")}
+                title={t("norma.gallery.panel1.title")}
+                body={t("norma.gallery.panel1.body")}
+              />
+              <FullBleedPanel
+                label={t("norma.gallery.panel2.label")}
+                title={t("norma.gallery.panel2.title")}
+                body={t("norma.gallery.panel2.body")}
+              />
+              <FullBleedPanel
+                label={t("norma.gallery.panel3.label")}
+                title={t("norma.gallery.panel3.title")}
+                body={t("norma.gallery.panel3.body")}
+              />
+            </motion.div>
+            <motion.div variants={reveal} className="grid lg:grid-cols-[1.2fr,0.8fr] gap-6">
+              <SpreadPanel title={t("norma.spread.title")} body={t("norma.spread.body")} />
+              <div className="grid gap-6">
+                <SignagePanel label={t("norma.signage.label")} />
+                <div className="border p-8" style={{ borderColor: LINE, background: "#ffffff" }}>
+                  <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+                    {t("norma.siteplan.label")}
+                  </div>
+                  <div className="mt-6 h-40 border" style={{ borderColor: LINE, background: BASE }} />
+                  <div className="mt-6 grid grid-cols-3 gap-3">
+                    {Array.from({ length: 6 }).map((_, idx) => (
+                      <div key={`plan-${idx}`} className="h-3 rounded-full" style={{ background: idx % 2 === 0 ? LINE : "#cfc7b9" }} />
+                    ))}
+                  </div>
+                </div>
               </div>
             </motion.div>
           </motion.div>
