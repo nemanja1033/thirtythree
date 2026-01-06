@@ -32,9 +32,11 @@ function ProjectRow({ title, meta, body }: { title: string; meta: string; body: 
         <div className="text-lg font-semibold" style={{ color: INK }}>
           {title}
         </div>
-        <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-          {meta}
-        </div>
+        {meta ? (
+          <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+            {meta}
+          </div>
+        ) : null}
       </div>
       <div className="mt-3 text-sm" style={{ color: MUTED }}>
         {body}
@@ -66,21 +68,56 @@ function DigitalPanel({ label, title, body, tags }: { label: string; title: stri
   );
 }
 
+function ProfileStat({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="border px-8 py-6" style={{ borderColor: LINE, background: "#ffffff" }}>
+      <div className="text-[11px] uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+        {label}
+      </div>
+      <div className="mt-3 text-xl font-semibold" style={{ color: INK }}>
+        {value}
+      </div>
+    </div>
+  );
+}
+
+function PosterCard({ label, title, body }: { label: string; title: string; body: string }) {
+  return (
+    <div className="border px-10 py-10" style={{ borderColor: LINE, background: "#ffffff" }}>
+      <div className="text-xs uppercase tracking-[0.45em]" style={{ color: MUTED }}>
+        {label}
+      </div>
+      <div className="mt-6 text-2xl md:text-3xl font-semibold leading-tight" style={{ color: INK }}>
+        {title}
+      </div>
+      <div className="mt-4 text-sm" style={{ color: MUTED }}>
+        {body}
+      </div>
+    </div>
+  );
+}
+
 export default function StudioNorma() {
   const { t } = useI18n();
   const reduceMotion = useReducedMotion();
 
   const openingRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
   const philosophyRef = useRef<HTMLDivElement>(null);
   const identityRef = useRef<HTMLDivElement>(null);
   const workRef = useRef<HTMLDivElement>(null);
+  const applicationsRef = useRef<HTMLDivElement>(null);
   const digitalRef = useRef<HTMLDivElement>(null);
+  const closingRef = useRef<HTMLDivElement>(null);
 
   const openingInView = useInView(openingRef, { once: true, margin: "-60px" });
+  const profileInView = useInView(profileRef, { once: true, margin: "-60px" });
   const philosophyInView = useInView(philosophyRef, { once: true, margin: "-60px" });
   const identityInView = useInView(identityRef, { once: true, margin: "-60px" });
   const workInView = useInView(workRef, { once: true, margin: "-60px" });
+  const applicationsInView = useInView(applicationsRef, { once: true, margin: "-60px" });
   const digitalInView = useInView(digitalRef, { once: true, margin: "-60px" });
+  const closingInView = useInView(closingRef, { once: true, margin: "-60px" });
 
   const digitalScroll = useScroll({ target: digitalRef, offset: ["start end", "end start"] });
   const digitalShift = useTransform(digitalScroll.scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [12, -12]);
@@ -91,6 +128,13 @@ export default function StudioNorma() {
     hidden: { opacity: 0, y: reduceMotion ? 0 : 16 },
     show: { opacity: 1, y: 0, transition: { duration: 1.05, ease: [0.16, 1, 0.3, 1] } },
   };
+
+  const profileStats = [
+    { label: t("norma.profile.stats.one.label"), value: t("norma.profile.stats.one.value") },
+    { label: t("norma.profile.stats.two.label"), value: t("norma.profile.stats.two.value") },
+    { label: t("norma.profile.stats.three.label"), value: t("norma.profile.stats.three.value") },
+    { label: t("norma.profile.stats.four.label"), value: t("norma.profile.stats.four.value") },
+  ];
 
   return (
     <div className="min-h-screen overflow-x-hidden" style={{ background: BG }}>
@@ -139,6 +183,40 @@ export default function StudioNorma() {
                   {t("norma.opening.signatureBody")}
                 </div>
               </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section ref={profileRef} className="py-16 md:py-24 border-t" style={{ borderColor: LINE }}>
+        <div className="container mx-auto px-6 md:px-8">
+          <motion.div
+            initial="hidden"
+            animate={profileInView ? "show" : "hidden"}
+            variants={{ show: { transition: { staggerChildren: stagger } } }}
+            className="grid lg:grid-cols-[1.1fr,0.9fr] gap-12 items-start"
+          >
+            <motion.div variants={reveal} className="space-y-6">
+              <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+                {t("norma.profile.label")}
+              </div>
+              <div className="text-3xl md:text-4xl font-semibold leading-[1.1]" style={{ color: INK }}>
+                {t("norma.profile.title")}
+              </div>
+              <div className="text-sm md:text-base" style={{ color: MUTED }}>
+                {t("norma.profile.body")}
+              </div>
+              <div className="border-l pl-6 text-sm italic" style={{ borderColor: LINE, color: INK }}>
+                {t("norma.profile.quote")}
+              </div>
+              <div className="border-t pt-6 text-sm" style={{ borderColor: LINE, color: MUTED }}>
+                {t("norma.story")}
+              </div>
+            </motion.div>
+            <motion.div variants={reveal} className="grid gap-4">
+              {profileStats.map((stat) => (
+                <ProfileStat key={stat.label} label={stat.label} value={stat.value} />
+              ))}
             </motion.div>
           </motion.div>
         </div>
@@ -252,6 +330,52 @@ export default function StudioNorma() {
         </div>
       </section>
 
+      <section ref={applicationsRef} className="py-16 md:py-24 border-t" style={{ borderColor: LINE }}>
+        <div className="container mx-auto px-6 md:px-8">
+          <motion.div
+            initial="hidden"
+            animate={applicationsInView ? "show" : "hidden"}
+            variants={{ show: { transition: { staggerChildren: stagger } } }}
+            className="grid lg:grid-cols-[1.05fr,0.95fr] gap-10"
+          >
+            <motion.div variants={reveal} className="space-y-8">
+              <div className="text-xs uppercase tracking-[0.5em]" style={{ color: MUTED }}>
+                {t("norma.applications.label")}
+              </div>
+              <div className="border" style={{ borderColor: LINE, background: "#ffffff" }}>
+                <div className="border-b px-10 py-8" style={{ borderColor: LINE }}>
+                  <div className="text-2xl font-semibold" style={{ color: INK }}>
+                    {t("norma.applications.boardTitle")}
+                  </div>
+                </div>
+                <div className="px-10 py-6 space-y-6">
+                  {["one", "two", "three"].map((key) => (
+                    <ProjectRow
+                      key={key}
+                      title={t(`norma.applications.board.${key}.title`)}
+                      meta=""
+                      body={t(`norma.applications.board.${key}.body`)}
+                    />
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+            <motion.div variants={reveal} className="space-y-6">
+              <PosterCard
+                label={t("norma.applications.poster1.label")}
+                title={t("norma.applications.poster1.title")}
+                body={t("norma.applications.poster1.body")}
+              />
+              <PosterCard
+                label={t("norma.applications.poster2.label")}
+                title={t("norma.applications.poster2.title")}
+                body={t("norma.applications.poster2.body")}
+              />
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
       <section ref={digitalRef} className="py-16 md:py-24 border-t" style={{ borderColor: LINE }}>
         <div className="container mx-auto px-6 md:px-8">
           <motion.div
@@ -298,6 +422,31 @@ export default function StudioNorma() {
                 body={t("norma.digital.aboutBody")}
                 tags={[t("norma.digital.tag4"), t("norma.digital.tag5"), t("norma.digital.tag6")]}
               />
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section ref={closingRef} className="py-20 md:py-28 border-t" style={{ borderColor: LINE }}>
+        <div className="container mx-auto px-6 md:px-8">
+          <motion.div
+            initial="hidden"
+            animate={closingInView ? "show" : "hidden"}
+            variants={{ show: { transition: { staggerChildren: stagger } } }}
+            className="text-center max-w-3xl mx-auto space-y-6"
+          >
+            <motion.div variants={reveal} className="text-xs uppercase tracking-[0.5em]" style={{ color: MUTED }}>
+              {t("studio.concept")}
+            </motion.div>
+            <motion.div
+              variants={reveal}
+              className="text-3xl md:text-5xl font-semibold leading-tight"
+              style={{ color: INK }}
+            >
+              {t("norma.closing")}
+            </motion.div>
+            <motion.div variants={reveal} className="text-sm md:text-base" style={{ color: MUTED }}>
+              {t("norma.closing.note")}
             </motion.div>
           </motion.div>
         </div>

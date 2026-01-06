@@ -542,32 +542,46 @@ const dictEn: Dict = {
   "ember.closing":
     "A brand designed to feel warm, lived-in, and quietly unforgettable.",
   "norma.story":
-    "STUDIO NORMA works at the intersection of architecture and spatial thinking. The identity removes decoration in favor of proportion, grid, and clarity. The website behaves like a curated portfolio wall—quiet and precise.",
-  "norma.scope": "Brand identity and portfolio-focused website.",
-  "norma.opening.title": "Architecture shaped by discipline, not spectacle.",
+    "STUDIO NORMA is a boutique architecture practice with an editorial approach to space. The identity removes decoration in favor of proportion, grid, and clarity. The site behaves like a curated archive—quiet, confident, and intentional.",
+  "norma.scope": "Brand identity, portfolio site, and editorial system.",
+  "norma.opening.title": "Architecture shaped by restraint and civic clarity.",
   "norma.opening.body":
-    "A studio devoted to clarity, proportion, and quiet authority. NORMA designs spaces that feel inevitable—reduced to what matters and held by structure.",
+    "NORMA designs public and cultural spaces that feel inevitable—light, proportion, and structure held in calm balance. The studio favors precision over spectacle.",
   "norma.opening.sheetLabel": "Studio brief",
-  "norma.opening.sheetTitle": "International practice, measured presence.",
+  "norma.opening.sheetTitle": "Boutique practice, international scope.",
   "norma.opening.sheetBody":
-    "Identity and digital portfolio created to frame work with restraint, precision, and editorial pace.",
+    "Identity and web portfolio designed as a gallery wall: ordered layouts, generous white space, and precise typographic hierarchy.",
   "norma.opening.signature": "STRUCTURAL PRACTICE",
-  "norma.opening.signatureBody": "Architecture, spatial design, cultural institutions.",
+  "norma.opening.signatureBody":
+    "Architecture, spatial design, cultural institutions, competition work.",
+  "norma.profile.label": "Studio profile",
+  "norma.profile.title": "A practice built on quiet rigor.",
+  "norma.profile.body":
+    "NORMA partners with civic and cultural clients to deliver architecture that feels inevitable and long-lasting, guided by a disciplined editorial eye.",
+  "norma.profile.quote": "Discipline is the studio's luxury.",
+  "norma.profile.stats.one.label": "Founded",
+  "norma.profile.stats.one.value": "2008",
+  "norma.profile.stats.two.label": "Studios",
+  "norma.profile.stats.two.value": "Belgrade + Zurich",
+  "norma.profile.stats.three.label": "Team",
+  "norma.profile.stats.three.value": "18 architects",
+  "norma.profile.stats.four.label": "Focus",
+  "norma.profile.stats.four.value": "Civic + cultural",
   "norma.philosophy.label": "Philosophy",
   "norma.philosophy.title": "Less, but better.",
   "norma.philosophy.body1":
-    "NORMA exists to protect the work from noise. It refuses spectacle and trend in favor of structure and proportion.",
+    "NORMA exists to protect the work from noise. It resists trend in favor of structure, proportion, and permanence.",
   "norma.philosophy.body2":
-    "The studio attracts projects that demand clarity—public buildings, cultural spaces, and residential work with long-term value.",
+    "The studio partners with clients who demand clarity and long-term value for public and cultural spaces.",
   "norma.philosophy.body3":
-    "It declines work that seeks decoration without purpose. Silence is confidence, not absence.",
+    "Silence is confidence, not absence. Every element earns its place.",
   "norma.identity.label": "Identity as consequence",
   "norma.identity.body":
-    "A refined wordmark and measured typography translate the studio’s restraint into visible form.",
+    "A refined wordmark, sharp geometry, and measured typography translate restraint into visible form.",
   "norma.identity.lockupLabel": "Cover sheet",
   "norma.identity.lockupTitle": "Studio cover & project headers",
   "norma.identity.lockupBody":
-    "Primary lockup for presentation covers, archive folders, and editorial spreads.",
+    "Primary lockup for covers, project headers, and studio stationery.",
   "norma.identity.signageLabel": "Signage",
   "norma.identity.signageTitle": "Exterior studio mark",
   "norma.identity.signageBody":
@@ -575,7 +589,7 @@ const dictEn: Dict = {
   "norma.work.label": "Work & practice",
   "norma.work.title": "Selected work framed with restraint.",
   "norma.work.body":
-    "Project titles, categories, and concise descriptions reflect a studio built on proportion and clarity.",
+    "Project titles, categories, and concise descriptions reinforce the studio's editorial rhythm.",
   "norma.work.project.one.title": "Civic Hall Renewal",
   "norma.work.project.one.meta": "Public",
   "norma.work.project.one.body":
@@ -614,11 +628,11 @@ const dictEn: Dict = {
   "norma.digital.detailLabel": "Project detail",
   "norma.digital.detailTitle": "Material palette and process notes.",
   "norma.digital.detailBody":
-    "Editorial layouts combine drawings, materials, and measured captions.",
+    "Editorial layouts combine drawings, materials, and process notes with controlled pacing.",
   "norma.digital.aboutLabel": "About / Contact",
   "norma.digital.aboutTitle": "Practice, team, and studio contact.",
   "norma.digital.aboutBody":
-    "A minimal structure for credentials, services, and contact details.",
+    "A minimal structure for credentials, services, and direct studio contact.",
   "norma.digital.tag1": "Projects",
   "norma.digital.tag2": "Studio",
   "norma.digital.tag3": "Contact",
@@ -640,6 +654,8 @@ const dictEn: Dict = {
   "norma.applications.poster2.title": "Architecture as quiet order.",
   "norma.applications.poster2.body": "Printed matter keeps the identity minimal and precise.",
   "norma.closing": "Structured spaces, quietly confident identities.",
+  "norma.closing.note":
+    "From identity to portfolio, every detail reinforces a calm, structured voice.",
   "pulse.story":
     "PULSE is a campaign system for brands that live online. Built to scale across formats with a single rhythm and bold typographic voice. Motion is the glue that keeps the system consistent.",
   "pulse.scope": "Creative direction, visual system, and motion-based content.",
@@ -1297,40 +1313,54 @@ const dictSr: Dict = {
   "ember.closing":
     "Brend dizajniran da bude topao, življen i tiho nezaboravan.",
   "norma.story":
-    "STUDIO NORMA radi na preseku arhitekture i prostornog dizajna. Identitet uklanja dekoraciju u korist proporcije, grida i jasnoće. Sajt funkcioniše kao kuriran portfolio—tih i precizan.",
-  "norma.scope": "Brend identitet i portfolio sajt.",
-  "norma.opening.title": "Arhitektura oblikovana disciplinom, ne spektaklom.",
+    "STUDIO NORMA radi na preseku arhitekture i prostornog mišljenja. Identitet sklanja dekor i ostavlja proporciju, mrežu i jasnoću. Sajt je zamišljen kao kurirana arhiva — tih, samouveren, nameran.",
+  "norma.scope": "Brend identitet, portfolio sajt i urednički sistem.",
+  "norma.opening.title": "Arhitektura oblikovana uzdržanošću i građanskom jasnoćom.",
   "norma.opening.body":
-    "Studio posvećen jasnoći, proporciji i tihom autoritetu. NORMA gradi prostore koji deluju neizbežno—svedene na suštinu i vođene strukturom.",
+    "NORMA projektuje javne i kulturne prostore koji deluju neizbežno — svetlo, proporcija i struktura u mirnom balansu. Studio bira preciznost umesto spektakla.",
   "norma.opening.sheetLabel": "Studijski brief",
-  "norma.opening.sheetTitle": "Međunarodna praksa, merena prisutnost.",
+  "norma.opening.sheetTitle": "Butik praksa, međunarodni domet.",
   "norma.opening.sheetBody":
-    "Identitet i digitalni portfolio oblikovani za uzdržanu hijerarhiju i arhitektonski ritam.",
+    "Identitet i portfolio sajt osmišljeni kao galerijski zid: uređene kompozicije, veliki dah beline i precizna tipografska hijerarhija.",
   "norma.opening.signature": "STRUKTURNA PRAKSA",
-  "norma.opening.signatureBody": "Arhitektura, prostorni dizajn, kulturne institucije.",
+  "norma.opening.signatureBody":
+    "Arhitektura, prostorni dizajn, kulturne institucije, konkursni radovi.",
+  "norma.profile.label": "Profil studija",
+  "norma.profile.title": "Praksa zasnovana na tihoj rigoroznosti.",
+  "norma.profile.body":
+    "NORMA vodi projekte javnih i kulturnih programa sa uredničkim pristupom prostoru i doslednim radom od koncepta do izvedbe.",
+  "norma.profile.quote": "Disciplina je luksuz studija.",
+  "norma.profile.stats.one.label": "Osnovan",
+  "norma.profile.stats.one.value": "2008",
+  "norma.profile.stats.two.label": "Studiji",
+  "norma.profile.stats.two.value": "Beograd + Cirih",
+  "norma.profile.stats.three.label": "Tim",
+  "norma.profile.stats.three.value": "18 arhitekata",
+  "norma.profile.stats.four.label": "Fokus",
+  "norma.profile.stats.four.value": "Javni + kulturni",
   "norma.philosophy.label": "Filozofija",
   "norma.philosophy.title": "Manje, ali bolje.",
   "norma.philosophy.body1":
-    "NORMA postoji da zaštiti rad od buke. Odbija spektakl i trend u korist strukture i proporcije.",
+    "NORMA štiti rad od buke. Odustaje od trenda u korist strukture, proporcije i trajnosti.",
   "norma.philosophy.body2":
-    "Privlači projekte koji zahtevaju jasnoću—javne zgrade, kulturne prostore i stambene zahvate dugog veka.",
+    "Studio sarađuje sa klijentima kojima je bitna jasnoća i dugoročna vrednost.",
   "norma.philosophy.body3":
-    "Odbija rad koji traži dekor bez svrhe. Tišina je samopouzdanje, ne odsustvo.",
+    "Tišina je samopouzdanje, ne praznina. Svaki element mora da zasluži mesto.",
   "norma.identity.label": "Identitet kao posledica",
   "norma.identity.body":
-    "Rafinirani logotip i merena tipografija prevode uzdržanost studija u vidljivu formu.",
+    "Rafinisani wordmark, oštra geometrija i merena tipografija prevode uzdržanost u formu.",
   "norma.identity.lockupLabel": "Naslovna stranica",
   "norma.identity.lockupTitle": "Studijski cover i zaglavlja projekata",
   "norma.identity.lockupBody":
-    "Primarna postavka za prezentacije, arhivu i editorial rasporede.",
+    "Primarni lockup za covere, zaglavlja projekata i studijsku prepisku.",
   "norma.identity.signageLabel": "Signalizacija",
   "norma.identity.signageTitle": "Spoljni znak studija",
   "norma.identity.signageBody":
-    "Tihi tipografski znak primenjen na ulaznim pločama i projektnim prostorima.",
+    "Tih tipografski znak primenjen na ulaznim pločama i projektnim prostorima.",
   "norma.work.label": "Rad i praksa",
   "norma.work.title": "Odabrani rad uokviren uzdržano.",
   "norma.work.body":
-    "Nazivi projekata, kategorije i sažeti opisi odražavaju studio građen na proporciji i jasnoći.",
+    "Nazivi, kategorije i sažete beleške drže urednički ritam studija.",
   "norma.work.project.one.title": "Obnova gradske hale",
   "norma.work.project.one.meta": "Javno",
   "norma.work.project.one.body":
@@ -1369,11 +1399,11 @@ const dictSr: Dict = {
   "norma.digital.detailLabel": "Projektna stranica",
   "norma.digital.detailTitle": "Materijalna paleta i beleške procesa.",
   "norma.digital.detailBody":
-    "Editorial rasporedi spajaju crteže, materijale i merene natpise.",
+    "Editorial rasporedi spajaju crteže, materijale i beleške procesa uz kontrolisan ritam.",
   "norma.digital.aboutLabel": "O nama / Kontakt",
   "norma.digital.aboutTitle": "Praksa, tim i kontakt studija.",
   "norma.digital.aboutBody":
-    "Minimalna struktura za reference, usluge i kontakt podatke.",
+    "Minimalna struktura za reference, usluge i direktan kontakt.",
   "norma.digital.tag1": "Projekti",
   "norma.digital.tag2": "Studio",
   "norma.digital.tag3": "Kontakt",
@@ -1395,6 +1425,8 @@ const dictSr: Dict = {
   "norma.applications.poster2.title": "Arhitektura kao tihi red.",
   "norma.applications.poster2.body": "Štampani materijali drže identitet minimalnim i preciznim.",
   "norma.closing": "Strukturisani prostori, tiho samouvereni identiteti.",
+  "norma.closing.note":
+    "Od identiteta do portfolia, svaki detalj gradi miran, strukturisan glas brenda.",
   "pulse.story":
     "PULSE je sistem kampanje za brendove koji žive online. Građen da se širi kroz formate uz jedinstven ritam i snažnu tipografiju. Motion drži sistem koherentnim.",
   "pulse.scope": "Kreativna direkcija, vizuelni sistem i motion sadržaj.",
