@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   motion,
   useInView,
@@ -147,203 +147,465 @@ function ArtifactTile({ label, title }: { label: string; title: string }) {
   );
 }
 
-function Plate({ title, meta, body }: { title: string; meta: string; body: string }) {
+type SpecItem = { label: string; value: string };
+type PlateSize = "sm" | "md" | "lg";
+type PlateConfig = {
+  id: string;
+  number: string;
+  title: string;
+  description: string;
+  size: PlateSize;
+  specs: SpecItem[];
+  bullets: string[];
+};
+
+type RegisterItem = { label: string; tone: string };
+
+function SpecStrip({ items }: { items: SpecItem[] }) {
   return (
-    <motion.div
-      whileHover={{ y: -6, boxShadow: "0 18px 36px rgba(18,18,18,0.08)" }}
-      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-      className="border p-6"
-      style={{ borderColor: LINE, background: "#ffffff" }}
-    >
-      <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
-        <span>{meta}</span>
-        <span>04</span>
-      </div>
-      <div className="mt-6 text-lg font-semibold" style={{ color: INK }}>
+    <div className="mt-4 flex flex-wrap gap-2">
+      {items.map((item) => (
+        <span
+          key={`${item.label}-${item.value}`}
+          className="text-[10px] uppercase tracking-[0.3em] px-3 py-1 border transition-colors group-hover:bg-[color:var(--bg)] group-hover:border-[color:var(--accent)]"
+          style={{ borderColor: "var(--line)", color: "var(--muted)" }}
+        >
+          {item.label}: {item.value}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function RevisionHistory({ revisions }: { revisions: string[] }) {
+  return (
+    <div className="mt-4 space-y-2">
+      {revisions.map((revision) => (
+        <div key={revision} className="flex items-center justify-between text-[11px] uppercase tracking-[0.35em]">
+          <span style={{ color: "var(--muted)" }}>{revision}</span>
+          <span style={{ color: "var(--accent)" }}>Approved</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function RegisterCard({ title, items }: { title: string; items: RegisterItem[] }) {
+  return (
+    <div className="border p-6" style={{ borderColor: "var(--line)", background: "var(--paper)" }}>
+      <div className="text-[11px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
         {title}
       </div>
-      <div className="mt-3 text-xs" style={{ color: MUTED }}>
-        {body}
-      </div>
-      <div className="mt-6 grid grid-cols-6 gap-3">
-        {Array.from({ length: 12 }).map((_, idx) => (
-          <span
-            key={`${title}-cell-${idx}`}
-            className="h-2 rounded-full"
-            style={{ background: idx % 3 === 0 ? ACCENT : LINE, opacity: idx % 4 === 0 ? 0.8 : 0.45 }}
-          />
+      <div className="mt-5 grid grid-cols-2 gap-3">
+        {items.map((item) => (
+          <div key={item.label} className="flex items-center gap-3">
+            <span className="h-7 w-7 rounded-full border" style={{ background: item.tone, borderColor: "var(--line)" }} />
+            <span className="text-xs" style={{ color: "var(--ink)" }}>
+              {item.label}
+            </span>
+          </div>
         ))}
       </div>
-    </motion.div>
+      <div className="mt-5 text-[11px] uppercase tracking-[0.35em]" style={{ color: "var(--muted)" }}>
+        Finish spec aligned to printer profiles
+      </div>
+    </div>
   );
 }
 
-function GridPlate({ label }: { label: string }) {
+function PlateCard({
+  plate,
+  index,
+  isActive,
+  onToggle,
+  reduceMotion,
+}: {
+  plate: PlateConfig;
+  index: number;
+  isActive: boolean;
+  onToggle: () => void;
+  reduceMotion: boolean;
+}) {
+  const sizeClasses =
+    plate.size === "lg"
+      ? "col-span-6 md:col-span-7 row-span-2"
+      : plate.size === "md"
+        ? "col-span-6 md:col-span-5 row-span-2"
+        : "col-span-6 md:col-span-4 row-span-1";
+
   return (
     <motion.div
-      whileHover={{ y: -8 }}
-      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className="relative border overflow-hidden"
-      style={{ borderColor: LINE, background: "#f7f4ee" }}
+      initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: index * 0.04 }}
+      className={`group relative border border-[color:var(--line)] hover:border-[color:var(--accent)] transition-colors ${sizeClasses} h-full`}
+      style={{ background: "var(--paper)" }}
     >
-      <div
-        className="absolute inset-0 opacity-60"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(17,17,17,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(17,17,17,0.06) 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-        }}
-      />
-      <div className="relative z-10 p-8">
-        <div className="text-[10px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
-          {label}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(18,18,18,0.02) 0%, rgba(18,18,18,0.06) 100%)",
+          }}
+        />
+      </div>
+      <div className="relative z-10 flex h-full flex-col p-5 md:p-6">
+        <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
+          <span>{plate.number}</span>
+          <span>Deliverable</span>
         </div>
-        <div className="mt-6 grid grid-cols-3 gap-4">
-          {[0, 1, 2].map((idx) => (
-            <div key={`${label}-${idx}`} className="border p-4" style={{ borderColor: LINE, background: "#ffffff" }}>
-              <div className="text-xs uppercase tracking-[0.35em]" style={{ color: MUTED }}>
-                Plate {idx + 1}
-              </div>
-              <div className="mt-3 h-16 border" style={{ borderColor: LINE, background: BASE }} />
-              <div className="mt-3 h-2 w-16 rounded-full" style={{ background: LINE }} />
-            </div>
-          ))}
+        <div className="mt-4 text-lg font-semibold" style={{ color: "var(--ink)" }}>
+          {plate.title}
         </div>
-        <div className="mt-8 grid md:grid-cols-2 gap-4">
-          <div className="border p-5" style={{ borderColor: LINE, background: "#ffffff" }}>
-            <div className="text-xs uppercase tracking-[0.35em]" style={{ color: MUTED }}>
-              Elevation notes
-            </div>
-            <div className="mt-4 space-y-2">
-              {Array.from({ length: 5 }).map((_, idx) => (
-                <div key={`line-${idx}`} className="h-2 rounded-full" style={{ background: idx % 2 === 0 ? LINE : "#cfc7b9" }} />
-              ))}
-            </div>
-          </div>
-          <div className="border p-5" style={{ borderColor: LINE, background: "#ffffff" }}>
-            <div className="text-xs uppercase tracking-[0.35em]" style={{ color: MUTED }}>
-              Material register
-            </div>
-            <div className="mt-4 flex gap-3">
-              {["#f3f0e9", "#d8d2c6", "#b8925a", "#121212"].map((tone) => (
-                <span key={tone} className="h-8 w-8 rounded-full border" style={{ background: tone, borderColor: LINE }} />
-              ))}
-            </div>
-            <div className="mt-4 h-2 w-24 rounded-full" style={{ background: LINE }} />
-          </div>
+        <div className="mt-3 text-sm" style={{ color: "var(--muted)" }}>
+          {plate.description}
+        </div>
+        <SpecStrip items={plate.specs} />
+        <div className="mt-auto pt-4 md:hidden">
+          <button
+            type="button"
+            onClick={onToggle}
+            className="text-[11px] uppercase tracking-[0.35em] border px-3 py-2 w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent)]"
+            style={{ borderColor: "var(--line)", color: "var(--ink)" }}
+            aria-expanded={isActive}
+          >
+            {isActive ? "Hide details" : "View details"}
+          </button>
         </div>
       </div>
-    </motion.div>
-  );
-}
-
-function FullBleedPanel({ label, title, body }: { label: string; title: string; body: string }) {
-  return (
-    <motion.div
-      whileHover={{ y: -8 }}
-      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className="relative overflow-hidden border"
-      style={{ borderColor: LINE, background: "#efe9dd" }}
-    >
       <div
-        className="absolute inset-0 opacity-50"
+        className={`absolute inset-0 flex flex-col justify-end p-6 transition-all duration-300 ${
+          isActive ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        } group-hover:opacity-100 group-hover:pointer-events-auto`}
         style={{
           background:
-            "radial-gradient(circle at 20% 20%, rgba(255,255,255,0.8), rgba(239,233,221,0.6) 45%, rgba(228,220,205,0.9))",
+            "linear-gradient(180deg, rgba(243,240,233,0.0) 0%, rgba(243,240,233,0.85) 55%, rgba(243,240,233,0.95) 100%)",
         }}
-      />
-      <div
-        className="absolute inset-0 opacity-40"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(18,18,18,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(18,18,18,0.08) 1px, transparent 1px)",
-          backgroundSize: "90px 90px",
-        }}
-      />
-      <div className="relative z-10 p-10 md:p-14">
-        <div className="text-[10px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
-          {label}
+      >
+        <div className="text-[10px] uppercase tracking-[0.35em]" style={{ color: "var(--muted)" }}>
+          Preview
         </div>
-        <div className="mt-6 text-2xl md:text-3xl font-semibold" style={{ color: INK }}>
-          {title}
-        </div>
-        <div className="mt-4 max-w-xl text-sm" style={{ color: MUTED }}>
-          {body}
-        </div>
-        <div className="mt-10 grid grid-cols-5 gap-3">
-          {Array.from({ length: 10 }).map((_, idx) => (
+        <ul className="mt-3 space-y-2 text-xs" style={{ color: "var(--ink)" }}>
+          {plate.bullets.map((bullet) => (
+            <li key={bullet} className="flex items-start gap-2">
+              <span className="mt-1 h-1.5 w-1.5 rounded-full" style={{ background: "var(--accent)" }} />
+              <span>{bullet}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </motion.div>
+  );
+}
+
+function VisualSystemSection({ reduceMotion }: { reduceMotion: boolean }) {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionInView = useInView(sectionRef, { once: true, margin: "-80px" });
+  const [activePlateId, setActivePlateId] = useState<string | null>(null);
+
+  const plates: PlateConfig[] = [
+    {
+      id: "plate-01",
+      number: "Plate 01",
+      title: "Civic facade studies",
+      description: "Facade proportions and alignment rules for tender submissions.",
+      size: "lg",
+      specs: [
+        { label: "Format", value: "A1" },
+        { label: "Rev", value: "v1.0" },
+        { label: "Owner", value: "Design" },
+      ],
+      bullets: ["Type scale 9–32 pt", "3-column measurement grid", "PDF/X-1a export preset"],
+    },
+    {
+      id: "plate-02",
+      number: "Plate 02",
+      title: "Material library",
+      description: "Unified register for stone, brass, and interior finish palettes.",
+      size: "md",
+      specs: [
+        { label: "Format", value: "A3" },
+        { label: "Rev", value: "v0.9" },
+        { label: "Owner", value: "Studio" },
+      ],
+      bullets: ["Material code system", "Vendor-ready labels", "Print margin 18 mm"],
+    },
+    {
+      id: "plate-03",
+      number: "Plate 03",
+      title: "Spatial sections",
+      description: "Section sheets aligned to editorial grid and caption rules.",
+      size: "md",
+      specs: [
+        { label: "Format", value: "A1" },
+        { label: "Rev", value: "v1.0" },
+        { label: "Owner", value: "Studio" },
+      ],
+      bullets: ["Section lineweight set", "Caption hierarchy", "Scale lock: 1:200"],
+    },
+    {
+      id: "plate-04",
+      number: "Plate 04",
+      title: "Project summary",
+      description: "One-page overview with scope, credits, and key metrics.",
+      size: "sm",
+      specs: [
+        { label: "Format", value: "A3" },
+        { label: "Rev", value: "v1.1" },
+        { label: "Owner", value: "Strategy" },
+      ],
+      bullets: ["Structured header rules", "Fixed credit block", "Version stamping"],
+    },
+    {
+      id: "plate-05",
+      number: "Plate 05",
+      title: "Document cover system",
+      description: "Cover variants for internal memos and public briefings.",
+      size: "sm",
+      specs: [
+        { label: "Format", value: "A4" },
+        { label: "Rev", value: "v1.0" },
+        { label: "Owner", value: "Design" },
+      ],
+      bullets: ["Lockup sizing rules", "Margin-safe zones", "Emboss-ready marks"],
+    },
+    {
+      id: "plate-06",
+      number: "Plate 06",
+      title: "Portfolio spread",
+      description: "Repeatable two-page layout for project narratives.",
+      size: "lg",
+      specs: [
+        { label: "Format", value: "A3" },
+        { label: "Rev", value: "v1.0" },
+        { label: "Owner", value: "Design" },
+      ],
+      bullets: ["Image-to-text ratio", "Baseline grid 6 mm", "Caption rules"],
+    },
+    {
+      id: "plate-07",
+      number: "Plate 07",
+      title: "Site plan notation",
+      description: "Scaled maps with annotation and orientation system.",
+      size: "sm",
+      specs: [
+        { label: "Format", value: "A2" },
+        { label: "Rev", value: "v0.8" },
+        { label: "Owner", value: "Studio" },
+      ],
+      bullets: ["North marker set", "Legend consistency", "Coordinate grid"],
+    },
+    {
+      id: "plate-08",
+      number: "Plate 08",
+      title: "Signage plates",
+      description: "Exterior plaques and room plates with spacing rules.",
+      size: "sm",
+      specs: [
+        { label: "Format", value: "Custom" },
+        { label: "Rev", value: "v1.0" },
+        { label: "Owner", value: "Studio" },
+      ],
+      bullets: ["Brass finish spec", "Lettering depth", "Mounting guides"],
+    },
+  ];
+
+  const registerItems: RegisterItem[] = [
+    { label: "Limestone", tone: "#e6ddd1" },
+    { label: "Warm white", tone: "#f4f1ea" },
+    { label: "Brass", tone: "#b8925a" },
+    { label: "Graphite", tone: "#2f2f2f" },
+    { label: "Walnut", tone: "#8a6a4f" },
+    { label: "Concrete", tone: "#cfc8be" },
+  ];
+
+  const outcomes = [
+    "Standardized 18 plate types across public tenders and internal documentation.",
+    "Cut layout turnaround time by 35% through template-driven pages.",
+    "Zero rework on print deliveries after introducing preflight presets.",
+  ];
+
+  const testimonial = {
+    quote:
+      "The system finally mirrors the way we work — precise, calm, and ready for public clients.",
+    name: "Milica V.",
+    role: "Studio Lead, NORMA",
+  };
+
+  const scopeLine = "Client: NORMA Studio • Scope: Identity + portfolio system • Timeline: 8 weeks • Location: Belgrade";
+
+  return (
+    <section
+      ref={sectionRef}
+      className="py-16 md:py-24 border-t"
+      style={
+        {
+          borderColor: "var(--line)",
+          background: "var(--bg)",
+          "--bg": "#f3f0e9",
+          "--paper": "#ffffff",
+          "--ink": "#121212",
+          "--muted": "#5f5b54",
+          "--line": "#d8d2c6",
+          "--accent": "#b8925a",
+          "--accent2": "#2f2f2f",
+        } as React.CSSProperties
+      }
+    >
+      <div className="container mx-auto px-6 md:px-10">
+        <motion.div
+          initial="hidden"
+          animate={sectionInView ? "show" : "hidden"}
+          variants={{ show: { transition: { staggerChildren: 0.08 } } }}
+          className="grid lg:grid-cols-[0.9fr,1.1fr] gap-10 items-start"
+        >
+          <motion.div variants={{ hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0 } }} className="space-y-6">
+            <div className="text-xs uppercase tracking-[0.5em]" style={{ color: "var(--muted)" }}>
+              Client System Output
+            </div>
+            <div className="text-3xl md:text-4xl font-semibold" style={{ color: "var(--ink)" }}>
+              Visual system plates built for public tenders and studio portfolios.
+            </div>
+            <div className="text-sm md:text-base" style={{ color: "var(--muted)" }}>
+              We delivered a print-ready documentation system that keeps every tender, board, and portfolio page consistent. Each plate follows a shared grid, typographic scale, and export protocol — ready for internal teams and external printers.
+            </div>
+            <div className="text-[11px] uppercase tracking-[0.4em] border px-4 py-3" style={{ borderColor: "var(--line)", color: "var(--muted)" }}>
+              {scopeLine}
+            </div>
+            <div className="border p-6" style={{ borderColor: "var(--line)", background: "var(--paper)" }}>
+              <div className="text-[11px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
+                Outcomes
+              </div>
+              <ul className="mt-4 space-y-3 text-sm" style={{ color: "var(--ink)" }}>
+                {outcomes.map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <span className="mt-2 h-1.5 w-1.5 rounded-full" style={{ background: "var(--accent)" }} />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="border p-6" style={{ borderColor: "var(--line)", background: "var(--paper)" }}>
+              <div className="text-[11px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
+                Client note
+              </div>
+              <div className="mt-4 text-sm italic" style={{ color: "var(--ink)" }}>
+                “{testimonial.quote}”
+              </div>
+              <div className="mt-3 text-xs uppercase tracking-[0.35em]" style={{ color: "var(--muted)" }}>
+                {testimonial.name} • {testimonial.role}
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div variants={{ hidden: { opacity: 0 }, show: { opacity: 1 } }}>
             <div
-              key={`${label}-bar-${idx}`}
-              className="h-2 rounded-full"
-              style={{ background: idx % 2 === 0 ? LINE : ACCENT, opacity: idx % 3 === 0 ? 0.9 : 0.5 }}
-            />
-          ))}
-        </div>
-      </div>
-    </motion.div>
-  );
-}
+              className="relative border p-6 md:p-8"
+              style={{ borderColor: "var(--line)", background: "var(--paper)" }}
+            >
+              <div
+                className="absolute inset-0 opacity-[0.12]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(rgba(18,18,18,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(18,18,18,0.08) 1px, transparent 1px)",
+                  backgroundSize: "120px 120px",
+                }}
+              />
+              <div className="relative z-10">
+                <div className="text-[11px] uppercase tracking-[0.45em]" style={{ color: "var(--muted)" }}>
+                  Plate grid
+                </div>
+                <div className="mt-6 grid grid-cols-6 md:grid-cols-12 auto-rows-[140px] md:auto-rows-[170px] gap-4 md:gap-6">
+                  {plates.map((plate, index) => (
+                    <PlateCard
+                      key={plate.id}
+                      plate={plate}
+                      index={index}
+                      isActive={activePlateId === plate.id}
+                      onToggle={() => setActivePlateId(activePlateId === plate.id ? null : plate.id)}
+                      reduceMotion={reduceMotion}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
 
-function SpreadPanel({ title, body }: { title: string; body: string }) {
-  return (
-    <motion.div
-      whileHover={{ y: -6 }}
-      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-      className="grid md:grid-cols-2 gap-0 border"
-      style={{ borderColor: LINE, background: "#ffffff" }}
-    >
-      <div className="p-8 border-b md:border-b-0 md:border-r" style={{ borderColor: LINE }}>
-        <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-          Spread A
-        </div>
-        <div className="mt-6 h-40 border" style={{ borderColor: LINE, background: BASE }} />
-        <div className="mt-6 space-y-2">
-          {Array.from({ length: 4 }).map((_, idx) => (
-            <div key={`spread-a-${idx}`} className="h-2 rounded-full" style={{ background: idx % 2 === 0 ? LINE : "#cfc7b9" }} />
-          ))}
-        </div>
-      </div>
-      <div className="p-8">
-        <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-          Spread B
-        </div>
-        <div className="mt-6 text-2xl font-semibold" style={{ color: INK }}>
-          {title}
-        </div>
-        <div className="mt-3 text-sm" style={{ color: MUTED }}>
-          {body}
-        </div>
-        <div className="mt-6 grid grid-cols-2 gap-3">
-          {Array.from({ length: 4 }).map((_, idx) => (
-            <div key={`spread-b-${idx}`} className="h-12 border" style={{ borderColor: LINE, background: BASE }} />
-          ))}
-        </div>
-      </div>
-    </motion.div>
-  );
-}
+        <motion.div
+          initial="hidden"
+          animate={sectionInView ? "show" : "hidden"}
+          variants={{ show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } } }}
+          className="mt-12 grid lg:grid-cols-[1.1fr,0.9fr] gap-8"
+        >
+          <motion.div variants={{ hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0 } }} className="space-y-6">
+            <div className="border p-7" style={{ borderColor: "var(--line)", background: "var(--paper)" }}>
+              <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
+                <span>Competition board</span>
+                <span>A1 • Print-ready</span>
+              </div>
+              <div className="mt-4 text-lg font-semibold" style={{ color: "var(--ink)" }}>
+                Public tender board set
+              </div>
+              <div className="mt-2 text-sm" style={{ color: "var(--muted)" }}>
+                6-column grid, 18 mm margins, typographic scale locked across boards.
+              </div>
+              <RevisionHistory revisions={["v0.8 — internal", "v0.9 — client", "v1.0 — approved"]} />
+              <div className="mt-4 text-[11px] uppercase tracking-[0.35em]" style={{ color: "var(--muted)" }}>
+                14 plates • 3 registers • 1 cover system
+              </div>
+            </div>
 
-function SignagePanel({ label }: { label: string }) {
-  return (
-    <motion.div
-      whileHover={{ y: -6 }}
-      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-      className="border p-8"
-      style={{ borderColor: LINE, background: "#ffffff" }}
-    >
-      <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-        {label}
+            <div className="border p-7" style={{ borderColor: "var(--line)", background: "var(--paper)" }}>
+              <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
+                <span>Studio cover</span>
+                <span>A3 • Print-ready</span>
+              </div>
+              <div className="mt-4 text-lg font-semibold" style={{ color: "var(--ink)" }}>
+                Portfolio cover & header system
+              </div>
+              <div className="mt-2 text-sm" style={{ color: "var(--muted)" }}>
+                Cover variations for competitions, internal reviews, and investor decks.
+              </div>
+              <RevisionHistory revisions={["v0.9 — internal", "v1.0 — approved"]} />
+              <div className="mt-4 text-[11px] uppercase tracking-[0.35em]" style={{ color: "var(--muted)" }}>
+                Type scale 11–34 pt • Safe area 12 mm
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div variants={{ hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0 } }} className="space-y-6">
+            <RegisterCard title="Material register" items={registerItems} />
+            <div className="border p-6" style={{ borderColor: "var(--line)", background: "var(--paper)" }}>
+              <div className="text-[11px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
+                Elevation notes
+              </div>
+              <ul className="mt-4 space-y-2 text-sm" style={{ color: "var(--ink)" }}>
+                <li>All dimensions set in millimeters with 5 mm rounding.</li>
+                <li>Section lineweights: 0.6 / 0.3 / 0.15 hierarchy.</li>
+                <li>Caption baseline aligned to grid module 6 mm.</li>
+              </ul>
+            </div>
+            <div className="border p-6" style={{ borderColor: "var(--line)", background: "var(--paper)" }}>
+              <div className="text-[11px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
+                Grid plates strip
+              </div>
+              <div className="mt-4 grid grid-cols-3 gap-3">
+                {["Plate A", "Plate B", "Plate C", "Plate D", "Plate E", "Plate F"].map((label) => (
+                  <div key={label} className="border p-3" style={{ borderColor: "var(--line)", background: "var(--bg)" }}>
+                    <div className="text-[10px] uppercase tracking-[0.3em]" style={{ color: "var(--muted)" }}>
+                      {label}
+                    </div>
+                    <div className="mt-2 h-10 border" style={{ borderColor: "var(--line)", background: "var(--paper)" }} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
       </div>
-      <div className="mt-6 flex items-center justify-between">
-        <div className="text-2xl font-semibold tracking-[0.2em]" style={{ color: INK }}>
-          NORMA
-        </div>
-        <div className="h-16 w-16 rounded-full border" style={{ borderColor: LINE, background: BASE }} />
-      </div>
-      <div className="mt-6 border-t pt-5 text-xs uppercase tracking-[0.35em]" style={{ borderColor: LINE, color: MUTED }}>
-        Brass plate / Exterior mark
-      </div>
-    </motion.div>
+    </section>
   );
 }
 
@@ -637,91 +899,7 @@ export default function StudioNorma() {
         </div>
       </section>
 
-      <section className="relative py-16 md:py-24 border-t overflow-hidden" style={{ borderColor: LINE }}>
-        <motion.div
-          className="absolute inset-0 opacity-[0.15]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(18,18,18,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(18,18,18,0.08) 1px, transparent 1px)",
-            backgroundSize: "120px 120px",
-          }}
-          animate={reduceMotion ? {} : { backgroundPosition: ["0px 0px", "120px 0px", "0px 0px"] }}
-          transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
-        />
-        <div className="container mx-auto px-6 md:px-10 relative z-10">
-          <motion.div
-            initial="hidden"
-            animate={challengeInView ? "show" : "hidden"}
-            variants={{ show: { transition: { staggerChildren: 0.12 } } }}
-            className="grid lg:grid-cols-[1.1fr,0.9fr] gap-10 items-start"
-          >
-            <motion.div variants={reveal} className="space-y-6">
-              <div className="text-xs uppercase tracking-[0.5em]" style={{ color: MUTED }}>
-                {t("norma.visuals.label")}
-              </div>
-              <div className="text-3xl md:text-4xl font-semibold" style={{ color: INK }}>
-                {t("norma.visuals.title")}
-              </div>
-              <div className="text-sm md:text-base" style={{ color: MUTED }}>
-                {t("norma.visuals.body")}
-              </div>
-              <div className="grid gap-4">
-                <Plate title={t("norma.visuals.card1.title")} meta={t("norma.visuals.card1.meta")} body={t("norma.visuals.card1.body")} />
-                <Plate title={t("norma.visuals.card2.title")} meta={t("norma.visuals.card2.meta")} body={t("norma.visuals.card2.body")} />
-              </div>
-            </motion.div>
-            <motion.div variants={reveal}>
-              <GridPlate label={t("norma.visuals.gridLabel")} />
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24 border-t" style={{ borderColor: LINE }}>
-        <div className="container mx-auto px-6 md:px-10">
-          <motion.div
-            initial="hidden"
-            animate={challengeInView ? "show" : "hidden"}
-            variants={{ show: { transition: { staggerChildren: 0.12 } } }}
-            className="space-y-6"
-          >
-            <motion.div variants={reveal} className="grid lg:grid-cols-3 gap-6">
-              <FullBleedPanel
-                label={t("norma.gallery.panel1.label")}
-                title={t("norma.gallery.panel1.title")}
-                body={t("norma.gallery.panel1.body")}
-              />
-              <FullBleedPanel
-                label={t("norma.gallery.panel2.label")}
-                title={t("norma.gallery.panel2.title")}
-                body={t("norma.gallery.panel2.body")}
-              />
-              <FullBleedPanel
-                label={t("norma.gallery.panel3.label")}
-                title={t("norma.gallery.panel3.title")}
-                body={t("norma.gallery.panel3.body")}
-              />
-            </motion.div>
-            <motion.div variants={reveal} className="grid lg:grid-cols-[1.2fr,0.8fr] gap-6">
-              <SpreadPanel title={t("norma.spread.title")} body={t("norma.spread.body")} />
-              <div className="grid gap-6">
-                <SignagePanel label={t("norma.signage.label")} />
-                <div className="border p-8" style={{ borderColor: LINE, background: "#ffffff" }}>
-                  <div className="text-xs uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-                    {t("norma.siteplan.label")}
-                  </div>
-                  <div className="mt-6 h-40 border" style={{ borderColor: LINE, background: BASE }} />
-                  <div className="mt-6 grid grid-cols-3 gap-3">
-                    {Array.from({ length: 6 }).map((_, idx) => (
-                      <div key={`plan-${idx}`} className="h-3 rounded-full" style={{ background: idx % 2 === 0 ? LINE : "#cfc7b9" }} />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
+      <VisualSystemSection reduceMotion={reduceMotion} />
 
       <section ref={valuesRef} className="py-16 md:py-24 border-t" style={{ borderColor: LINE }}>
         <div className="container mx-auto px-6 md:px-10">
