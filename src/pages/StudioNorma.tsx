@@ -147,178 +147,167 @@ function ArtifactTile({ label, title }: { label: string; title: string }) {
   );
 }
 
-type ArtifactConfig = {
-  id: string;
-  title: string;
-  description: string;
-  includes: string[];
-  format?: string;
-};
-
-function ArtifactCard({
-  item,
-  index,
-  reduceMotion,
-}: {
-  item: ArtifactConfig;
-  index: number;
-  reduceMotion: boolean;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
-      className="group border overflow-hidden"
-      style={{ borderColor: "var(--line)", background: "var(--paper)" }}
-    >
-      <div className="relative p-6">
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(120deg, rgba(184,146,90,0.08) 0%, rgba(184,146,90,0.0) 60%)",
-            }}
-          />
-        </div>
-        <div className="relative z-10">
-          <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
-            <span>{item.format ?? "Print + digital"}</span>
-            <span>System artifact</span>
-          </div>
-          <div className="mt-4 text-lg font-semibold" style={{ color: "var(--ink)" }}>
-            {item.title}
-          </div>
-          <div className="mt-3 text-sm" style={{ color: "var(--muted)" }}>
-            {item.description}
-          </div>
-          <div className="mt-4 border p-3" style={{ borderColor: "var(--line)", background: "var(--bg)" }}>
-            <div className="grid grid-cols-3 gap-2">
-              {Array.from({ length: 3 }).map((_, idx) => (
-                <div key={`${item.id}-thumb-${idx}`} className="border h-10" style={{ borderColor: "var(--line)", background: "var(--paper)" }} />
-              ))}
-            </div>
-            <div className="mt-3 h-2 w-24 rounded-full" style={{ background: "var(--line)" }} />
-          </div>
-          <div className="mt-4 space-y-2 text-xs" style={{ color: "var(--ink)" }}>
-            {item.includes.map((detail) => (
-              <div key={detail} className="flex items-start gap-2">
-                <span className="mt-1 h-1.5 w-1.5 rounded-full" style={{ background: "var(--accent)" }} />
-                <span>{detail}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
 function CaseStudyIntro() {
   return (
     <div className="space-y-6">
       <div className="text-xs uppercase tracking-[0.5em]" style={{ color: "var(--muted)" }}>
-        Visual system output
+        NORMA — Documentation system
       </div>
       <div className="text-3xl md:text-4xl font-semibold" style={{ color: "var(--ink)" }}>
-        Documentation + presentation system for a growing architecture studio.
+        A unified language for tenders and portfolios.
       </div>
-      <div className="text-sm md:text-base" style={{ color: "var(--muted)" }}>
-        NORMA needed a consistent way to present project work across public tenders, portfolio pages, and internal reviews. We built a system of templates and rules that keep every document aligned, legible, and ready for print or web.
+      <div className="space-y-3 text-sm md:text-base" style={{ color: "var(--muted)" }}>
+        <p>
+          NORMA’s tender boards and portfolio pages were assembled by different team members and vendors, which led
+          to inconsistent typography, captions, and file exports.
+        </p>
+        <p>
+          We built a documentation system with templates, grid rules, type hierarchy, and export presets to keep
+          every presentation aligned and ready for print or web handoff.
+        </p>
       </div>
       <div className="border px-4 py-3 text-[11px] uppercase tracking-[0.4em]" style={{ borderColor: "var(--line)", color: "var(--muted)" }}>
         Client: NORMA (Architecture Studio) · Engagement: Documentation & presentation system · Location: Belgrade
       </div>
       <div className="border p-6" style={{ borderColor: "var(--line)", background: "var(--paper)" }}>
         <div className="text-[11px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
-          What we delivered
+          What we shipped
         </div>
         <ul className="mt-4 space-y-3 text-sm" style={{ color: "var(--ink)" }}>
-          {[
-            "Board and portfolio templates with a shared grid.",
-            "Caption, credit, and dimensioning rules for consistency.",
-            "Material register template and finish labeling system.",
-            "Export presets for print and web handoff.",
-            "Shared Figma library with tokens and layout components.",
-          ].map((item) => (
-            <li key={item} className="flex items-start gap-2">
-              <span className="mt-2 h-1.5 w-1.5 rounded-full" style={{ background: "var(--accent)" }} />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
+        {[
+          "Tender board templates with consistent hierarchy.",
+          "Portfolio layout system for project narratives.",
+          "Annotation and caption rules for drawings.",
+          "Material register template for finishes.",
+          "Export presets for print and web.",
+        ].map((item) => (
+          <li key={item} className="flex items-start gap-2">
+            <span className="mt-2 h-1.5 w-1.5 rounded-full" style={{ background: "var(--accent)" }} />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+      <div className="border p-6" style={{ borderColor: "var(--line)", background: "var(--paper)" }}>
+        <div className="text-[11px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
+          Result
+        </div>
+        <div className="mt-4 text-sm" style={{ color: "var(--ink)" }}>
+          The studio can now assemble boards and portfolio pages quickly with consistent typography and predictable print output, reducing internal back-and-forth and vendor corrections.
+        </div>
       </div>
       <div className="border p-6" style={{ borderColor: "var(--line)", background: "var(--paper)" }}>
         <div className="text-[11px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
           Feedback summary
         </div>
         <div className="mt-4 text-sm" style={{ color: "var(--ink)" }}>
-          The studio reports faster assembly, fewer print corrections, and a more consistent narrative across presentations and the website.
+          The system reduced ambiguity in handoff files and made reviews feel consistent across teams and projects.
         </div>
       </div>
     </div>
   );
 }
 
-function ArtifactGrid({
-  items,
+function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
+  return (
+    <motion.div
+      whileHover={reduceMotion ? {} : { y: -6, boxShadow: "0 30px 70px rgba(18,18,18,0.12)" }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="relative border overflow-hidden"
+      style={{ borderColor: "var(--line)", background: "var(--paper)" }}
+    >
+      <div
+        className="absolute inset-0 opacity-50"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(18,18,18,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(18,18,18,0.06) 1px, transparent 1px)",
+          backgroundSize: "120px 120px",
+        }}
+      />
+      <motion.div
+        className="absolute inset-0 opacity-0"
+        animate={reduceMotion ? {} : { opacity: [0, 0.35, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        style={{
+          background:
+            "linear-gradient(120deg, transparent 0%, rgba(184,146,90,0.18) 45%, transparent 70%)",
+        }}
+      />
+      <div className="relative z-10 p-8 md:p-10 space-y-6">
+        <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
+          <span>Tender board preview</span>
+          <span>Documentation system</span>
+        </div>
+        <div className="border p-6" style={{ borderColor: "var(--line)", background: "var(--bg)" }}>
+          <div className="grid grid-cols-[1fr,1fr] gap-6">
+            <div className="space-y-3">
+              <div className="text-lg font-semibold" style={{ color: "var(--ink)" }}>
+                NORMA — Civic Center Proposal
+              </div>
+              <div className="h-2 w-40 rounded-full" style={{ background: "var(--line)" }} />
+              <div className="space-y-2">
+                {Array.from({ length: 4 }).map((_, idx) => (
+                  <div key={`line-${idx}`} className="h-2 rounded-full" style={{ background: idx % 2 === 0 ? "var(--line)" : "#cfc7b9" }} />
+                ))}
+              </div>
+              <div className="mt-4 text-xs uppercase tracking-[0.3em]" style={{ color: "var(--muted)" }}>
+                Caption baseline aligned
+              </div>
+            </div>
+            <div className="grid gap-4">
+              <div className="border h-28" style={{ borderColor: "var(--line)", background: "var(--paper)" }} />
+              <div className="border h-20" style={{ borderColor: "var(--line)", background: "var(--paper)" }} />
+              <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em]" style={{ color: "var(--muted)" }}>
+                <span className="h-px flex-1" style={{ background: "var(--line)" }} />
+                <span>Annotation rules</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-3 gap-4">
+          {["Elevation zone", "Plan zone", "Section zone"].map((label) => (
+            <div key={label} className="border px-4 py-3 text-[11px] uppercase tracking-[0.35em]" style={{ borderColor: "var(--line)", color: "var(--muted)" }}>
+              {label}
+            </div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function SpecMiniPanel({
+  title,
+  children,
   reduceMotion,
+  delay = 0,
 }: {
-  items: ArtifactConfig[];
+  title: string;
+  children: React.ReactNode;
   reduceMotion: boolean;
+  delay?: number;
 }) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-      {items.map((item, index) => (
-        <ArtifactCard key={item.id} item={item} index={index} reduceMotion={reduceMotion} />
-      ))}
-    </div>
+    <motion.div
+      initial={{ opacity: 0, y: reduceMotion ? 0 : 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
+      className="border p-4"
+      style={{ borderColor: "var(--line)", background: "var(--paper)" }}
+    >
+      <div className="text-[11px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
+        {title}
+      </div>
+      <div className="mt-3 text-xs" style={{ color: "var(--ink)" }}>
+        {children}
+      </div>
+    </motion.div>
   );
 }
 
 function NormaCaseStudySection({ reduceMotion }: { reduceMotion: boolean }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const sectionInView = useInView(sectionRef, { once: true, margin: "-80px" });
-
-  const artifacts: ArtifactConfig[] = [
-    {
-      id: "tender-board",
-      title: "Tender board layout",
-      description: "A repeatable layout for public tender submissions and client reviews.",
-      includes: ["Header and credit blocks", "Grid-based image fields", "Caption style rules"],
-    },
-    {
-      id: "elevation-notes",
-      title: "Elevation annotation rules",
-      description: "Clear hierarchy for elevations and section notes used across projects.",
-      includes: ["Lineweight hierarchy", "Dimension formatting", "Legend placement rules"],
-    },
-    {
-      id: "material-register",
-      title: "Material register template",
-      description: "Centralized finish documentation for internal and external use.",
-      includes: ["Material naming system", "Finish labels", "Vendor-ready callouts"],
-    },
-    {
-      id: "portfolio-spread",
-      title: "Portfolio spread system",
-      description: "Two-page system that keeps narratives and drawings aligned.",
-      includes: ["Image-to-text ratios", "Caption zones", "Baseline alignment"],
-    },
-    {
-      id: "cover-system",
-      title: "Document cover system",
-      description: "Cover variations for briefs, project overviews, and studio decks.",
-      includes: ["Safe margin rules", "Lockup placement", "Print-ready exports"],
-    },
-    {
-      id: "export-presets",
-      title: "Export presets",
-      description: "Handoff presets for print and web without manual clean-up.",
-      includes: ["PDF profiles", "Image compression rules", "Layer export naming"],
-    },
-  ];
 
   const paletteStyles: CSSProperties = {
     borderColor: "var(--line)",
@@ -363,8 +352,19 @@ function NormaCaseStudySection({ reduceMotion }: { reduceMotion: boolean }) {
             <motion.div variants={introVariant}>
               <CaseStudyIntro />
             </motion.div>
-            <motion.div variants={gridVariant}>
-              <ArtifactGrid items={artifacts} reduceMotion={reduceMotion} />
+            <motion.div variants={gridVariant} className="space-y-6">
+              <HeroPlatePreview reduceMotion={reduceMotion} />
+              <div className="grid gap-4 sm:grid-cols-3">
+                <SpecMiniPanel title="Material register" reduceMotion={reduceMotion} delay={0.1}>
+                  Limestone · Warm white · Brass · Graphite · Walnut
+                </SpecMiniPanel>
+                <SpecMiniPanel title="Annotation rules" reduceMotion={reduceMotion} delay={0.2}>
+                  Lineweight hierarchy, caption alignment, and note placement.
+                </SpecMiniPanel>
+                <SpecMiniPanel title="Export presets" reduceMotion={reduceMotion} delay={0.3}>
+                  Print-ready PDF and web-safe exports for portfolio updates.
+                </SpecMiniPanel>
+              </div>
             </motion.div>
           </motion.div>
         </div>
