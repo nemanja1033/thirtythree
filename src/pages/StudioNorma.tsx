@@ -160,12 +160,12 @@ function CaseStudyIntro() {
       </div>
       <div className="space-y-3 text-sm md:text-base max-w-xl" style={{ color: "var(--muted)" }}>
         <p>
-          Problem: presentation boards were rebuilt every time. Different teams used different grids, typography, and
-          export settings, so the same project looked inconsistent from deck to deck.
+          Problem: 32 decks across 5 teams all looked different. Grids shifted, typography drifted, and export settings
+          changed per team, so the same project read inconsistently from one board to the next.
         </p>
         <p>
-          Solution: we audited existing decks, defined a shared grid and type system, and shipped reusable templates
-          with export presets, so every board reads like one studio, not five.
+          Solution: we audited the decks, set a shared grid + type scale, and shipped a 12-template kit with export
+          presets so every board reads like one studio, not five.
         </p>
       </div>
       <div className="border px-4 py-3 text-[11px] uppercase tracking-[0.4em]" style={{ borderColor: "var(--line)", color: "var(--muted)" }}>
@@ -215,6 +215,7 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
   const sweepRef = useRef<HTMLDivElement>(null);
   const lineRefs = useRef<Array<SVGLineElement | null>>([]);
   const zoneRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const moduleRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   useGSAP(
     () => {
@@ -239,6 +240,22 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
             ease: "power1.out",
           });
         });
+
+        const modules = moduleRefs.current.filter((module): module is HTMLDivElement => Boolean(module));
+        if (modules.length) {
+          gsap.fromTo(
+            modules,
+            { y: 12, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.7,
+              delay: 0.3,
+              stagger: 0.1,
+              ease: "power2.out",
+            }
+          );
+        }
       }, boardRef);
 
       return () => ctx.revert();
@@ -309,59 +326,173 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
           Board preview
         </div>
         <div className="border p-6" style={{ borderColor: "var(--line)", background: "var(--bg)" }}>
-          <div className="grid grid-cols-[1fr,1fr] gap-6">
-            <div className="space-y-3">
+          <div className="grid gap-6 lg:grid-cols-[1.2fr,0.8fr]">
+            <div className="space-y-4">
               <div className="text-lg font-semibold" style={{ color: "var(--ink)" }}>
-                NORMA — Studio system board
+                NORMA — Documentation system board
               </div>
-              <div className="h-2 w-40 rounded-full" style={{ background: "var(--line)" }} />
-              <div className="space-y-2" ref={(node) => (zoneRefs.current[0] = node)}>
-                {Array.from({ length: 4 }).map((_, idx) => (
-                  <div key={`line-${idx}`} className="h-2 rounded-full" style={{ background: idx % 2 === 0 ? "var(--line)" : "#cfc7b9" }} />
-                ))}
+              <div className="flex flex-wrap items-center gap-3 text-[10px] uppercase tracking-[0.35em]" style={{ color: "var(--muted)" }}>
+                <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--accent)" }} />
+                <span>Audit: 32 decks · 5 teams</span>
+                <span className="h-px w-10" style={{ background: "var(--line)" }} />
+                <span>Outputs: print · pdf · web</span>
               </div>
-              <div className="mt-4 text-xs uppercase tracking-[0.3em]" style={{ color: "var(--muted)" }}>
-                Caption baseline aligned
+              <div
+                ref={(node) => (zoneRefs.current[0] = node)}
+                className="border p-4"
+                style={{ borderColor: "var(--line)", background: "var(--paper)" }}
+              >
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <div className="text-[10px] uppercase tracking-[0.35em]" style={{ color: "var(--muted)" }}>
+                      Before
+                    </div>
+                    <div className="mt-3 space-y-2">
+                      {[92, 68, 84, 58].map((width, idx) => (
+                        <div
+                          key={`before-${idx}`}
+                          className="h-2 rounded-full"
+                          style={{ width: `${width}%`, background: idx % 2 === 0 ? "var(--line)" : "#cfc7b9" }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-[0.35em]" style={{ color: "var(--muted)" }}>
+                      After
+                    </div>
+                    <div
+                      className="mt-3 space-y-2"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(90deg, rgba(216,210,198,0.5) 1px, transparent 1px)",
+                        backgroundSize: "18px 18px",
+                      }}
+                    >
+                      {Array.from({ length: 4 }).map((_, idx) => (
+                        <div
+                          key={`after-${idx}`}
+                          className="h-2 rounded-full"
+                          style={{ width: "92%", background: idx % 2 === 0 ? "var(--line)" : "#cfc7b9" }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4 text-[10px] uppercase tracking-[0.3em]" style={{ color: "var(--muted)" }}>
+                  Caption baseline aligned to 8pt grid
+                </div>
               </div>
             </div>
             <div className="grid gap-4" ref={(node) => (zoneRefs.current[1] = node)}>
-              <div className="border h-28" style={{ borderColor: "var(--line)", background: "var(--paper)" }} />
-              <div className="border h-20" style={{ borderColor: "var(--line)", background: "var(--paper)" }} />
-              <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em]" style={{ color: "var(--muted)" }}>
-                <span className="h-px flex-1" style={{ background: "var(--line)" }} />
-                <span>Annotation rules</span>
+              <div
+                ref={(node) => (moduleRefs.current[0] = node)}
+                className="border px-4 py-4"
+                style={{ borderColor: "var(--line)", background: "var(--paper)" }}
+              >
+                <div className="text-[10px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
+                  Template index
+                </div>
+                <div className="mt-3 grid gap-2 text-xs" style={{ color: "var(--ink)" }}>
+                  <div className="flex items-center justify-between">
+                    <span>Civic brief board</span>
+                    <span style={{ color: "var(--muted)" }}>T-01</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Project spread</span>
+                    <span style={{ color: "var(--muted)" }}>T-04</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Appendix sheets</span>
+                    <span style={{ color: "var(--muted)" }}>T-09</span>
+                  </div>
+                </div>
+              </div>
+              <div
+                ref={(node) => (moduleRefs.current[1] = node)}
+                className="border px-4 py-4"
+                style={{ borderColor: "var(--line)", background: "var(--paper)" }}
+              >
+                <div className="text-[10px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
+                  Export presets
+                </div>
+                <div className="mt-3 grid gap-2 text-xs" style={{ color: "var(--ink)" }}>
+                  <div className="flex items-center justify-between">
+                    <span>Print A3</span>
+                    <span style={{ color: "var(--muted)" }}>300 dpi</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>PDF review</span>
+                    <span style={{ color: "var(--muted)" }}>120 dpi</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Web archive</span>
+                    <span style={{ color: "var(--muted)" }}>1440 px</span>
+                  </div>
+                </div>
+              </div>
+              <div
+                ref={(node) => (moduleRefs.current[2] = node)}
+                className="border px-4 py-4"
+                style={{ borderColor: "var(--line)", background: "var(--paper)" }}
+              >
+                <div className="text-[10px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
+                  System status
+                </div>
+                <div className="mt-3 text-xs" style={{ color: "var(--ink)" }}>
+                  Shared library · 12 templates · v2.3
+                </div>
+                <motion.div
+                  className="mt-3 h-1.5 w-full overflow-hidden rounded-full"
+                  style={{ background: "var(--line)" }}
+                >
+                  <motion.div
+                    className="h-full"
+                    style={{ background: "var(--accent)" }}
+                    initial={{ width: "0%" }}
+                    animate={{ width: reduceMotion ? "0%" : "78%" }}
+                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                  />
+                </motion.div>
               </div>
             </div>
           </div>
-          <svg className="mt-6 w-full" viewBox="0 0 520 60" fill="none">
-            <line
-              ref={(node) => (lineRefs.current[0] = node)}
-              x1="20"
-              y1="10"
-              x2="500"
-              y2="10"
-              stroke="var(--line)"
-              strokeWidth="1"
-            />
-            <line
-              ref={(node) => (lineRefs.current[1] = node)}
-              x1="20"
-              y1="30"
-              x2="460"
-              y2="30"
-              stroke="var(--line)"
-              strokeWidth="1"
-            />
-            <line
-              ref={(node) => (lineRefs.current[2] = node)}
-              x1="20"
-              y1="50"
-              x2="420"
-              y2="50"
-              stroke="var(--line)"
-              strokeWidth="1"
-            />
-          </svg>
+          <div className="mt-6">
+            <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em]" style={{ color: "var(--muted)" }}>
+              <span className="h-px flex-1" style={{ background: "var(--line)" }} />
+              <span>Annotation rules</span>
+              <span className="h-px flex-1" style={{ background: "var(--line)" }} />
+            </div>
+            <svg className="mt-4 w-full" viewBox="0 0 520 60" fill="none">
+              <line
+                ref={(node) => (lineRefs.current[0] = node)}
+                x1="20"
+                y1="10"
+                x2="500"
+                y2="10"
+                stroke="var(--line)"
+                strokeWidth="1"
+              />
+              <line
+                ref={(node) => (lineRefs.current[1] = node)}
+                x1="20"
+                y1="30"
+                x2="460"
+                y2="30"
+                stroke="var(--line)"
+                strokeWidth="1"
+              />
+              <line
+                ref={(node) => (lineRefs.current[2] = node)}
+                x1="20"
+                y1="50"
+                x2="420"
+                y2="50"
+                stroke="var(--line)"
+                strokeWidth="1"
+              />
+            </svg>
+          </div>
         </div>
         <div className="grid grid-cols-3 gap-4">
           {["Elevation zone", "Plan zone", "Section zone"].map((label) => (
@@ -370,6 +501,15 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
             </div>
           ))}
         </div>
+        <motion.div
+          className="absolute bottom-6 right-6 hidden md:flex items-center gap-2 border px-3 py-2 text-[10px] uppercase tracking-[0.35em]"
+          style={{ borderColor: "var(--line)", color: "var(--muted)", background: "rgba(255,255,255,0.8)" }}
+          animate={reduceMotion ? {} : { rotate: [-2, 2, -1], y: [0, -2, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--accent)" }} />
+          <span>Approved · v2.3</span>
+        </motion.div>
       </div>
     </motion.div>
   );
@@ -645,20 +785,50 @@ export default function StudioNorma() {
                     <span>{t("norma.hero.cardYear")}</span>
                   </div>
                   <div className="mt-6 border" style={{ borderColor: LINE, background: BASE }}>
-                    <div className="h-[280px] md:h-[360px] p-6">
-                      <div
-                        className="h-full w-full border"
-                        style={{
-                          borderColor: LINE,
-                          background:
-                            "linear-gradient(135deg, rgba(248,246,241,0.9) 0%, rgba(232,226,214,0.9) 100%)",
-                        }}
-                      >
-                        <div className="h-full w-full grid place-items-center">
-                          <div className="text-xs uppercase tracking-[0.5em]" style={{ color: MUTED }}>
-                            Concept plate
+                    <div className="p-6 grid gap-5">
+                      <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
+                        <span>System kit</span>
+                        <span>v2.3</span>
+                      </div>
+                      <div className="border p-4" style={{ borderColor: LINE, background: "#ffffff" }}>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <div className="text-[10px] uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+                              Grid
+                            </div>
+                            <motion.div
+                              className="h-16 border"
+                              style={{
+                                borderColor: LINE,
+                                backgroundImage:
+                                  "repeating-linear-gradient(90deg, rgba(216,210,198,0.7) 0, rgba(216,210,198,0.7) 1px, transparent 1px, transparent 12px)",
+                              }}
+                              animate={reduceMotion ? {} : { backgroundPosition: ["0px 0px", "12px 0px", "0px 0px"] }}
+                              transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+                            />
+                            <div className="text-[10px] uppercase tracking-[0.35em]" style={{ color: MUTED }}>
+                              12 col · 8pt baseline
+                            </div>
+                          </div>
+                          <div className="space-y-2">
+                            <div className="text-[10px] uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+                              Template count
+                            </div>
+                            <div className="text-3xl font-semibold" style={{ color: INK }}>
+                              12
+                            </div>
+                            <div className="text-[10px] uppercase tracking-[0.35em]" style={{ color: MUTED }}>
+                              Boards · portfolio · appendix
+                            </div>
                           </div>
                         </div>
+                      </div>
+                      <div className="grid grid-cols-3 gap-3 text-[10px] uppercase tracking-[0.35em]" style={{ color: MUTED }}>
+                        {["Board", "Portfolio", "Appendix"].map((label) => (
+                          <div key={label} className="border px-3 py-2 text-center" style={{ borderColor: LINE }}>
+                            {label}
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
