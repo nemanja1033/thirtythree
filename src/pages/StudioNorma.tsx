@@ -160,12 +160,12 @@ function CaseStudyIntro() {
       </div>
       <div className="space-y-3 text-sm md:text-base max-w-xl" style={{ color: "var(--muted)" }}>
         <p>
-          Problem: their presence felt smaller than the work. There was no clear positioning, and the brand system
-          didn’t support marketing or growth.
+          Problem: the studio’s work was strong, but the market read them as smaller. Positioning was fuzzy, and the
+          brand system didn’t support consistent marketing.
         </p>
         <p>
-          Solution: we defined the positioning plan, built a marketing framework, and delivered a new logo + typography
-          system so every touchpoint communicates the same story.
+          Solution: we ran a positioning plan, built a marketing framework, and delivered a new logo + typography
+          system with clear usage rules so every touchpoint speaks with one voice.
         </p>
       </div>
       <div className="border px-4 py-3 text-[11px] uppercase tracking-[0.4em]" style={{ borderColor: "var(--line)", color: "var(--muted)" }}>
@@ -333,7 +333,7 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
               </div>
               <div className="flex flex-wrap items-center gap-3 text-[10px] uppercase tracking-[0.35em]" style={{ color: "var(--muted)" }}>
                 <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--accent)" }} />
-                <span>Plan: 4 phases</span>
+                <span>Plan: Audit · Position · Identity · Launch</span>
                 <span className="h-px w-10" style={{ background: "var(--line)" }} />
                 <span>Outputs: brand · marketing · guidelines</span>
               </div>
@@ -419,15 +419,15 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
                 <div className="mt-3 grid gap-2 text-xs" style={{ color: "var(--ink)" }}>
                   <div className="flex items-center justify-between">
                     <span>Positioning</span>
-                    <span style={{ color: "var(--muted)" }}>Week 1–2</span>
+                    <span style={{ color: "var(--muted)" }}>Week 1</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span>Messaging</span>
-                    <span style={{ color: "var(--muted)" }}>Week 3</span>
+                    <span style={{ color: "var(--muted)" }}>Week 2</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span>Launch plan</span>
-                    <span style={{ color: "var(--muted)" }}>Week 4</span>
+                    <span style={{ color: "var(--muted)" }}>Week 3–4</span>
                   </div>
                 </div>
               </div>
