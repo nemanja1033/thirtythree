@@ -160,12 +160,12 @@ function CaseStudyIntro() {
       </div>
       <div className="space-y-3 text-sm md:text-base max-w-xl" style={{ color: "var(--muted)" }}>
         <p>
-          Problem: 32 decks across 5 teams all looked different. Grids shifted, typography drifted, and export settings
-          changed per team, so the same project read inconsistently from one board to the next.
+          Problem: their presence felt smaller than the work. There was no clear positioning, and the brand system
+          didn’t support marketing or growth.
         </p>
         <p>
-          Solution: we audited the decks, set a shared grid + type scale, and shipped a 12-template kit with export
-          presets so every board reads like one studio, not five.
+          Solution: we defined the positioning plan, built a marketing framework, and delivered a new logo + typography
+          system so every touchpoint communicates the same story.
         </p>
       </div>
       <div className="border px-4 py-3 text-[11px] uppercase tracking-[0.4em]" style={{ borderColor: "var(--line)", color: "var(--muted)" }}>
@@ -323,19 +323,19 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
       />
       <div className="relative z-10 p-8 md:p-10 space-y-6">
         <div className="text-[11px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
-          Board preview
+          Brand system preview
         </div>
         <div className="border p-6" style={{ borderColor: "var(--line)", background: "var(--bg)" }}>
           <div className="grid gap-6 lg:grid-cols-[1.2fr,0.8fr]">
             <div className="space-y-4">
               <div className="text-lg font-semibold" style={{ color: "var(--ink)" }}>
-                NORMA — Documentation system board
+                NORMA — Identity + marketing plan
               </div>
               <div className="flex flex-wrap items-center gap-3 text-[10px] uppercase tracking-[0.35em]" style={{ color: "var(--muted)" }}>
                 <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--accent)" }} />
-                <span>Audit: 32 decks · 5 teams</span>
+                <span>Plan: 4 phases</span>
                 <span className="h-px w-10" style={{ background: "var(--line)" }} />
-                <span>Outputs: print · pdf · web</span>
+                <span>Outputs: brand · marketing · guidelines</span>
               </div>
               <div
                 ref={(node) => (zoneRefs.current[0] = node)}
@@ -345,12 +345,12 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <div className="text-[10px] uppercase tracking-[0.35em]" style={{ color: "var(--muted)" }}>
-                      Before
+                      Old mark
                     </div>
                     <div className="mt-3 space-y-2">
                       {[92, 68, 84, 58].map((width, idx) => (
                         <div
-                          key={`before-${idx}`}
+                          key={`mark-before-${idx}`}
                           className="h-2 rounded-full"
                           style={{ width: `${width}%`, background: idx % 2 === 0 ? "var(--line)" : "#cfc7b9" }}
                         />
@@ -359,7 +359,7 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
                   </div>
                   <div>
                     <div className="text-[10px] uppercase tracking-[0.35em]" style={{ color: "var(--muted)" }}>
-                      After
+                      New mark
                     </div>
                     <div
                       className="mt-3 space-y-2"
@@ -371,7 +371,7 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
                     >
                       {Array.from({ length: 4 }).map((_, idx) => (
                         <div
-                          key={`after-${idx}`}
+                          key={`mark-after-${idx}`}
                           className="h-2 rounded-full"
                           style={{ width: "92%", background: idx % 2 === 0 ? "var(--line)" : "#cfc7b9" }}
                         />
@@ -380,7 +380,7 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
                   </div>
                 </div>
                 <div className="mt-4 text-[10px] uppercase tracking-[0.3em]" style={{ color: "var(--muted)" }}>
-                  Caption baseline aligned to 8pt grid
+                  Logo grid + clearspace rules
                 </div>
               </div>
             </div>
@@ -391,20 +391,20 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
                 style={{ borderColor: "var(--line)", background: "var(--paper)" }}
               >
                 <div className="text-[10px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
-                  Template index
+                  Identity core
                 </div>
                 <div className="mt-3 grid gap-2 text-xs" style={{ color: "var(--ink)" }}>
                   <div className="flex items-center justify-between">
-                    <span>Civic brief board</span>
-                    <span style={{ color: "var(--muted)" }}>T-01</span>
+                    <span>Logo system</span>
+                    <span style={{ color: "var(--muted)" }}>L-01</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span>Project spread</span>
-                    <span style={{ color: "var(--muted)" }}>T-04</span>
+                    <span>Typography scale</span>
+                    <span style={{ color: "var(--muted)" }}>T-02</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span>Appendix sheets</span>
-                    <span style={{ color: "var(--muted)" }}>T-09</span>
+                    <span>Color palette</span>
+                    <span style={{ color: "var(--muted)" }}>C-03</span>
                   </div>
                 </div>
               </div>
@@ -414,20 +414,20 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
                 style={{ borderColor: "var(--line)", background: "var(--paper)" }}
               >
                 <div className="text-[10px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
-                  Export presets
+                  Marketing plan
                 </div>
                 <div className="mt-3 grid gap-2 text-xs" style={{ color: "var(--ink)" }}>
                   <div className="flex items-center justify-between">
-                    <span>Print A3</span>
-                    <span style={{ color: "var(--muted)" }}>300 dpi</span>
+                    <span>Positioning</span>
+                    <span style={{ color: "var(--muted)" }}>Week 1–2</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span>PDF review</span>
-                    <span style={{ color: "var(--muted)" }}>120 dpi</span>
+                    <span>Messaging</span>
+                    <span style={{ color: "var(--muted)" }}>Week 3</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span>Web archive</span>
-                    <span style={{ color: "var(--muted)" }}>1440 px</span>
+                    <span>Launch plan</span>
+                    <span style={{ color: "var(--muted)" }}>Week 4</span>
                   </div>
                 </div>
               </div>
@@ -437,10 +437,10 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
                 style={{ borderColor: "var(--line)", background: "var(--paper)" }}
               >
                 <div className="text-[10px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
-                  System status
+                  Brand kit
                 </div>
                 <div className="mt-3 text-xs" style={{ color: "var(--ink)" }}>
-                  Shared library · 12 templates · v2.3
+                  Logo · typography · messaging · usage
                 </div>
                 <motion.div
                   className="mt-3 h-1.5 w-full overflow-hidden rounded-full"
@@ -450,7 +450,7 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
                     className="h-full"
                     style={{ background: "var(--accent)" }}
                     initial={{ width: "0%" }}
-                    animate={{ width: reduceMotion ? "0%" : "78%" }}
+                    animate={{ width: reduceMotion ? "0%" : "86%" }}
                     transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                   />
                 </motion.div>
@@ -460,7 +460,7 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
           <div className="mt-6">
             <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em]" style={{ color: "var(--muted)" }}>
               <span className="h-px flex-1" style={{ background: "var(--line)" }} />
-              <span>Annotation rules</span>
+              <span>Identity guidelines</span>
               <span className="h-px flex-1" style={{ background: "var(--line)" }} />
             </div>
             <svg className="mt-4 w-full" viewBox="0 0 520 60" fill="none">
@@ -508,7 +508,7 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         >
           <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--accent)" }} />
-          <span>Approved · v2.3</span>
+          <span>Approved · v1.0</span>
         </motion.div>
       </div>
     </motion.div>
@@ -787,14 +787,14 @@ export default function StudioNorma() {
                   <div className="mt-6 border" style={{ borderColor: LINE, background: BASE }}>
                     <div className="p-6 grid gap-5">
                       <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.45em]" style={{ color: MUTED }}>
-                        <span>System kit</span>
-                        <span>v2.3</span>
+                        <span>Brand system</span>
+                        <span>v1.0</span>
                       </div>
                       <div className="border p-4" style={{ borderColor: LINE, background: "#ffffff" }}>
                         <div className="grid grid-cols-2 gap-4">
                           <div className="space-y-2">
                             <div className="text-[10px] uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-                              Grid
+                              Logo grid
                             </div>
                             <motion.div
                               className="h-16 border"
@@ -807,24 +807,24 @@ export default function StudioNorma() {
                               transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
                             />
                             <div className="text-[10px] uppercase tracking-[0.35em]" style={{ color: MUTED }}>
-                              12 col · 8pt baseline
+                              Clearspace · proportions
                             </div>
                           </div>
                           <div className="space-y-2">
                             <div className="text-[10px] uppercase tracking-[0.4em]" style={{ color: MUTED }}>
-                              Template count
+                              Type scale
                             </div>
                             <div className="text-3xl font-semibold" style={{ color: INK }}>
-                              12
+                              6
                             </div>
                             <div className="text-[10px] uppercase tracking-[0.35em]" style={{ color: MUTED }}>
-                              Boards · portfolio · appendix
+                              Display to body
                             </div>
                           </div>
                         </div>
                       </div>
                       <div className="grid grid-cols-3 gap-3 text-[10px] uppercase tracking-[0.35em]" style={{ color: MUTED }}>
-                        {["Board", "Portfolio", "Appendix"].map((label) => (
+                        {["Logo", "Typography", "Messaging"].map((label) => (
                           <div key={label} className="border px-3 py-2 text-center" style={{ borderColor: LINE }}>
                             {label}
                           </div>
