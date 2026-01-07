@@ -1,4 +1,4 @@
-import { useMemo, useRef, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, type CSSProperties } from "react";
 import {
   motion,
   useInView,
@@ -6,6 +6,8 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useI18n } from "../i18n/I18nProvider";
@@ -151,49 +153,49 @@ function CaseStudyIntro() {
   return (
     <div className="space-y-6">
       <div className="text-xs uppercase tracking-[0.5em]" style={{ color: "var(--muted)" }}>
-        NORMA — Documentation system
+        INTERNAL BRAND · DESIGNED BY THIRTYTHREE
       </div>
-      <div className="text-3xl md:text-4xl font-semibold" style={{ color: "var(--ink)" }}>
-        A unified language for tenders and portfolios.
+      <div className="text-4xl md:text-5xl font-semibold" style={{ color: "var(--ink)" }}>
+        NORMA
       </div>
-      <div className="space-y-3 text-sm md:text-base" style={{ color: "var(--muted)" }}>
+      <div className="space-y-3 text-sm md:text-base max-w-xl" style={{ color: "var(--muted)" }}>
         <p>
-          NORMA’s tender boards and portfolio pages were assembled by different team members and vendors, which led
-          to inconsistent typography, captions, and file exports.
+          Problem: internal presentations were built from scratch, with inconsistent boards, portfolio pages, and print
+          handoff files across teams.
         </p>
         <p>
-          We built a documentation system with templates, grid rules, type hierarchy, and export presets to keep
-          every presentation aligned and ready for print or web handoff.
+          Solution: we designed a unified documentation system with templates, grid rules, typographic hierarchy, and
+          export presets that keep every output aligned and production-ready.
         </p>
       </div>
       <div className="border px-4 py-3 text-[11px] uppercase tracking-[0.4em]" style={{ borderColor: "var(--line)", color: "var(--muted)" }}>
-        Client: NORMA (Architecture Studio) · Engagement: Documentation & presentation system · Location: Belgrade
+        Brand systems · Editorial layout · Documentation framework · Motion design
       </div>
       <div className="border p-6" style={{ borderColor: "var(--line)", background: "var(--paper)" }}>
         <div className="text-[11px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
-          What we shipped
+          What we built
         </div>
-        <ul className="mt-4 space-y-3 text-sm" style={{ color: "var(--ink)" }}>
-        {[
-          "Tender board templates with consistent hierarchy.",
-          "Portfolio layout system for project narratives.",
-          "Annotation and caption rules for drawings.",
-          "Material register template for finishes.",
-          "Export presets for print and web.",
-        ].map((item) => (
-          <li key={item} className="flex items-start gap-2">
-            <span className="mt-2 h-1.5 w-1.5 rounded-full" style={{ background: "var(--accent)" }} />
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
+        <div className="mt-4 grid gap-3 text-sm" style={{ color: "var(--ink)" }}>
+          {[
+            "Brand system",
+            "Editorial layout logic",
+            "Documentation framework",
+            "Motion language",
+          ].map((item) => (
+            <div key={item} className="flex items-center gap-3">
+              <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--accent)" }} />
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
       <div className="border p-6" style={{ borderColor: "var(--line)", background: "var(--paper)" }}>
         <div className="text-[11px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
           Result
         </div>
         <div className="mt-4 text-sm" style={{ color: "var(--ink)" }}>
-          The studio can now assemble boards and portfolio pages quickly with consistent typography and predictable print output, reducing internal back-and-forth and vendor corrections.
+          The team now produces consistent boards and portfolios with a clear narrative and fewer production issues
+          during print handoff.
         </div>
       </div>
       <div className="border p-6" style={{ borderColor: "var(--line)", background: "var(--paper)" }}>
@@ -201,7 +203,7 @@ function CaseStudyIntro() {
           Feedback summary
         </div>
         <div className="mt-4 text-sm" style={{ color: "var(--ink)" }}>
-          The system reduced ambiguity in handoff files and made reviews feel consistent across teams and projects.
+          Internal reviews are faster and more consistent, with fewer rounds spent on formatting and file cleanup.
         </div>
       </div>
     </div>
@@ -209,11 +211,81 @@ function CaseStudyIntro() {
 }
 
 function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
+  const boardRef = useRef<HTMLDivElement>(null);
+  const sweepRef = useRef<HTMLDivElement>(null);
+  const lineRefs = useRef<Array<SVGLineElement | null>>([]);
+  const zoneRefs = useRef<Array<HTMLDivElement | null>>([]);
+
+  useGSAP(
+    () => {
+      if (reduceMotion || !boardRef.current) return;
+      const ctx = gsap.context(() => {
+        if (sweepRef.current) {
+          gsap.set(sweepRef.current, { x: "-30%", opacity: 0 });
+          gsap
+            .timeline({ defaults: { ease: "power2.out" } })
+            .to(sweepRef.current, { x: "30%", opacity: 0.35, duration: 1.8 })
+            .to(sweepRef.current, { opacity: 0, duration: 0.6 }, "-=0.4");
+        }
+
+        lineRefs.current.forEach((line, index) => {
+          if (!line) return;
+          const length = line.getTotalLength();
+          gsap.set(line, { strokeDasharray: length, strokeDashoffset: length });
+          gsap.to(line, {
+            strokeDashoffset: 0,
+            duration: 1.2,
+            delay: 0.2 + index * 0.12,
+            ease: "power1.out",
+          });
+        });
+      }, boardRef);
+
+      return () => ctx.revert();
+    },
+    { dependencies: [reduceMotion], scope: boardRef }
+  );
+
+  useEffect(() => {
+    if (reduceMotion || !boardRef.current) return;
+    const el = boardRef.current;
+    const zones = zoneRefs.current.filter((zone): zone is HTMLDivElement => Boolean(zone));
+
+    const handleMove = (event: PointerEvent) => {
+      const rect = el.getBoundingClientRect();
+      const dx = (event.clientX - rect.left) / rect.width - 0.5;
+      const dy = (event.clientY - rect.top) / rect.height - 0.5;
+      zones.forEach((zone, index) => {
+        gsap.to(zone, {
+          x: dx * (index % 2 === 0 ? 4 : -4),
+          y: dy * 4,
+          duration: 0.6,
+          ease: "power3.out",
+        });
+      });
+    };
+
+    const handleLeave = () => {
+      zones.forEach((zone) => {
+        gsap.to(zone, { x: 0, y: 0, duration: 0.6, ease: "power3.out" });
+      });
+    };
+
+    el.addEventListener("pointermove", handleMove);
+    el.addEventListener("pointerleave", handleLeave);
+
+    return () => {
+      el.removeEventListener("pointermove", handleMove);
+      el.removeEventListener("pointerleave", handleLeave);
+    };
+  }, [reduceMotion]);
+
   return (
     <motion.div
-      whileHover={reduceMotion ? {} : { y: -6, boxShadow: "0 30px 70px rgba(18,18,18,0.12)" }}
+      ref={boardRef}
+      whileHover={reduceMotion ? {} : { y: -4, boxShadow: "0 30px 70px rgba(18,18,18,0.12)" }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className="relative border overflow-hidden"
+      className="relative border overflow-hidden transition-colors hover:border-[color:var(--accent)]"
       style={{ borderColor: "var(--line)", background: "var(--paper)" }}
     >
       <div
@@ -224,28 +296,26 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
           backgroundSize: "120px 120px",
         }}
       />
-      <motion.div
+      <div
+        ref={sweepRef}
         className="absolute inset-0 opacity-0"
-        animate={reduceMotion ? {} : { opacity: [0, 0.35, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         style={{
           background:
             "linear-gradient(120deg, transparent 0%, rgba(184,146,90,0.18) 45%, transparent 70%)",
         }}
       />
       <div className="relative z-10 p-8 md:p-10 space-y-6">
-        <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
-          <span>Tender board preview</span>
-          <span>Documentation system</span>
+        <div className="text-[11px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
+          Board preview
         </div>
         <div className="border p-6" style={{ borderColor: "var(--line)", background: "var(--bg)" }}>
           <div className="grid grid-cols-[1fr,1fr] gap-6">
             <div className="space-y-3">
               <div className="text-lg font-semibold" style={{ color: "var(--ink)" }}>
-                NORMA — Civic Center Proposal
+                NORMA — Studio system board
               </div>
               <div className="h-2 w-40 rounded-full" style={{ background: "var(--line)" }} />
-              <div className="space-y-2">
+              <div className="space-y-2" ref={(node) => (zoneRefs.current[0] = node)}>
                 {Array.from({ length: 4 }).map((_, idx) => (
                   <div key={`line-${idx}`} className="h-2 rounded-full" style={{ background: idx % 2 === 0 ? "var(--line)" : "#cfc7b9" }} />
                 ))}
@@ -254,7 +324,7 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
                 Caption baseline aligned
               </div>
             </div>
-            <div className="grid gap-4">
+            <div className="grid gap-4" ref={(node) => (zoneRefs.current[1] = node)}>
               <div className="border h-28" style={{ borderColor: "var(--line)", background: "var(--paper)" }} />
               <div className="border h-20" style={{ borderColor: "var(--line)", background: "var(--paper)" }} />
               <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em]" style={{ color: "var(--muted)" }}>
@@ -263,6 +333,35 @@ function HeroPlatePreview({ reduceMotion }: { reduceMotion: boolean }) {
               </div>
             </div>
           </div>
+          <svg className="mt-6 w-full" viewBox="0 0 520 60" fill="none">
+            <line
+              ref={(node) => (lineRefs.current[0] = node)}
+              x1="20"
+              y1="10"
+              x2="500"
+              y2="10"
+              stroke="var(--line)"
+              strokeWidth="1"
+            />
+            <line
+              ref={(node) => (lineRefs.current[1] = node)}
+              x1="20"
+              y1="30"
+              x2="460"
+              y2="30"
+              stroke="var(--line)"
+              strokeWidth="1"
+            />
+            <line
+              ref={(node) => (lineRefs.current[2] = node)}
+              x1="20"
+              y1="50"
+              x2="420"
+              y2="50"
+              stroke="var(--line)"
+              strokeWidth="1"
+            />
+          </svg>
         </div>
         <div className="grid grid-cols-3 gap-4">
           {["Elevation zone", "Plan zone", "Section zone"].map((label) => (
@@ -292,7 +391,7 @@ function SpecMiniPanel({
       initial={{ opacity: 0, y: reduceMotion ? 0 : 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
-      className="border p-4"
+      className="border p-4 transition-colors hover:border-[color:var(--accent)]"
       style={{ borderColor: "var(--line)", background: "var(--paper)" }}
     >
       <div className="text-[11px] uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
@@ -331,6 +430,16 @@ function NormaCaseStudySection({ reduceMotion }: { reduceMotion: boolean }) {
     show: { opacity: 1, y: 0, transition: { duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] } },
   };
 
+  const heroVariant = {
+    hidden: { opacity: 0, scale: reduceMotion ? 1 : 0.985 },
+    show: { opacity: 1, scale: 1, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } },
+  };
+
+  const panelVariant = {
+    hidden: { opacity: 0, y: reduceMotion ? 0 : 8 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+  };
+
   return (
     <section ref={sectionRef} className="py-16 md:py-24 border-t" style={paletteStyles}>
       <div className="container mx-auto px-6 md:px-10">
@@ -353,20 +462,26 @@ function NormaCaseStudySection({ reduceMotion }: { reduceMotion: boolean }) {
               <CaseStudyIntro />
             </motion.div>
             <motion.div variants={gridVariant} className="space-y-6">
-              <HeroPlatePreview reduceMotion={reduceMotion} />
-              <div className="grid gap-4 sm:grid-cols-3">
-                <SpecMiniPanel title="Material register" reduceMotion={reduceMotion} delay={0.1}>
-                  Limestone · Warm white · Brass · Graphite · Walnut
+              <motion.div variants={heroVariant}>
+                <HeroPlatePreview reduceMotion={reduceMotion} />
+              </motion.div>
+              <motion.div variants={panelVariant} className="grid gap-4 sm:grid-cols-3">
+                <SpecMiniPanel title="Material palette" reduceMotion={reduceMotion} delay={0.1}>
+                  Warm white · Limestone · Brass · Graphite
                 </SpecMiniPanel>
-                <SpecMiniPanel title="Annotation rules" reduceMotion={reduceMotion} delay={0.2}>
-                  Lineweight hierarchy, caption alignment, and note placement.
+                <SpecMiniPanel title="Typography rules" reduceMotion={reduceMotion} delay={0.2}>
+                  Type scale, spacing rhythm, and caption alignment.
                 </SpecMiniPanel>
-                <SpecMiniPanel title="Export presets" reduceMotion={reduceMotion} delay={0.3}>
-                  Print-ready PDF and web-safe exports for portfolio updates.
+                <SpecMiniPanel title="Annotation rules" reduceMotion={reduceMotion} delay={0.3}>
+                  Hierarchy for labels, notes, and measurement callouts.
                 </SpecMiniPanel>
-              </div>
+              </motion.div>
             </motion.div>
           </motion.div>
+        </div>
+        <div className="mt-10 border-t pt-6 text-sm max-w-3xl" style={{ borderColor: "var(--line)", color: "var(--muted)" }}>
+          NORMA is maintained as an internal benchmark to refine how ThirtyThree approaches clarity, spacing, and motion across
+          client systems.
         </div>
       </div>
     </section>
