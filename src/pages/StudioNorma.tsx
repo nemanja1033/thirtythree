@@ -58,27 +58,35 @@ function ProjectCard({
   meta,
   year,
   body,
+  dark = false,
 }: {
   title: string;
   meta: string;
   year: string;
   body: string;
+  dark?: boolean;
 }) {
+  const cardStyle = dark
+    ? { borderColor: "#2b2b2b", background: "#121212" }
+    : { borderColor: LINE, background: "#ffffff" };
+  const mutedColor = dark ? "#a9a39a" : MUTED;
+  const inkColor = dark ? "#f3f0e9" : INK;
+
   return (
     <motion.div
       whileHover={{ y: -8, boxShadow: "0 24px 50px rgba(18,18,18,0.08)" }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       className="border p-8"
-      style={{ borderColor: LINE, background: "#ffffff" }}
+      style={cardStyle}
     >
-      <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.4em]" style={{ color: MUTED }}>
+      <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.4em]" style={{ color: mutedColor }}>
         <span>{meta}</span>
         <span>{year}</span>
       </div>
-      <div className="mt-6 text-2xl font-semibold" style={{ color: INK }}>
+      <div className="mt-6 text-2xl font-semibold" style={{ color: inkColor }}>
         {title}
       </div>
-      <div className="mt-4 text-sm" style={{ color: MUTED }}>
+      <div className="mt-4 text-sm" style={{ color: mutedColor }}>
         {body}
       </div>
     </motion.div>
@@ -745,7 +753,7 @@ export default function StudioNorma() {
         </div>
       </section>
 
-      <section ref={workRef} className="py-16 md:py-24 border-t" style={{ borderColor: LINE }}>
+      <section ref={workRef} className="py-16 md:py-24 border-t" style={{ borderColor: LINE, background: DEEP }}>
         <div className="container mx-auto px-6 md:px-10">
           <motion.div
             initial="hidden"
@@ -754,13 +762,13 @@ export default function StudioNorma() {
             className="space-y-10"
           >
             <motion.div variants={reveal}>
-              <div className="text-xs uppercase tracking-[0.5em]" style={{ color: MUTED }}>
+              <div className="text-xs uppercase tracking-[0.5em]" style={{ color: "#c7c1b4" }}>
                 {t("norma.work.label")}
               </div>
-              <div className="mt-4 text-3xl md:text-4xl font-semibold" style={{ color: INK }}>
+              <div className="mt-4 text-3xl md:text-4xl font-semibold" style={{ color: "#f3f0e9" }}>
                 {t("norma.work.title")}
               </div>
-              <div className="mt-3 text-sm max-w-2xl" style={{ color: MUTED }}>
+              <div className="mt-3 text-sm max-w-2xl" style={{ color: "#c7c1b4" }}>
                 {t("norma.work.body")}
               </div>
             </motion.div>
@@ -777,6 +785,7 @@ export default function StudioNorma() {
                   meta={t(`norma.work.project.${key}.meta`)}
                   year={t(`norma.work.project.${key}.year`)}
                   body={t(`norma.work.project.${key}.body`)}
+                  dark
                 />
               ))}
             </motion.div>
@@ -1146,7 +1155,7 @@ export default function StudioNorma() {
         </div>
       </section>
 
-      <section ref={comparisonRef} className="py-16 md:py-24 border-t" style={{ borderColor: LINE }}>
+      <section ref={comparisonRef} className="py-16 md:py-24 border-t" style={{ borderColor: LINE, background: "#f7f3ea" }}>
         <div className="container mx-auto px-6 md:px-10">
           <motion.div
             initial="hidden"
