@@ -541,18 +541,18 @@ const dictEn: Dict = {
   "ember.digital.tag9": "Visit",
   "ember.closing":
     "A brand designed to feel warm, lived-in, and quietly unforgettable.",
-  "norma.hero.label": "Concept case study",
+  "norma.hero.label": "Internal case study",
   "norma.hero.location": "Belgrade, Serbia",
-  "norma.hero.title": "Premium architecture for civic and cultural clients.",
+  "norma.hero.title": "A documentation system for a studio that ships weekly.",
   "norma.hero.body":
-    "STUDIO NORMA is a boutique architecture practice focused on public and cultural spaces. The identity and portfolio website translate the studio's restraint into a confident, gallery-like experience.",
-  "norma.hero.scope": "Brand identity, portfolio website, editorial system.",
+    "NORMA's work was strong, but every deck was rebuilt from scratch. We found multiple grids, mixed type scales, and no shared handoff. We built one editorial system that keeps boards, portfolios, and print output aligned.",
+  "norma.hero.scope": "Documentation system, portfolio site, brand toolkit.",
   "norma.hero.cta": "Start a project",
   "norma.hero.secondary": "Back to portfolio",
   "norma.hero.cardLabel": "Featured project",
   "norma.hero.cardYear": "2024",
   "norma.hero.cardBody":
-    "A portfolio system built to present work with precision, silence, and structural clarity.",
+    "A single board template that teams can reuse without redesigning every slide.",
   "norma.hero.stat1.label": "Founded",
   "norma.hero.stat1.value": "2008",
   "norma.hero.stat2.label": "Studios",
@@ -564,9 +564,9 @@ const dictEn: Dict = {
   "norma.overview.label": "Studio overview",
   "norma.overview.title": "A practice built on quiet rigor.",
   "norma.overview.body1":
-    "NORMA works with institutions that require clarity, longevity, and public trust. The studio's process favors structure, light, and material discipline.",
+    "NORMA handles public tenders where clarity matters. Deadlines were tight and the story got lost in formatting.",
   "norma.overview.body2":
-    "Every project is documented and presented through a consistent editorial framework that protects the work from noise.",
+    "We mapped the flow from drawings to PDFs and built a repeatable layout that survives last-minute edits.",
   "norma.overview.quote": "Discipline is the studio's luxury.",
   "norma.overview.servicesLabel": "Scope of work",
   "norma.overview.service1": "Brand positioning and tone of voice",
@@ -581,9 +581,9 @@ const dictEn: Dict = {
   "norma.artifacts.item3.label": "Specs",
   "norma.artifacts.item3.title": "Material notation set",
   "norma.challenge.label": "Challenge",
-  "norma.challenge.title": "A premium studio without a premium presence.",
+  "norma.challenge.title": "Great work, messy storytelling.",
   "norma.challenge.body":
-    "NORMA had strong work, but the public-facing presentation felt inconsistent and underbuilt for institutional clients. The goal was to elevate perception without losing the studio's restraint.",
+    "Across teams, decks looked different, captions shifted, and print handoffs were rushed. The task was to create a calm, rigorous system without adding overhead.",
   "norma.challenge.goalsLabel": "Goals",
   "norma.challenge.goal1": "Translate architectural discipline into a clear brand voice.",
   "norma.challenge.goal2": "Create a portfolio system that feels gallery-grade.",
@@ -625,7 +625,7 @@ const dictEn: Dict = {
   "norma.work.label": "Selected work",
   "norma.work.title": "Public and cultural spaces, framed with precision.",
   "norma.work.body":
-    "Projects are presented as editorial entries with clear taxonomy and restrained commentary.",
+    "Projects are presented with a consistent narrative: intent, plan, and evidence.",
   "norma.work.project.one.title": "Civic Hall Renewal",
   "norma.work.project.one.meta": "Public",
   "norma.work.project.one.year": "2023",
@@ -649,7 +649,7 @@ const dictEn: Dict = {
   "norma.identity.label": "Identity system",
   "norma.identity.title": "A minimal language with architectural weight.",
   "norma.identity.body":
-    "Typography, grid, and tonal contrast are calibrated to support clarity at every scale.",
+    "The system had to work in print, PDF, and on-screen without redoing every page.",
   "norma.identity.palette": "Material palette",
   "norma.identity.items.one.title": "Wordmark and signatures",
   "norma.identity.items.one.body":
@@ -663,7 +663,7 @@ const dictEn: Dict = {
   "norma.digital.label": "Digital experience",
   "norma.digital.title": "A portfolio built like a gallery wall.",
   "norma.digital.body":
-    "The website prioritizes editorial hierarchy, material tone, and a calm pace through projects.",
+    "The website reads like an archive with clear hierarchy and a steady pace.",
   "norma.digital.panel1.title": "Homepage rhythm",
   "norma.digital.panel1.body": "Featured projects and studio stance in a single scroll.",
   "norma.digital.panel2.title": "Project detail",
@@ -683,9 +683,9 @@ const dictEn: Dict = {
   "norma.digital.mockCard3.body": "Residential - 2021 - New build",
   "norma.digital.mockFooter": "Studio - Projects - Contact",
   "norma.scopeBlock.label": "What we did",
-  "norma.scopeBlock.title": "Clear deliverables, built for a premium studio.",
+  "norma.scopeBlock.title": "Clear deliverables, built to reduce rework.",
   "norma.scopeBlock.body":
-    "We defined the studio's positioning, built the identity system, and designed a portfolio website that presents projects with architectural discipline.",
+    "We defined the narrative, built the identity grid, and delivered templates the team can keep using without us.",
   "norma.scopeBlock.item1": "Brand positioning + messaging framework",
   "norma.scopeBlock.item2": "Identity system (wordmark, grid, type rules)",
   "norma.scopeBlock.item3": "Art direction + layout system",
@@ -703,9 +703,9 @@ const dictEn: Dict = {
   "norma.scopeBlock.snapshot4.value": "Q4 2024",
   "norma.scopeBlock.snapshotNote": "End-to-end brand system",
   "norma.context.label": "Client context",
-  "norma.context.title": "A boutique practice with institutional ambition.",
+  "norma.context.title": "A small studio doing big public work.",
   "norma.context.body":
-    "NORMA needed a system that signals credibility to public-sector clients while staying true to the studio's restrained aesthetic.",
+    "Two offices, tight bids, and many stakeholders. They needed consistency without extra process.",
   "norma.context.item1.label": "Industry",
   "norma.context.item1.value": "Architecture",
   "norma.context.item2.label": "Client type",
@@ -717,9 +717,9 @@ const dictEn: Dict = {
   "norma.context.item5.label": "HQ",
   "norma.context.item5.value": "Belgrade",
   "norma.outcomes.label": "Outcome",
-  "norma.outcomes.title": "A brand that feels as precise as the work.",
+  "norma.outcomes.title": "Consistent boards, faster reviews.",
   "norma.outcomes.body":
-    "The new identity and portfolio system present NORMA as a premium practice: calm, structured, and ready for institutional clients.",
+    "Teams now start from the same grid, so reviews focus on the work, not formatting.",
   "norma.outcomes.one.title": "Stronger positioning",
   "norma.outcomes.one.body": "Clear public-facing language aligned to civic and cultural work.",
   "norma.outcomes.two.title": "Unified portfolio system",
@@ -768,21 +768,21 @@ const dictEn: Dict = {
   "norma.comparison.beforeLabel": "Before",
   "norma.comparison.beforeTitle": "Fragmented portfolio presence",
   "norma.comparison.beforeBody":
-    "Work was strong but presented without a consistent system or hierarchy.",
+    "Each team made their own deck, so the same project looked different every time.",
   "norma.comparison.beforePoint1": "Inconsistent grid",
   "norma.comparison.beforePoint2": "Unclear positioning",
   "norma.comparison.beforePoint3": "Low perceived scale",
   "norma.comparison.afterLabel": "After",
   "norma.comparison.afterTitle": "A premium, architectural system",
   "norma.comparison.afterBody":
-    "A cohesive identity and portfolio that signals trust and institutional readiness.",
+    "One system across boards, portfolio, and web.",
   "norma.comparison.afterPoint1": "Unified editorial grid",
   "norma.comparison.afterPoint2": "Clear brand voice",
   "norma.comparison.afterPoint3": "High-end digital presence",
   "norma.closing.label": "Studio Norma",
-  "norma.closing.title": "Structure, clarity, and a quiet public presence.",
+  "norma.closing.title": "A calm system the team uses every week.",
   "norma.closing.body":
-    "A complete identity and portfolio system that positions NORMA as a premium architecture practice.",
+    "A practical editorial framework that keeps the studio's work coherent across every output.",
   "norma.closing.cta": "Book a call",
   "pulse.story":
     "PULSE is a campaign system for brands that live online. Built to scale across formats with a single rhythm and bold typographic voice. Motion is the glue that keeps the system consistent.",
@@ -1440,18 +1440,18 @@ const dictSr: Dict = {
   "ember.digital.tag9": "Poseta",
   "ember.closing":
     "Brend dizajniran da bude topao, življen i tiho nezaboravan.",
-  "norma.hero.label": "Koncept studija slučaja",
+  "norma.hero.label": "Interna studija slučaja",
   "norma.hero.location": "Beograd, Srbija",
-  "norma.hero.title": "Premium arhitektura za javne i kulturne klijente.",
+  "norma.hero.title": "Dokumentacioni sistem za studio koji isporučuje svake nedelje.",
   "norma.hero.body":
-    "STUDIO NORMA je butik arhitektonska praksa fokusirana na javne i kulturne prostore. Identitet i portfolio sajt prevode uzdržanost studija u siguran, galerijski doživljaj.",
-  "norma.hero.scope": "Brend identitet, portfolio sajt, urednički sistem.",
+    "NORMA je imala snažan rad, ali se svaki deck pravio iz početka. Pronašli smo više gridova, pomešane tipografske skale i bez zajedničkog handoff-a. Napravili smo jedan urednički sistem koji poravnava boardove, portfolio i štampu.",
+  "norma.hero.scope": "Dokumentacioni sistem, portfolio sajt, brend toolkit.",
   "norma.hero.cta": "Započni projekat",
   "norma.hero.secondary": "Nazad na portfolio",
   "norma.hero.cardLabel": "Istaknuti projekat",
   "norma.hero.cardYear": "2024",
   "norma.hero.cardBody":
-    "Portfolio sistem napravljen da predstavi rad sa preciznošću, tišinom i strukturom.",
+    "Jedan board template koji tim koristi bez redizajna svakog slajda.",
   "norma.hero.stat1.label": "Osnovan",
   "norma.hero.stat1.value": "2008",
   "norma.hero.stat2.label": "Studiji",
@@ -1463,9 +1463,9 @@ const dictSr: Dict = {
   "norma.overview.label": "Pregled studija",
   "norma.overview.title": "Praksa zasnovana na tihoj rigoroznosti.",
   "norma.overview.body1":
-    "NORMA radi sa institucijama kojima su potrebni jasnoća, dug vek i javno poverenje. Proces favorizuje strukturu, svetlo i materijalnu disciplinu.",
+    "NORMA radi javne tendere gde je jasnoća ključna. Rokovi su kratki, a priča se gubila u formatiranju.",
   "norma.overview.body2":
-    "Svaki projekat se dokumentuje i predstavlja kroz dosledan urednički okvir koji štiti rad od buke.",
+    "Mapirali smo tok od crteža do PDF-a i postavili ponovljiv layout koji preživi poslednje izmene.",
   "norma.overview.quote": "Disciplina je luksuz studija.",
   "norma.overview.servicesLabel": "Obim rada",
   "norma.overview.service1": "Pozicioniranje brenda i ton komunikacije",
@@ -1480,9 +1480,9 @@ const dictSr: Dict = {
   "norma.artifacts.item3.label": "Specs",
   "norma.artifacts.item3.title": "Set materijalnih oznaka",
   "norma.challenge.label": "Izazov",
-  "norma.challenge.title": "Premium studio bez premium prisustva.",
+  "norma.challenge.title": "Sjajan rad, neujednačena priča.",
   "norma.challenge.body":
-    "NORMA je imala snažan rad, ali javna prezentacija je bila neujednačena i nedovoljno uverljiva za institucionalne klijente. Cilj je bio podići percepciju bez gubitka uzdržanosti.",
+    "Različiti timovi su imali različite deckove, natpisi su šetali, a predaja za štampu je bila u poslednjem trenutku. Trebao je smiren i rigorozan sistem bez dodatnog opterećenja.",
   "norma.challenge.goalsLabel": "Ciljevi",
   "norma.challenge.goal1": "Prevesti arhitektonsku disciplinu u jasan glas brenda.",
   "norma.challenge.goal2": "Napraviti portfolio sistem koji deluje galerijski.",
@@ -1524,7 +1524,7 @@ const dictSr: Dict = {
   "norma.work.label": "Odabrani radovi",
   "norma.work.title": "Javni i kulturni prostori, uokvireni precizno.",
   "norma.work.body":
-    "Projekti su predstavljeni kao urednički zapisi sa jasnom taksonomijom i uzdržanom naracijom.",
+    "Projekti su predstavljeni kroz isti narativ: namera, plan, dokazi.",
   "norma.work.project.one.title": "Obnova gradske hale",
   "norma.work.project.one.meta": "Javno",
   "norma.work.project.one.year": "2023",
@@ -1548,7 +1548,7 @@ const dictSr: Dict = {
   "norma.identity.label": "Sistem identiteta",
   "norma.identity.title": "Minimalan jezik sa arhitektonskom težinom.",
   "norma.identity.body":
-    "Tipografija, grid i tonalni kontrast kalibrisani su da podrže jasnoću u svakoj skali.",
+    "Sistem je morao da radi u štampi, PDF-u i na ekranu bez slaganja svake strane iznova.",
   "norma.identity.palette": "Materijalna paleta",
   "norma.identity.items.one.title": "Wordmark i potpisi",
   "norma.identity.items.one.body":
@@ -1562,7 +1562,7 @@ const dictSr: Dict = {
   "norma.digital.label": "Digitalno iskustvo",
   "norma.digital.title": "Portfolio postavljen kao galerijski zid.",
   "norma.digital.body":
-    "Sajt prioritizuje uredničku hijerarhiju, materijalni ton i smiren tempo kroz projekte.",
+    "Sajt se čita kao arhiva sa jasnom hijerarhijom i stabilnim ritmom.",
   "norma.digital.panel1.title": "Ritam početne",
   "norma.digital.panel1.body": "Istaknuti projekti i stav studija u jednom scrolu.",
   "norma.digital.panel2.title": "Projektna stranica",
@@ -1582,9 +1582,9 @@ const dictSr: Dict = {
   "norma.digital.mockCard3.body": "Stambeno - 2021 - Novogradnja",
   "norma.digital.mockFooter": "Studio - Projekti - Kontakt",
   "norma.scopeBlock.label": "Šta smo radili",
-  "norma.scopeBlock.title": "Jasni deliverables za premium studio.",
+  "norma.scopeBlock.title": "Jasni deliverables koji smanjuju rework.",
   "norma.scopeBlock.body":
-    "Definisali smo pozicioniranje studija, izgradili identitet i dizajnirali portfolio sajt koji prikazuje projekte sa arhitektonskom disciplinom.",
+    "Definisali smo narativ, napravili identitetski grid i isporučili šablone koje tim koristi bez nas.",
   "norma.scopeBlock.item1": "Pozicioniranje brenda + messaging okvir",
   "norma.scopeBlock.item2": "Sistem identiteta (wordmark, grid, tipografska pravila)",
   "norma.scopeBlock.item3": "Art direkcija + layout sistem",
@@ -1602,9 +1602,9 @@ const dictSr: Dict = {
   "norma.scopeBlock.snapshot4.value": "Q4 2024",
   "norma.scopeBlock.snapshotNote": "End-to-end sistem",
   "norma.context.label": "Kontekst klijenta",
-  "norma.context.title": "Butik praksa sa institucionalnom ambicijom.",
+  "norma.context.title": "Mali studio sa velikim javnim projektima.",
   "norma.context.body":
-    "NORMA je želela sistem koji signalizira kredibilitet javnom sektoru, a zadržava uzdržanu estetiku.",
+    "Dve kancelarije, kratki tenderi i mnogo aktera. Trebala im je doslednost bez dodatnog procesa.",
   "norma.context.item1.label": "Industrija",
   "norma.context.item1.value": "Arhitektura",
   "norma.context.item2.label": "Tip klijenta",
@@ -1616,9 +1616,9 @@ const dictSr: Dict = {
   "norma.context.item5.label": "HQ",
   "norma.context.item5.value": "Beograd",
   "norma.outcomes.label": "Rezultat",
-  "norma.outcomes.title": "Brend koji je precizan koliko i njihovi projekti.",
+  "norma.outcomes.title": "Dosledni boardovi, brže revizije.",
   "norma.outcomes.body":
-    "Novi identitet i portfolio sistem pozicioniraju NORMU kao premium praksu: mirnu, strukturisanu i spremnu za institucionalne klijente.",
+    "Timovi polaze iz istog grida, pa se revizije bave radom, a ne formatiranjem.",
   "norma.outcomes.one.title": "Jasnije pozicioniranje",
   "norma.outcomes.one.body": "Jasan javni jezik usklađen sa javnim i kulturnim projektima.",
   "norma.outcomes.two.title": "Jedinstven portfolio sistem",
@@ -1667,21 +1667,21 @@ const dictSr: Dict = {
   "norma.comparison.beforeLabel": "Pre",
   "norma.comparison.beforeTitle": "Fragmentovana prezentacija",
   "norma.comparison.beforeBody":
-    "Rad je bio snažan, ali bez doslednog sistema i hijerarhije.",
+    "Svaki tim je pravio svoj deck, pa je isti projekat izgledao drugačije svaki put.",
   "norma.comparison.beforePoint1": "Nedosledan grid",
   "norma.comparison.beforePoint2": "Nejasno pozicioniranje",
   "norma.comparison.beforePoint3": "Niska percepcija obima",
   "norma.comparison.afterLabel": "Posle",
   "norma.comparison.afterTitle": "Premium arhitektonski sistem",
   "norma.comparison.afterBody":
-    "Koherentan identitet i portfolio koji signalizuju poverenje i spremnost za institucije.",
+    "Jedan sistem kroz boardove, portfolio i web.",
   "norma.comparison.afterPoint1": "Ujednačen urednički grid",
   "norma.comparison.afterPoint2": "Jasan glas brenda",
   "norma.comparison.afterPoint3": "High-end digitalno prisustvo",
   "norma.closing.label": "Studio Norma",
-  "norma.closing.title": "Struktura, jasnoća i tiho javno prisustvo.",
+  "norma.closing.title": "Smiren sistem koji tim koristi svake nedelje.",
   "norma.closing.body":
-    "Kompletan identitet i portfolio sistem koji pozicionira NORMU kao premium arhitektonsku praksu.",
+    "Praktičan urednički okvir koji drži rad studija koherentan kroz svaki izlaz.",
   "norma.closing.cta": "Zakaži poziv",
   "pulse.story":
     "PULSE je sistem kampanje za brendove koji žive online. Građen da se širi kroz formate uz jedinstven ritam i snažnu tipografiju. Motion drži sistem koherentnim.",

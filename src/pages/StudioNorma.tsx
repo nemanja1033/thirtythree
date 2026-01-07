@@ -160,12 +160,12 @@ function CaseStudyIntro() {
       </div>
       <div className="space-y-3 text-sm md:text-base max-w-xl" style={{ color: "var(--muted)" }}>
         <p>
-          Problem: internal presentations were built from scratch, with inconsistent boards, portfolio pages, and print
-          handoff files across teams.
+          Problem: presentation boards were rebuilt every time. Different teams used different grids, typography, and
+          export settings, so the same project looked inconsistent from deck to deck.
         </p>
         <p>
-          Solution: we designed a unified documentation system with templates, grid rules, typographic hierarchy, and
-          export presets that keep every output aligned and production-ready.
+          Solution: we audited existing decks, defined a shared grid and type system, and shipped reusable templates
+          with export presets, so every board reads like one studio, not five.
         </p>
       </div>
       <div className="border px-4 py-3 text-[11px] uppercase tracking-[0.4em]" style={{ borderColor: "var(--line)", color: "var(--muted)" }}>
