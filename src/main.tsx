@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, LazyMotion, domAnimation, motion, useReducedMotion } from "framer-motion";
 import App from "./App";
 import BookCall from "./pages/BookCall";
 import Discover from "./pages/Discover";
@@ -66,10 +66,12 @@ function RouteTransitions() {
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <I18nProvider>
-      <BrowserRouter>
-        <ScrollToTop />
-        <RouteTransitions />
-      </BrowserRouter>
+      <LazyMotion features={domAnimation}>
+        <BrowserRouter>
+          <ScrollToTop />
+          <RouteTransitions />
+        </BrowserRouter>
+      </LazyMotion>
     </I18nProvider>
   </React.StrictMode>,
 );
