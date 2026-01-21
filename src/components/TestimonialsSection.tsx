@@ -54,7 +54,7 @@ function TestimonialCard({ testimonial, index, isMobile, t }: { testimonial: Tes
       style={{ willChange: "transform, opacity" }}
       className="flex-shrink-0 w-[calc(100vw-2rem)] max-w-[420px] sm:w-[400px] md:w-auto"
     >
-      <div className="h-full p-6 md:p-8 rounded-2xl md:rounded-3xl bg-white/90 border border-gray-100/80 shadow-[0_14px_40px_-26px_rgba(15,23,42,0.28)] md:shadow-[0_20px_60px_-30px_rgba(15,23,42,0.35)] md:hover:shadow-[0_28px_80px_-32px_rgba(15,23,42,0.5)] transition-all duration-500 relative overflow-hidden group backdrop-blur-[2px] md:backdrop-blur-sm">
+      <div className="h-full p-6 md:p-8 rounded-2xl md:rounded-3xl bg-white/90 border border-gray-100/80 shadow-[0_12px_34px_-24px_rgba(15,23,42,0.26)] md:shadow-[0_20px_60px_-30px_rgba(15,23,42,0.35)] md:hover:shadow-[0_28px_80px_-32px_rgba(15,23,42,0.5)] transition-all duration-500 relative overflow-hidden group backdrop-blur-[1.5px] md:backdrop-blur-sm">
         {/* Gradient accent */}
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
         <div className="absolute -top-20 -right-20 w-40 h-40 bg-amber-200/40 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
@@ -100,13 +100,13 @@ export default function TestimonialsSection() {
   return (
     <section
       ref={sectionRef}
-      className="pt-12 pb-16 md:py-32 bg-gradient-to-b from-white via-amber-50/40 to-gray-50 relative overflow-x-hidden overflow-y-visible md:overflow-hidden"
+      className="pt-12 pb-12 sm:pb-16 md:py-32 bg-gradient-to-b from-white via-amber-50/40 to-gray-50 relative overflow-x-hidden overflow-y-visible md:overflow-hidden"
     >
       {/* Background decorations */}
-      <div className="absolute top-16 left-6 w-56 h-56 md:left-10 md:w-72 md:h-72 bg-amber-100/50 rounded-full blur-[80px] md:blur-[110px] pointer-events-none" />
-      <div className="absolute bottom-16 right-6 w-56 h-56 md:right-10 md:w-72 md:h-72 bg-orange-100/40 rounded-full blur-[80px] md:blur-[110px] pointer-events-none" />
-      <div className="absolute -top-24 right-1/3 w-[420px] h-[420px] md:-top-32 md:w-[520px] md:h-[520px] bg-gradient-to-br from-amber-200/40 via-orange-100/20 to-transparent rounded-full blur-[110px] md:blur-[140px] pointer-events-none" />
-      <div className="absolute -bottom-32 left-1/4 w-[460px] h-[460px] md:-bottom-40 md:w-[560px] md:h-[560px] bg-gradient-to-tr from-rose-200/30 via-amber-100/20 to-transparent rounded-full blur-[120px] md:blur-[160px] pointer-events-none" />
+      <div className="absolute top-16 left-6 w-56 h-56 md:left-10 md:w-72 md:h-72 bg-amber-100/50 rounded-full blur-[70px] md:blur-[110px] pointer-events-none" />
+      <div className="absolute bottom-16 right-6 w-56 h-56 md:right-10 md:w-72 md:h-72 bg-orange-100/40 rounded-full blur-[70px] md:blur-[110px] pointer-events-none" />
+      <div className="absolute -top-24 right-1/3 w-[420px] h-[420px] md:-top-32 md:w-[520px] md:h-[520px] bg-gradient-to-br from-amber-200/40 via-orange-100/20 to-transparent rounded-full blur-[90px] md:blur-[140px] pointer-events-none" />
+      <div className="absolute -bottom-32 left-1/4 w-[460px] h-[460px] md:-bottom-40 md:w-[560px] md:h-[560px] bg-gradient-to-tr from-rose-200/30 via-amber-100/20 to-transparent rounded-full blur-[100px] md:blur-[160px] pointer-events-none" />
       <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white/70 to-transparent pointer-events-none" />
       <svg className="absolute inset-0 w-full h-full opacity-[0.06] pointer-events-none" aria-hidden="true">
         <defs>
@@ -135,7 +135,7 @@ export default function TestimonialsSection() {
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
             style={{ willChange: "transform, opacity" }}
-            className="max-w-2xl text-center lg:text-left"
+            className="w-full max-w-2xl text-center lg:text-left"
           >
             <span className="inline-flex items-center gap-2 mb-4 text-xs md:text-sm px-4 py-2 rounded-full bg-amber-100 text-amber-700 font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
@@ -179,7 +179,7 @@ export default function TestimonialsSection() {
           {/* Testimonials */}
           <div className="relative mx-0 md:-mx-5 lg:mx-0 min-w-0">
             <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-white via-white/70 to-transparent md:hidden" />
-            <div className="flex md:grid md:grid-cols-2 gap-4 md:gap-6 overflow-x-auto md:overflow-visible pb-6 md:pb-0 px-4 sm:px-5 md:px-0 snap-x snap-mandatory scrollbar-hide overscroll-x-contain scroll-px-4 sm:scroll-px-5 touch-pan-x">
+            <div className="flex md:grid md:grid-cols-2 gap-4 md:gap-6 overflow-x-auto md:overflow-visible pb-6 md:pb-0 px-4 sm:px-5 md:px-0 snap-x snap-mandatory scrollbar-hide overscroll-x-contain scroll-px-4 sm:scroll-px-5 touch-auto">
               {testimonials.map((testimonial, index) => (
                 <div key={testimonial.id} className="snap-center md:snap-none flex">
                   <TestimonialCard
