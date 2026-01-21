@@ -274,9 +274,7 @@
     overflow: visible !important;
   }
 
-  .calendly-section *,
-  body,
-  html {
+  .calendly-section * {
     overflow: visible !important;
   }
 
@@ -306,6 +304,14 @@
   .full-bleed,
   .full-bleed * {
     overflow: visible !important;
+  }
+
+  @media (max-width: 767px) {
+    .full-bleed {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
 }
 

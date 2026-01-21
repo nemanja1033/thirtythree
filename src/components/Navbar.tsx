@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useI18n } from "../i18n/I18nProvider";
@@ -10,18 +10,33 @@ export default function Navbar() {
   const { t, lang, setLang } = useI18n();
   const navigate = useNavigate();
   const location = useLocation();
+  const scrollRaf = useRef<number | null>(null);
+  const lastScrolled = useRef(false);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
 
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      if (scrollRaf.current !== null) return;
+      scrollRaf.current = window.requestAnimationFrame(() => {
+        scrollRaf.current = null;
+        const nextScrolled = window.scrollY > 20;
+        if (lastScrolled.current !== nextScrolled) {
+          lastScrolled.current = nextScrolled;
+          setIsScrolled(nextScrolled);
+        }
+      });
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
     
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", checkMobile);
+      if (scrollRaf.current !== null) {
+        window.cancelAnimationFrame(scrollRaf.current);
+      }
     };
   }, []);
 
