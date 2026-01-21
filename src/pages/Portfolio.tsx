@@ -59,60 +59,11 @@ const projects: Project[] = [
     imageBg: "#0b1220",
     imageOverlayClass: "from-black/50 via-black/20 to-transparent",
   },
-  {
-    id: 2,
-    title: "EMBER COFFEE HOUSE",
-    category: "Studio Concept",
-    description: "Brand identity & digital experience",
-    tags: [],
-    image: "/images/ember-coffee-featured.svg",
-    featured: false,
-    gradient: "from-amber-600 to-stone-700",
-    color: "#3b2f2a",
-    year: "2024",
-    client: "Studio Concept",
-    link: "/portfolio/ember-coffee-house",
-    imageFit: "cover",
-    imageBg: "#f5efe8",
-    imageOverlayClass: "from-black/30 via-black/10 to-transparent",
-  },
-  {
-    id: 3,
-    title: "STUDIO NORMA",
-    category: "Studio Concept",
-    description: "Identity & portfolio website",
-    tags: [],
-    image: "/images/studio-norma-featured.svg",
-    featured: true,
-    gradient: "from-neutral-800 to-neutral-950",
-    color: "#111111",
-    year: "2024",
-    client: "Studio Concept",
-    link: "/portfolio/studio-norma",
-    imageFit: "cover",
-    imageBg: "#f8f8f8",
-    imageOverlayClass: "from-black/35 via-black/10 to-transparent",
-  },
-  {
-    id: 4,
-    title: "PULSE",
-    category: "Studio Concept",
-    description: "Digital campaign & content system",
-    tags: [],
-    image: "/images/pulse-campaign-featured.svg",
-    featured: false,
-    gradient: "from-rose-600 to-indigo-600",
-    color: "#0b0b14",
-    year: "2024",
-    client: "Studio Concept",
-    link: "/portfolio/pulse-campaign",
-    imageFit: "cover",
-    imageBg: "#0b0b14",
-    imageOverlayClass: "from-black/35 via-black/10 to-transparent",
-  },
 ];
 
-const categories = ["All", "Brand Building", "Engineering", "Studio Concept"];
+const categories = ["All", "Brand Building", "Engineering"];
+
+const comingSoonCopy = "More work is on the way. New case studies landing soon.";
 
 // Optimized floating particles - reduced count and simplified animations
 function FloatingParticles({ count = 10 }: { count?: number }) {
@@ -519,6 +470,39 @@ function ProjectCard3D({
   return cardContent;
 }
 
+function ComingSoonCard({ index }: { index: number }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(cardRef, { once: true, margin: "-100px" });
+
+  return (
+    <motion.div
+      ref={cardRef}
+      initial={{ opacity: 0, y: 60 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, delay: index * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
+      className="group relative"
+    >
+      <div className="relative h-full overflow-hidden rounded-3xl md:rounded-[2.5rem] bg-white border border-gray-200/60 shadow-xl transition-all duration-500">
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-50 via-white to-orange-50 opacity-90" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(251,191,36,0.18),_transparent_55%)]" />
+        <div className="relative p-6 md:p-8 h-full flex flex-col">
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-700/80">
+            In progress
+          </span>
+          <h3 className="text-2xl md:text-3xl font-bold mt-4">Coming soon</h3>
+          <p className="text-gray-600 mt-3 leading-relaxed text-sm md:text-base">
+            {comingSoonCopy}
+          </p>
+          <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-amber-700">
+            <span>Stay tuned</span>
+            <span className="h-px w-8 bg-gradient-to-r from-amber-400 to-transparent" />
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Portfolio() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isMobile, setIsMobile] = useState(false);
@@ -561,6 +545,7 @@ export default function Portfolio() {
 
   const featuredProjects = filteredProjects.filter((p) => p.featured);
   const regularProjects = filteredProjects.filter((p) => !p.featured);
+  const showPlaceholders = selectedCategory === "All";
 
   // Optimized cursor follower for desktop
   const cursorX = useSpring(mousePosition.x, { stiffness: 100, damping: 30 });
@@ -880,6 +865,10 @@ export default function Portfolio() {
                       featured={false}
                     />
                   ))}
+                  {showPlaceholders &&
+                    [0, 1].map((placeholderIndex) => (
+                      <ComingSoonCard key={`coming-soon-${placeholderIndex}`} index={regularProjects.length + placeholderIndex} />
+                    ))}
                 </AnimatePresence>
               </div>
             </motion.div>

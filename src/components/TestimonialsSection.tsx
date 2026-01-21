@@ -52,7 +52,7 @@ function TestimonialCard({ testimonial, index, isMobile, t }: { testimonial: Tes
       }}
       whileHover={!isMobile ? { y: -6 } : undefined}
       style={{ willChange: "transform, opacity" }}
-      className="flex-shrink-0 w-[88vw] max-w-[420px] sm:w-[400px] md:w-auto"
+      className="flex-shrink-0 w-[calc(100vw-2rem)] max-w-[420px] sm:w-[400px] md:w-auto"
     >
       <div className="h-full p-6 md:p-8 rounded-2xl md:rounded-3xl bg-white/90 border border-gray-100/80 shadow-[0_14px_40px_-26px_rgba(15,23,42,0.28)] md:shadow-[0_20px_60px_-30px_rgba(15,23,42,0.35)] md:hover:shadow-[0_28px_80px_-32px_rgba(15,23,42,0.5)] transition-all duration-500 relative overflow-hidden group backdrop-blur-[2px] md:backdrop-blur-sm">
         {/* Gradient accent */}
@@ -100,7 +100,7 @@ export default function TestimonialsSection() {
   return (
     <section
       ref={sectionRef}
-      className="py-16 md:py-32 bg-gradient-to-b from-white via-amber-50/40 to-gray-50 relative overflow-x-hidden overflow-y-visible md:overflow-hidden"
+      className="pt-12 pb-16 md:py-32 bg-gradient-to-b from-white via-amber-50/40 to-gray-50 relative overflow-x-hidden overflow-y-visible md:overflow-hidden"
     >
       {/* Background decorations */}
       <div className="absolute top-16 left-6 w-56 h-56 md:left-10 md:w-72 md:h-72 bg-amber-100/50 rounded-full blur-[80px] md:blur-[110px] pointer-events-none" />
@@ -127,8 +127,8 @@ export default function TestimonialsSection() {
         <rect width="100%" height="100%" fill="url(#testimonial-glow)" />
       </svg>
 
-      <div className="container mx-auto px-5 md:px-6 relative z-10">
-        <div className="grid lg:grid-cols-[minmax(0,420px)_1fr] gap-10 lg:gap-16 items-start">
+      <div className="container mx-auto px-4 sm:px-5 md:px-6 relative z-10">
+        <div className="grid lg:grid-cols-[minmax(0,420px)_1fr] gap-10 lg:gap-16 items-start min-w-0">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -177,9 +177,9 @@ export default function TestimonialsSection() {
           </motion.div>
 
           {/* Testimonials */}
-          <div className="relative mx-0 md:-mx-5 lg:mx-0">
+          <div className="relative mx-0 md:-mx-5 lg:mx-0 min-w-0">
             <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-white via-white/70 to-transparent md:hidden" />
-            <div className="flex md:grid md:grid-cols-2 gap-4 md:gap-6 overflow-x-auto md:overflow-visible pb-6 md:pb-0 px-5 md:px-0 snap-x snap-mandatory scrollbar-hide overscroll-x-contain scroll-px-5 touch-pan-x">
+            <div className="flex md:grid md:grid-cols-2 gap-4 md:gap-6 overflow-x-auto md:overflow-visible pb-6 md:pb-0 px-4 sm:px-5 md:px-0 snap-x snap-mandatory scrollbar-hide overscroll-x-contain scroll-px-4 sm:scroll-px-5 touch-pan-x">
               {testimonials.map((testimonial, index) => (
                 <div key={testimonial.id} className="snap-center md:snap-none flex">
                   <TestimonialCard
