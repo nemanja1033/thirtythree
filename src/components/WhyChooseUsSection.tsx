@@ -151,7 +151,7 @@ export default function WhyChooseUsSection() {
   return (
     <section
       ref={sectionRef}
-      className="py-16 md:py-32 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden"
+      className="py-16 md:py-32 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden mobile-cv-visible"
     >
       {/* Background pattern */}
       <svg className="absolute inset-0 w-full h-full opacity-[0.05] pointer-events-none" aria-hidden="true">

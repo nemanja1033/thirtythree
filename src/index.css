@@ -52,6 +52,12 @@
       content-visibility: auto;
       contain-intrinsic-size: 800px;
     }
+
+    /* Avoid nested scroll artifacts on key sections */
+    .mobile-cv-visible {
+      content-visibility: visible;
+      contain-intrinsic-size: auto;
+    }
   }
 
   /* Premium scrollbar - desktop only */

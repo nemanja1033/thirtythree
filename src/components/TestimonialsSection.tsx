@@ -100,7 +100,7 @@ export default function TestimonialsSection() {
   return (
     <section
       ref={sectionRef}
-      className="pt-12 pb-12 sm:pb-16 md:py-32 bg-gradient-to-b from-white via-amber-50/40 to-gray-50 relative overflow-x-hidden overflow-y-visible md:overflow-hidden"
+      className="pt-12 pb-12 sm:pb-16 md:py-32 bg-gradient-to-b from-white via-amber-50/40 to-gray-50 relative overflow-x-hidden overflow-y-visible md:overflow-hidden touch-pan-y mobile-cv-visible"
     >
       {/* Background decorations */}
       <div className="absolute top-16 left-6 w-56 h-56 md:left-10 md:w-72 md:h-72 bg-amber-100/50 rounded-full blur-[70px] md:blur-[110px] pointer-events-none" />
@@ -179,7 +179,7 @@ export default function TestimonialsSection() {
           {/* Testimonials */}
           <div className="relative mx-0 md:-mx-5 lg:mx-0 min-w-0">
             <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-white via-white/70 to-transparent md:hidden" />
-            <div className="flex md:grid md:grid-cols-2 gap-4 md:gap-6 overflow-x-auto md:overflow-visible pb-6 md:pb-0 px-4 sm:px-5 md:px-0 snap-x snap-mandatory scrollbar-hide overscroll-x-contain scroll-px-4 sm:scroll-px-5 touch-auto">
+            <div className="flex md:grid md:grid-cols-2 gap-4 md:gap-6 overflow-x-auto overflow-y-hidden md:overflow-visible pb-6 md:pb-0 px-4 sm:px-5 md:px-0 snap-x snap-mandatory scrollbar-hide overscroll-x-contain scroll-px-4 sm:scroll-px-5 touch-pan-x">
               {testimonials.map((testimonial, index) => (
                 <div key={testimonial.id} className="snap-center md:snap-none flex">
                   <TestimonialCard
